@@ -8,6 +8,7 @@ function App() {
     <Router>
           <Routes>
               <Route exact path='/' element = {<LoginForm />}></Route>
+              <Route exact path='/login_user' element = {<LoginForm />}></Route>
           </Routes>
     </Router>
   );
