@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 from django.shortcuts import render
 from . import models
 from rest_framework import generics, permissions
@@ -17,7 +16,7 @@ class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Student.objects.all()
     serializer_class = StudentSerializer
     permission_classess = [permissions.IsAuthenticated]
-=======
+
 # from django.shortcuts import render
 
 # # Create your views here.
@@ -32,5 +31,3 @@ class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
 # def login_user(request):
 #     return render(request, '../../frotend/src/Pages/Login.js', {})
 
-
->>>>>>> Stashed changes
