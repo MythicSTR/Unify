@@ -8,8 +8,8 @@ function Navbar() {
     <nav className="navbar">
       <ul className="navbar-links">
         <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#">Routine</a></li>
+        <li><a href="#">Attendance</a></li>
       </ul>
       <div className="navbar-profile">
         <FontAwesomeIcon icon={faUser} />

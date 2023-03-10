@@ -5,6 +5,8 @@ import LoginForm from "./Pages/Login";
 import StudentHome from "./Pages/StudentHome";
 import TeacherHome from "./Pages/TeacherHome";
 import DepartmentHome from "./Pages/DepartmentHome"
+import StudentEvent from "./components/StudentEvent";
+import StudentRoutine from "./components/StudentRoutine";
 
 function App() {
   return (
@@ -15,7 +17,9 @@ function App() {
               <Route path = '/student/home' element = {<StudentHome />}></Route>
               <Route path = '/teacher/home' element = {<TeacherHome />}></Route>
               <Route path = '/department/home' element = {<DepartmentHome />}></Route>
-          </Routes>
+              <Route path = '/student/events' element = {<StudentEvent />}></Route>
+              <Route path = '/student/routine' element = {<StudentRoutine />}></Route>
+              </Routes>
     </Router>
   );
 }
