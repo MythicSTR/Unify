@@ -1,15 +1,15 @@
 import React from "react";
-import Navbar from "../components/StudentNavbar"
+import Navbar from "../components/DepartmentNavbar"
 import MyCalendar from "../components/Calendar";
 
-function StudentHome(){
+function DepartmentHome(){
     return(
         <div>
             <Navbar/>
-            student home
+            Department home 
             <MyCalendar/>
         </div>
     );
 }
 
-export default StudentHome;
+export default DepartmentHome;
