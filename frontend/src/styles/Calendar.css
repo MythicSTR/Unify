@@ -1,0 +1,8 @@
+.calendar-container {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-right: 5rem;
+    transform: translateY(-50%);
+  }
+  
