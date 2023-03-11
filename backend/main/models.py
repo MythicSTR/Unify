@@ -17,7 +17,7 @@ class Department(models.Model):
 
 # Student Model
 class Student(models.Model):
-    student_id = models.CharField(max_length=10, primary_key=True)
+    student_id = models.CharField(max_length=12, primary_key=True)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     date_of_birth = models.DateField()
@@ -33,7 +33,7 @@ class Student(models.Model):
 
 # Faculty Model
 class Faculty(models.Model):
-    faculty_id = models.CharField(max_length=10, primary_key=True)
+    faculty_id = models.CharField(max_length=12, primary_key=True)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     date_of_birth = models.DateField()
