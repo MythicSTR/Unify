@@ -10,6 +10,7 @@ import StudentRoutine from "./components/StudentRoutine";
 import TeacherAttendance from "./components/TeacherAttendance";
 import TeacherEvent from "./components/TeacherEvent";
 import TeacherRoutine from "./components/TeacherRoutine";
+import StudentFeedback from "./components/StudentFeedback";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
 
               <Route path = '/student/events' element = {<StudentEvent />}></Route>
               <Route path = '/student/routine' element = {<StudentRoutine />}></Route>
+              <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>
+
               </Routes>
     </Router>
   );

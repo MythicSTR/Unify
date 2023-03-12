@@ -13,6 +13,7 @@ function Navbar() {
           <li><Link to="/student/home">Home</Link></li>
           <li><Link to="/student/routine">Routine</Link></li>
           <li><Link to="/student/events">Events</Link></li>
+          <li><Link to="/student/feedbacks">Feedback</Link></li>
 
       </ul>
       <div className="navbar-profile">
