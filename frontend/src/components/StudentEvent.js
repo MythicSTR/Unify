@@ -6,10 +6,10 @@ function StudentEvent(){
     return(
         <div>
             <Navbar/>
-            student event
             <MyCalendar/>
         </div>
     );
 }
 
 export default StudentEvent;
+
