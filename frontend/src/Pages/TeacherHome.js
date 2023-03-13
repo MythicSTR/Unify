@@ -1,13 +1,13 @@
 import React from "react";
-import Navbar from "../components/TeacherNavbar"
+import Header from "../components/Header";
+import Navbar from "../components/TeacherNavbar";
 import MyCalendar from "../components/Calendar";
 
 function TeacherHome(){
     return(
         <div>
-            <Navbar/>
-            Teacher home
-            <MyCalendar/>
+            <Header />
+            <Navbar />
         </div>
     );
 }
