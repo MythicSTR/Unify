@@ -6,7 +6,11 @@ from django.db.models import CASCADE
 # School Model
 class School(models.Model):
     school_id = models.CharField(max_length=10, primary_key=True)
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
+
+    def __str(self):
+        return self.name
+
 
 # Department Model
 class Department(models.Model):

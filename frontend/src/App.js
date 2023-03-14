@@ -1,6 +1,7 @@
 import React from "react";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import './App.css';
+import Admin from "./Pages/Admin";
 import LoginForm from "./Pages/Login";
 import StudentHome from "./Pages/StudentHome";
 import TeacherHome from "./Pages/TeacherHome";
@@ -19,6 +20,13 @@ function App() {
               <Route exact path='/' element = {<LoginForm />}></Route>
               <Route exact path='/login_user' element = {<LoginForm />}></Route>
 
+              <Route path='/admin' element = {<Admin />}></Route>
+              <Route path='/admin/school' element = {<Admin school/>}></Route>
+              <Route path='/admin/department' element = {<Admin department/>}></Route>
+              <Route path='/admin/faculty' element = {<Admin faculty/>}></Route>
+              <Route path='/admin/course' element = {<Admin course/>}></Route>
+              <Route path='/admin/student' element = {<Admin student/>}></Route>
+
               <Route path = '/student/home' element = {<StudentHome />}></Route>
 
               <Route path = '/teacher/home' element = {<TeacherHome />}></Route>
@@ -31,8 +39,7 @@ function App() {
               <Route path = '/student/events' element = {<StudentEvent />}></Route>
               <Route path = '/student/routine' element = {<StudentRoutine />}></Route>
               <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>
-
-              </Routes>
+            </Routes>
     </Router>
   );
 }
