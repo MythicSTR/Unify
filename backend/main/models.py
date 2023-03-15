@@ -3,11 +3,6 @@ from django.db.models import CASCADE
 
 # Create your models here.
 
-<<<<<<< HEAD
-# Student Model
-class Student(models.Model):
-    student_id = models.CharField(max_length=10, primary_key=True)
-=======
 # School Model
 class School(models.Model):
     school_id = models.CharField(max_length=10, primary_key=True)
@@ -27,7 +22,6 @@ class Department(models.Model):
 # Student Model
 class Student(models.Model):
     student_id = models.CharField(max_length=12, primary_key=True)
->>>>>>> 8598150e701af9dda43e3803f8981778fb9a196f
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     date_of_birth = models.DateField()
@@ -39,10 +33,8 @@ class Student(models.Model):
     city = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=14)
     admission_date = models.DateField()
-<<<<<<< HEAD
     graduation_date = models.DateField()
-=======
-    graduation_date = models.DateField()
+
 
 # Faculty Model
 class Faculty(models.Model):
@@ -92,4 +84,3 @@ class Room(models.Model):
     capacity = models.IntegerField()
     building = models.ForeignKey(Building, on_delete=CASCADE)
     description = models.TextField(blank=True)
->>>>>>> 8598150e701af9dda43e3803f8981778fb9a196f
