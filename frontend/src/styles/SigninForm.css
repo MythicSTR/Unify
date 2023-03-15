@@ -8,14 +8,15 @@
 } */
 
 .signin-form-container {
-    position: absolute;
+    position:absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
-    height: 25rem;
+    height: 27rem;
     width: 20rem;
-    padding-left: 25px;
+    padding-left:20px;
+    padding-right: 20px;
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 4px );
     -webkit-backdrop-filter: blur( 4px );
@@ -37,7 +38,7 @@
     display: block;
     width: 85%;
     padding: 10px;
-    font-size: 16px;
+    font-size: 13px;
     border: none;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) inset;
@@ -45,24 +46,33 @@
   
   .form-check-input {
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 1px;
   }
   
   .btn-primary {
     display: block;
     /* align-items: center; */
-    width: 70%;
+    width: 100%;
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10%;
     background-color: #5aa6f7;
   }
+   
+    .emailField, .passField {
+      display: flex;  
+      align-items: center ;
+      justify-content: space-around;
+
+    }
+
   
   .btn-primary:hover {
     background-color: #0069d9;
   }
-  
+    h1{
+    margin-left: 90px;
+  }

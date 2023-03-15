@@ -35,6 +35,7 @@ class Student(models.Model):
     admission_date = models.DateField()
     graduation_date = models.DateField()
 
+
 # Faculty Model
 class Faculty(models.Model):
     faculty_id = models.CharField(max_length=12, primary_key=True)

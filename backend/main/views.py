@@ -1,15 +1,49 @@
+<<<<<<< Updated upstream
 from django.shortcuts import render
 from . import models
+<<<<<<< HEAD
+from rest_framework import generics, permissions
+from .serializers import StudentSerializer
+=======
 from rest_framework import viewsets, generics, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import *
+>>>>>>> 8598150e701af9dda43e3803f8981778fb9a196f
 
 # Create your views here.
 def index(request):
     return render(request, 'build/index.html')
 
+<<<<<<< HEAD
+class StudentList(generics.ListCreateAPIView):
+    queryset = models.Student.objects.all()
+    serializer_class = StudentSerializer
+    permission_classess = [permissions.IsAuthenticated]
+
+class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Student.objects.all()
+    serializer_class = StudentSerializer
+    permission_classess = [permissions.IsAuthenticated]
+=======
+# from django.shortcuts import render
+
+# # Create your views here.
+# def index(request):
+#     return render(request, 'build/index.html')
+
+# from django.shortcuts import render,redirect
+# from django.contrib.auth import authenticate, login, logout
+# from django.contrib import messages
+# # authenticate/login.html points to the file in authenticate folder
+
+# def login_user(request):
+#     return render(request, '../../frotend/src/Pages/Login.js', {})
+
+
+>>>>>>> Stashed changes
+=======
 # REST API for School
 @api_view(['GET'])
 def SchoolList(request):
@@ -231,3 +265,4 @@ def EnrollmentDelete(request, pk):
     enrollment.delete()
 
 ###############################################################################################################
+>>>>>>> 8598150e701af9dda43e3803f8981778fb9a196f
