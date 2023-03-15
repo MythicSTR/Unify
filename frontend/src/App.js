@@ -13,7 +13,6 @@ function App() {
     <Router>
           <Routes>
               <Route exact path='/' element = {<LoginForm />}></Route>
-<<<<<<< HEAD
               <Route exact path='/login_user' element = {<LoginForm />}></Route>
 
               <Route path='/admin' element = {<Admin />}></Route>
@@ -44,9 +43,6 @@ function App() {
               <Route path = '/student/routine' element = {<StudentRoutine />}></Route>
               <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>
             </Routes>
-=======
-          </Routes>
->>>>>>> 3455bc8dd9a29a39e4dc3e43c846a58f3e6192d6
     </Router>
   );
 }

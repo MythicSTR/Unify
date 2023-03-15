@@ -18,8 +18,6 @@ class StudentSerializer(serializers.ModelSerializer):
             'phone_number',
             'admission_date',
             'graduation_date'
-<<<<<<< HEAD
-=======
         ]
 
 class FacultySerializer(serializers.ModelSerializer):
@@ -102,5 +100,4 @@ class RoomSerializer(serializers.ModelSerializer):
             'capacity',
             'building',
             'description'
->>>>>>> 8598150e701af9dda43e3803f8981778fb9a196f
         ]

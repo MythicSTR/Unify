@@ -3,15 +3,7 @@ from rest_framework import routers
 from . import views
 
 urlpatterns = [
-<<<<<<< Updated upstream
     path('', views.index),
-<<<<<<< HEAD
-    path('student/', views.StudentList.as_view()),
-    path('student/<int:pk>/', views.StudentDetail.as_view()),
-=======
-
->>>>>>> Stashed changes
-=======
 
     path('schoollist/', views.SchoolList, name="schoollist"),
     path('schooldetail/<int:pk>/', views.SchoolDetail, name="schooldetail"),
@@ -50,6 +42,4 @@ urlpatterns = [
     # path('student/<str:pk>/', views.StudentDetail.as_view()),
     # path('faculty/', views.FacultyList.as_view()),
     # path('faculty/<int:pk>/', views.FacultyDetail.as_view()),
-
->>>>>>> 8598150e701af9dda43e3803f8981778fb9a196f
 ]
