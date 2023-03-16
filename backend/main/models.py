@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import CASCADE
+from django.db.models import CASCADE, PROTECT
 
 # Create your models here.
 
@@ -84,3 +84,17 @@ class Room(models.Model):
     capacity = models.IntegerField()
     building = models.ForeignKey(Building, on_delete=CASCADE)
     description = models.TextField(blank=True)
+
+# Attendance Model
+class Attendance(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    faculty = models.ForeignKey(Faculty, on_delete=PROTECT)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    date = models.DateField()
+    status = models.CharField(max_length=8)
+
+# Location Model
+class Location(models.Model):
+    faculty_id = models.CharField(max_length=12)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
