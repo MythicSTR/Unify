@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { redirect } from 'react-router-dom';
 import '../styles/SigninForm.css';
 
 function LoginForm() {
@@ -6,32 +7,69 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(`Email: ${email}, Password: ${password}, Remember Me: ${rememberMe}`);
 
-    fetch('http://localhost:8000/login_user/',{
-      method:"POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email:email,
-        password:password,
-        rememberme:rememberMe
-      }),
-    })
-      .then(res=>{
-        if(res.ok) return res.json()
-        return res.json().then(json => Promise.reject(json))
-      })
-      .then((data)=>{
-        return data;
-      })
-      .catch(e=>{
-        console.log(e)
-      })
-  }
+    try {
+      const response = await fetch('http://localhost:8000/login_user/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      });
+      const data = await response.json();
+      if(data.message==="Student"){
+          console.log("redirect to student page")
+          return <redirect to="student/events"/>
+          //history.push('/student/events');
+          //window.location = 'http://localhost:3000/student/events';
+          //window.open(`/admin/student`, '_blank');
+          //history.push('/admin/student');
+          console.log(data.token)
+      }
+      if(data.message==="Teacher"){
+        console.log("redirect to teacher page")
+        console.log(data.token)
+      }
+      // Store the JWT token in local storage
+      //localStorage.setItem('token', data.token);
+      // Redirect to the home page or other desired page
+    } catch (error) {
+      console.log('Login failed:', error);
+    }
+
+
+  //   let token = await fetch('http://localhost:8000/login_user/',{
+  //     method:"POST",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       email:email,
+  //       password:password,
+  //       rememberme:rememberMe
+  //     }),
+  //   })
+  //     .then(res=>{
+  //       console.log(res.data)
+  //       if(res.ok) return res.json()
+  //       return res.json().then(json => Promise.reject(json))
+  //     })
+  //     .then((data)=>{
+  //       console.log(data)
+  //       return data;
+  //     })
+  //     .catch(e=>{
+  //       console.log(e)
+  //     })
+
+  //   console.log(token);
+   }
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);

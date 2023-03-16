@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+#from datetime import datetime,timedelta
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,6 +28,15 @@ SECRET_KEY = 'django-insecure-2vp3!v4w1mj@k!3-el(g#7aojv%q*!!wot#%#40a@q-1*tzjbf
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+
+# JWT_AUTH = {
+#     'JWT_SECRET_KEY': 'your-secret-key',
+#     'JWT_ALGORITHM': 'HS256',
+#     'JWT_VERIFY': True,
+#     'JWT_VERIFY_EXPIRATION': True,
+#     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+#     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+# }
 
 
 # Application definition
