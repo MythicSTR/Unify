@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from main.models import Student
+from main.models import Faculty
 
 @csrf_exempt
 def login_view(request):
@@ -10,24 +12,25 @@ def login_view(request):
     if request.method == "POST":
         print("inside post method")
         data = json.loads(request.body)
-        print(data)
-        email = data.get('email')
+        _email = data.get('email')
         password = data.get('password')
-        # email = request.POST.get('email')
-        # password = request.POST.get('password')
-        print(email)
+        print(_email)
         print(password)
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
-            login(request, user)
-            return JsonResponse({'message':'sucessful'}, status=400)
-            #return {'message':'sucessful'}
+
+        email_checker = _email.split('@')[1]
+
+        if email_checker == 'student.ku.edu.np':
+            student_results = Student.objects.filter(email=_email)
+            for result in student_results:
+                return JsonResponse({'message':'Student'}, status=400)
+            
+            else:
+                return JsonResponse({'message':'Not Student'}, status=400)
+
         else:
-            message = 'Invalid email or password. Please try again.'
-            return JsonResponse({'message':'sucessful'}, status=500)
-            #return {'message':'not sucessful'}
-            # return redirect('/login_user')
-            #return render(request, '../../frontend/src/Pages/Login.js', {'message': message})
-    else:
-        return JsonResponse({'message':'not sucessful'})
-        #return render(request, '../../frontend/src/Pages/Login.js')
+            faculty_answers = Faculty.objects.filter(email=_email)
+            for answer in faculty_answers:
+                return JsonResponse({'message':'Teacher'}, status=400)
+            
+            else:
+                return JsonResponse({'message':'Invalid'}, status=400)

@@ -9,6 +9,28 @@ function LoginForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(`Email: ${email}, Password: ${password}, Remember Me: ${rememberMe}`);
+
+    fetch('http://localhost:8000/login_user/',{
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email:email,
+        password:password,
+        rememberme:rememberMe
+      }),
+    })
+      .then(res=>{
+        if(res.ok) return res.json()
+        return res.json().then(json => Promise.reject(json))
+      })
+      .then((data)=>{
+        return data;
+      })
+      .catch(e=>{
+        console.log(e)
+      })
   }
 
   const handleEmailChange = (event) => {
