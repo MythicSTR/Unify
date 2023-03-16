@@ -18,11 +18,12 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('api/', include('main.urls')),
     path('admin/', include('reactadmin.urls')),
     path('faculty/', include('faculty.urls')),
+    path('attendance/', include('attendance.urls')),
     path('login_user/',include('django.contrib.auth.urls')),
     path('login_user/', views.login_view, name="login"),
 ]
