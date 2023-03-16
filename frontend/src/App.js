@@ -7,7 +7,7 @@ import LoginForm from "./Pages/Login";
 import StudentEvent from "./components/StudentEvent";
 import StudentRoutine from "./components/StudentRoutine";
 import StudentFeedback from "./components/StudentFeedback";
-
+ 
 function App() {
   return (
     <Router>
@@ -21,6 +21,9 @@ function App() {
               <Route path='/admin/faculty' element = {<Admin faculty/>}></Route>
               <Route path='/admin/course' element = {<Admin course/>}></Route>
               <Route path='/admin/student' element = {<Admin student/>}></Route>
+              <Route path='/admin/room' element = {<Admin room/>}></Route>
+              <Route path='/admin/enrollment' element = {<Admin enrollment/>}></Route>
+             
 
               <Route path='/faculty' element = {<Faculty />}></Route>
               <Route path='/faculty/attendance' element = {<Faculty attendance/>}></Route>
