@@ -9,7 +9,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 import jwt
 
-def generate_jwt_token(email):
+def generate_jwt_token(email,_id):
     """
     Generates a JWT token for the given user.
     """
@@ -22,7 +22,8 @@ def generate_jwt_token(email):
 
     # Generate the JWT token
     payload = {
-        'user_id': email,
+        'user_mail': email,
+        'user_id' : _id,
         'exp': expiration_time
     }
     token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
@@ -48,7 +49,8 @@ def login_view(request):
         if email_checker == 'student.ku.edu.np':
             student_results = Student.objects.filter(email=_email,password=_password)
             for result in student_results:
-                return JsonResponse({'message':'Student','token':generate_jwt_token(_email)}, status=400)
+                _id = result.student_id
+                return JsonResponse({'message':'Student','token':generate_jwt_token(_email,_id),'id':_id},status=400)
             
             else:
                 return JsonResponse({'message':'Not Student'}, status=400)

@@ -25,16 +25,27 @@ function LoginForm() {
       const data = await response.json();
       if(data.message==="Student"){
           console.log("redirect to student page")
-          return <redirect to="student/events"/>
+          localStorage.setItem('jwtToken', data.token);
+          //return <redirect to="student/events"/>
           //history.push('/student/events');
-          //window.location = 'http://localhost:3000/student/events';
+          window.location = 'http://localhost:3000/student/events';
           //window.open(`/admin/student`, '_blank');
           //history.push('/admin/student');
-          console.log(data.token)
       }
+
       if(data.message==="Teacher"){
         console.log("redirect to teacher page")
+        localStorage.setItem('jwtToken', data.token);
+        //return <redirect to="student/events"/>
+        //history.push('/student/events');
+        window.location = 'http://localhost:3000/faculty';
         console.log(data.token)
+      }
+
+      if(data.message==="Not Student"||data.message==="Invalid"){
+        console.log(data)
+        console.log("invalid email address")
+        console.log("do not redirect")
       }
       // Store the JWT token in local storage
       //localStorage.setItem('token', data.token);
@@ -44,31 +55,31 @@ function LoginForm() {
     }
 
 
-  //   let token = await fetch('http://localhost:8000/login_user/',{
-  //     method:"POST",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       email:email,
-  //       password:password,
-  //       rememberme:rememberMe
-  //     }),
-  //   })
-  //     .then(res=>{
-  //       console.log(res.data)
-  //       if(res.ok) return res.json()
-  //       return res.json().then(json => Promise.reject(json))
-  //     })
-  //     .then((data)=>{
-  //       console.log(data)
-  //       return data;
-  //     })
-  //     .catch(e=>{
-  //       console.log(e)
-  //     })
+    // let token = await fetch('http://localhost:8000/login_user/',{
+    //   method:"POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+    //     email:email,
+    //     password:password,
+    //     rememberme:rememberMe
+    //   }),
+    // })
+    //   .then(res=>{
+    //     console.log(res.data)
+    //     if(res.ok) return res.json()
+    //     return res.json().then(json => Promise.reject(json))
+    //   })
+    //   .then((data)=>{
+    //     console.log(data)
+    //     return data;
+    //   })
+    //   .catch(e=>{
+    //     console.log(e)
+    //   })
 
-  //   console.log(token);
+    // console.log(token);
    }
 
   const handleEmailChange = (event) => {
