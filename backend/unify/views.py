@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from main.models import Student
 from main.models import Faculty
+from main.models import Enrollment
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 import jwt
@@ -35,9 +36,7 @@ def generate_jwt_token(email,_id):
 
 @csrf_exempt
 def login_view(request):
-    print("console running")
     if request.method == "POST":
-        print("inside post method")
         data = json.loads(request.body)
         _email = data.get('email')
         _password = data.get('password')
@@ -62,3 +61,22 @@ def login_view(request):
             
             else:
                 return JsonResponse({'message':'Invalid'}, status=400)
+            
+@csrf_exempt
+def enrollment_course(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        course_id = data.get('course_id')
+        student_id = data.get('student_id')
+
+        already_enrolled = Enrollment.objects.filter(course_id=course_id,student_id=student_id)
+        for already_enroll in already_enrolled:
+            return JsonResponse({'message':'already enrolled'},status=400)
+        
+        else:
+            try:
+                what = Enrollment.objects.create(enrollment_date=datetime.today().date(),course_id=course_id,student_id=student_id)
+                return JsonResponse({'message':'succesfully enrolled'},status=400)
+            except:
+                return JsonResponse({'message':'Invalid'},status=200)
+        

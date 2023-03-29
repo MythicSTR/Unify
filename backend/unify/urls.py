@@ -26,4 +26,5 @@ urlpatterns = [
     path('attendance/', include('attendance.urls')),
     path('login_user/',include('django.contrib.auth.urls')),
     path('login_user/', views.login_view, name="login"),
+    path('enrollment/',views.enrollment_course,name='enrollment'),
 ]
