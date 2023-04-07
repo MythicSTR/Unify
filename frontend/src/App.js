@@ -4,9 +4,11 @@ import './App.css';
 import Admin from "./Pages/Admin";
 import Faculty from './Pages/Faculty';
 import LoginForm from "./Pages/Login";
+import StudentHome from "./Pages/StudentHome";
 import StudentEvent from "./components/StudentEvent";
 import StudentRoutine from "./components/StudentRoutine";
 import StudentFeedback from "./components/StudentFeedback";
+import StudentAttendance from "./components/StudentAttendance";
 import Enrollment from "./components/Entrollment";
 import setAuthToken from './redux/utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './redux/utils/actions/authActions';
@@ -64,9 +66,11 @@ function App() {
               <Route path = '/teacher/routine' element = {<TeacherRoutine />}></Route> */}
 
               {/* <Route path = '/department/home' element = {<DepartmentHome />}></Route> */}
+              <Route path = '/student' element = {<StudentHome />}></Route>
               <Route path = '/student/events' element = {<StudentEvent />}></Route>
               <Route path = '/student/routine' element = {<StudentRoutine />}></Route>
               <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>
+              <Route path = '/student/attendance' element = {<StudentAttendance />}></Route>
             </Routes>
     </Router>
   );

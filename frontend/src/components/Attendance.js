@@ -10,8 +10,12 @@ function Attendance() {
     const location = useGeolocation();
     
 
-    const SaveLocationInfo = async() => {
+    const attendanceSession = async() => {
+        const currentTime = new Date();
         let formField = new FormData()
+
+        const attendance = {time: currentTime, location};
+        localStorage.setItem('attendance', JSON.stringify(attendance));
 
         formField.append('faculty_id', 1)
         formField.append('lat', location.coordinates.lat)
@@ -24,12 +28,14 @@ function Attendance() {
         } catch(error) {
             console.log(error)
         }
+
+        return attendance;
     }
 
     return (
         <div>
             {/* {location.loaded ? JSON.stringify(location) : "location data not available!"} */}
-            <button class="btn btn-primary" type="submit" onClick={SaveLocationInfo}>Save Location</button>
+            <button class="btn btn-primary" type="submit" onClick={attendanceSession}>Start Session</button>
         </div>
     )
 }

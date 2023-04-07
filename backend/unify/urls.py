@@ -23,6 +23,7 @@ urlpatterns = [
     path('api/', include('main.urls')),
     path('admin/', include('reactadmin.urls')),
     path('faculty/', include('faculty.urls')),
+    path('student/', include('student.urls')),
     path('attendance/', include('attendance.urls')),
     path('login_user/',include('django.contrib.auth.urls')),
     path('login_user/', views.login_view, name="login"),
