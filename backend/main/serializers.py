@@ -81,6 +81,17 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             'enrollment_date',
         ]
 
+class FeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Feedback
+        fields = [
+            'id',
+            'student_id',
+            'school_id',
+            'topic',
+            'comment',
+        ]
+
 class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Building

@@ -12,54 +12,54 @@ function StudentFeedback() {
 
   const topic = ["Lecture", "Grade", "Assignment", "Attendence"];
   const school = [
-    "School of Arts",
-    "School of Education",
+    // "School of Arts",
+    // "School of Education",
     "School of Engineering",
-    "School of Management",
+    // "School of Management",
     "School of Science",
   ];
   const department = {
-    "School of Education": [
-      "Continuing and Professional Education Program (CPEP)",
-      "Department of Development Education",
-      "Department of Educational Leadership",
-      "Department of Language Education",
-      "Department of STEAM Education",
-      "Research and Innovation Center (RIC)",
-      "Writing and Communication Center",
-    ],
+    // "School of Education": [
+    //   "Continuing and Professional Education Program (CPEP)",
+    //   "Department of Development Education",
+    //   "Department of Educational Leadership",
+    //   "Department of Language Education",
+    //   "Department of STEAM Education",
+    //   "Research and Innovation Center (RIC)",
+    //   "Writing and Communication Center",
+    // ],
 
-    "School of Arts": [
-      "Department of Arts and Design",
-      "Department of Development Studies",
-      "Department of Languages and Mass Communication",
-      "Department of Music",
-    ],
+    // "School of Arts": [
+    //   "Department of Arts and Design",
+    //   "Department of Development Studies",
+    //   "Department of Languages and Mass Communication",
+    //   "Department of Music",
+    // ],
 
     "School of Engineering": [
-      "Department of Chemical Science and Engineering",
-      "Department of Civil Engineering",
-      "Department of Computer Science and Engineering",
-      "Department of Electrical and Electronics Engineering",
-      "Department of Geomatics Engineering",
-      "Department of Mechanical Engineering",
+      "DOCHE",
+      "DOCIE",
+      "DOCSE",
+      "DOEEE",
+      "DOGEE",
+      "DOMEE",
     ],
 
-    "School of Management": [
-      "Department of Finance, Economics and Accounting",
-      "Department of Human Resource and General Management",
-      " Department of Management Informatics and Communication",
-      "Department of Management Science and Information",
-      "Department of Marketing and Entrepreneurship",
-    ],
+    // "School of Management": [
+    //   "Department of Finance, Economics and Accounting",
+    //   "Department of Human Resource and General Management",
+    //   " Department of Management Informatics and Communication",
+    //   "Department of Management Science and Information",
+    //   "Department of Marketing and Entrepreneurship",
+    // ],
 
     "School of Science": [
-      "Department of Biotechnology",
-      "Department of Environmental Science and Engineering",
-      "Department of Life Sciences",
-      "Department of Mathematics",
-      "Department of Pharmacy",
-      "Department of Physics",
+      "DOBiT",
+      "DOESE",
+      "DOLSc",
+      "DOMAT",
+      "DOPHM",
+      "DOPHY",
     ],
   };
   const [selectedschool, setSelectedschool] = useState("");
@@ -75,15 +75,20 @@ function StudentFeedback() {
     formField.append("department", department);
     formField.append("school", school);
 
-    try {
-      axios
-        .post("http://127.0.0.1:8000/api/feedback/", formField, {
-          headers: { "X-CSRFToken": getCookie("csrftoken") },
+    try{
+      const response = await fetch('http://localhost:8000/feedback/',{
+        method: 'POST',
+        headers:'application/json',
+        body:JSON.stringify({
+          topic : topic,
+          comment : comment,
+          department : department,
+          school : school
         })
-        .then((response) => {
-          console.log(response.data);
-        });
-    } catch (error) {
+      });
+      const get_response = response.json();
+      console.log(get_response);
+    }catch(error){
       console.log(error);
     }
   };

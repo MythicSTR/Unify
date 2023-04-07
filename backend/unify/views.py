@@ -6,7 +6,9 @@ from django.http import JsonResponse
 from main.models import Student
 from main.models import Faculty
 from main.models import Enrollment
+from main.models import Department,School
 from main.models import Course
+from main.models import Feedback
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 import jwt
@@ -82,8 +84,41 @@ def enrollment_course(request):
         else:
             try:
                 # what = Enrollment.objects.create(enrollment_date=datetime.today().date(),course_id=course_code,student_id=student_id)
-                Enrollment.objects.create(enrollment_date=enrollment_date,course_id=course_id[0],student_id=student_id,course_code=course_code)
+                count = Enrollment.objects.filter().count()
+                Enrollment.objects.create(enrollment_id=count+1,enrollment_date=enrollment_date,course_id=course_id[0],student_id=student_id,course_code=course_code)
                 return JsonResponse({'message':'succesfully enrolled'},status=400)
             except:
                 return JsonResponse({'message':'Invalid'},status=200)
+            
+@csrf_exempt
+def feedback_view(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        print(data)
+        student_id = data.get('student_id')
+        topic = data.get('topic')
+        dept = data.get('department')
+        comment = data.get('comment')
+        school = data.get('school')
+
+        #get_school_id = School.objects.filter(name__iexact=school).values_list('school_id')[0]
+
+        get_dept = Department.objects.filter(name__iexact=dept).values_list('department_id','school_id')[0]
+        dept_id = get_dept[0]
+        school_id = get_dept[1]
+
+    try:
+        count = Feedback.objects.filter().count()
+        print(count)
+        Feedback.objects.create(id=count+1,topic=topic,comment=comment,dept_id=dept_id,school_id=school_id,student_id=student_id)
+        return JsonResponse({'message':'Succesfull'},status=500)      
+    except:
+        return JsonResponse({'message':'Error'},status=500)
+    #return JsonResponse({'message':'working'},status=400)
+    # response = Feedback.objects.filter(student_id=student_id)
+    # for already in response:
+    #     return JsonResponse({'message':'not working'},status=400)
+    
+    # else:
+    #     return JsonResponse({'message':'working'},status=400)
         

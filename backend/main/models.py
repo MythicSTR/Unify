@@ -73,6 +73,15 @@ class Enrollment(models.Model):
     enrollment_date = models.DateField()
     course_code = models.CharField(max_length=8)
 
+#Feedback Model
+class Feedback(models.Model):
+    id = models.IntegerField(primary_key=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    dept = models.ForeignKey(Department, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=150)
+    topic = models.CharField(max_length=10)
+
 # Building Model
 class Building(models.Model):
     building_id = models.CharField(max_length=4, primary_key=True)
