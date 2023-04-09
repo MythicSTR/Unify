@@ -23,15 +23,16 @@ def generate_jwt_token(email,_id):
 
     # Set the expiration time for the token (e.g. 7 days)
     expiration_time = datetime.utcnow() + timedelta(days=7)
-
+    
     # Generate the JWT token
     payload = {
         'user_mail': email,
         'user_id' : _id,
-        'exp': expiration_time
+        'exp': expiration_time,
     }
     token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
-    
+    decoded_token = jwt.decode(token,JWT_SECRET_KEY,JWT_ALGORITHM)
+    print(decoded_token)
     # Return the JWT token as a string
     return token.decode('utf-8')
 
@@ -60,7 +61,8 @@ def login_view(request):
         else:
             faculty_answers = Faculty.objects.filter(email=_email,password=_password)
             for answer in faculty_answers:
-                return JsonResponse({'message':'Teacher','token':generate_jwt_token(_email)}, status=400)
+                _id = result.faculty_id
+                return JsonResponse({'message':'Teacher','token':generate_jwt_token(_email,_id)}, status=400)
             
             else:
                 return JsonResponse({'message':'Invalid'}, status=400)
@@ -73,10 +75,6 @@ def enrollment_course(request):
         student_id = data.get('student_id')
         enrollment_date = data.get('enroll_date')
         course_id = Course.objects.filter(course_code=course_code).values_list('course_id')[0]
-        # if(course_id is None):
-        #     print("error thapayiyo")
-        #     return JsonResponse({'message':'Invalid'},status=200)
-        print(course_id[0])
         already_enrolled = Enrollment.objects.filter(course_id=course_id[0],course_code=course_code,student_id=student_id)
         for already_enroll in already_enrolled:
             return JsonResponse({'message':'already enrolled'},status=400)
