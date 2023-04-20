@@ -9,6 +9,8 @@ from main.models import Enrollment
 from main.models import Department,School
 from main.models import Course
 from main.models import Feedback
+from main.models import KU_events
+from main.models import Dept_events
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 import jwt
@@ -120,3 +122,34 @@ def feedback_view(request):
     # else:
     #     return JsonResponse({'message':'working'},status=400)
         
+@csrf_exempt
+def add_ku_events(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        print(data)
+        heading = data.get('heading')
+        description = data.get('description')
+        start_date = data.get('start_date')
+        end_date = data.get('end_date')
+
+    try:
+        KU_events.objects.create(heading=heading,description=description,start_date=start_date,end_date=end_date)
+        return JsonResponse({'message':'sucessful'},status=400)
+    except:
+        return JsonResponse({'message':'Error'},status=500)
+
+@csrf_exempt
+def add_dept_events(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        print(data)
+        heading = data.get('heading')
+        description = data.get('description')
+        dept_id = data.get('dept_id')
+        start_date = data.get('start_date')
+        end_date = data.get('end_date')
+    try:
+        Dept_events.objects.create(heading=heading,description=description,dept_id=dept_id,start_date=start_date,end_date=end_date)
+        return JsonResponse({'message':'sucessful'},status=400)
+    except:
+        return JsonResponse({'message':'Error'},status=500)

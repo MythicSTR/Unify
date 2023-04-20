@@ -17,15 +17,15 @@ class Migration(migrations.Migration):
             field=models.CharField(default=1, max_length=8),
             preserve_default=False,
         ),
-        migrations.CreateModel(
-            name='Feedback',
-            fields=[
-                ('id', models.IntegerField(primary_key=True, serialize=False)),
-                ('comment', models.CharField(max_length=150)),
-                ('topic', models.CharField(max_length=10)),
-                ('dept_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.department')),
-                ('school_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.school')),
-                ('student_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.student')),
-            ],
-        ),
+        # migrations.CreateModel(
+        #     name='Feedback',
+        #     fields=[
+        #         ('id', models.IntegerField(primary_key=True, serialize=False)),
+        #         ('comment', models.CharField(max_length=150)),
+        #         ('topic', models.CharField(max_length=10)),
+        #         ('dept_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.department')),
+        #         ('school_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.school')),
+        #         ('student_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.student')),
+        #     ],
+        # ),
     ]

@@ -110,3 +110,29 @@ class Location(models.Model):
     faculty_id = models.CharField(max_length=12)
     latitude = models.FloatField()
     longitude = models.FloatField()
+
+# KU Events
+class KU_events(models.Model):
+    ID = models.IntegerField(primary_key=True)
+    heading = models.CharField(max_length=50)
+    description = models.CharField(max_length=250)
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+# Department Events
+class Dept_events(models.Model):
+    ID = models.IntegerField(primary_key=True)
+    heading = models.CharField(max_length=50)
+    description = models.CharField(max_length=250)
+    dept = models.ForeignKey(Department,on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+# Classrooms
+# class Room(models.Model):
+#     dept_id = models.ForeignKey(Department,on_delete=CASCADE)
+#     capacity = models.IntegerField()
+#     classno = models.IntegerField()
+#     blockno = models.IntegerField()
+#     lab = models.BooleanField()
+

@@ -29,4 +29,6 @@ urlpatterns = [
     path('login_user/', views.login_view, name="login"),
     path('enrollment/',views.enrollment_course,name='enrollment'),
     path('feedback/',views.feedback_view,name='feedback'),
+    path('add_ku_events/',views.add_ku_events,name='add_ku_events'),
+    path('add_dept_events/',views.add_dept_events,name='add_dept_events'),
 ]

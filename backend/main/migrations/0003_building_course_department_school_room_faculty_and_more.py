@@ -102,4 +102,15 @@ class Migration(migrations.Migration):
             name='prerequisites',
             field=models.ManyToManyField(blank=True, to='main.course'),
         ),
+        #  migrations.CreateModel(
+        #     name='Feedback',
+        #     fields=[
+        #         ('id', models.IntegerField(primary_key=True, serialize=False)),
+        #         ('topic', models.CharField(max_length=15)),
+        #         ('comment', models.CharField(max_length=150)),
+        #         ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.student')),
+        #         ('dept', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.department')),
+        #         ('school', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.school')),
+        #     ],
+        # ),
     ]

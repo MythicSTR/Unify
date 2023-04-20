@@ -112,3 +112,26 @@ class RoomSerializer(serializers.ModelSerializer):
             'building',
             'description'
         ]
+
+class KU_eventsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.KU_events
+        fields = [
+            'ID',
+            'heading',
+            'description',
+            'start_date',
+            'end_date'
+        ]
+
+class Dept_eventsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Dept_events
+        fields = [
+            'ID',
+            'heading',
+            'description',
+            'dept_id',
+            'start_date',
+            'end_date'
+        ]
