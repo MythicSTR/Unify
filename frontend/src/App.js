@@ -8,12 +8,14 @@ import StudentHome from "./Pages/StudentHome";
 import StudentEvent from "./components/StudentEvent";
 import StudentRoutine from "./components/StudentRoutine";
 import StudentFeedback from "./components/StudentFeedback";
+import TeacherFeedback from "./components/TeacherFeedback";
 import StudentAttendance from "./components/StudentAttendance";
 import Enrollment from "./components/Entrollment";
 import setAuthToken from './redux/utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './redux/utils/actions/authActions';
 import store from './redux/utils/store';
 import jwt_decode from 'jwt-decode';
+
 const token = localStorage.jwtToken;
 function App() {
 
@@ -71,6 +73,8 @@ function App() {
               <Route path = '/student/routine' element = {<StudentRoutine />}></Route>
               <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>
               <Route path = '/student/attendance' element = {<StudentAttendance />}></Route>
+              <Route path = '/teacher/feedback' element = {<TeacherFeedback />}></Route>
+
             </Routes>
     </Router>
   );
