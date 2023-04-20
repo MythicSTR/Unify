@@ -15,7 +15,7 @@ import setAuthToken from './redux/utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './redux/utils/actions/authActions';
 import store from './redux/utils/store';
 import jwt_decode from 'jwt-decode';
-
+import Feedback from "./components/messages";
 const token = localStorage.jwtToken;
 function App() {
 
@@ -73,6 +73,9 @@ function App() {
               <Route path = '/student/routine' element = {<StudentRoutine />}></Route>
               <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>
               <Route path = '/student/attendance' element = {<StudentAttendance />}></Route>
+              <Route path = '/student/message' element = {<Feedback />}></Route>
+              
+
               <Route path = '/teacher/feedback' element = {<TeacherFeedback />}></Route>
 
             </Routes>

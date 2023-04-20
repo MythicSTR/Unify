@@ -16,7 +16,7 @@ function Navbar() {
           <li><Link to="/student/events">Events</Link></li>
           <li><Link to="/student/feedbacks">Feedback</Link></li>
          
-            <div className='message_icon'></div>
+            <div className='message-icon'></div>
             <Link to="/student/message"> <BiMessage/> </Link>
             </ul>
       <div className="navbar-profile">

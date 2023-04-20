@@ -1,9 +1,22 @@
-.group{
+
+
+.navbar {
     display: flex;
-    justify-content: center;
-    align-self: center;
-    /* background-color: black; */
-    /* z-index: 999;     */
-    width: 100%;
-    margin-top: 10px;
-}
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-links li {
+    margin-right: 20px;
+  }
+ 
+  
