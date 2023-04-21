@@ -1,14 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Navbar from "../components/StudentNavbar"
-import MyCalendar from "../components/Calendar";
 import "../styles/StudentEventCard.css"
 
 const StudentEventCard = ({ title, date, location, image, description }) => {
     return (
         <div>
-        <Navbar />
-        <MyCalendar />
+
       <div className="event-card">
         <img src={image} alt="event" className="event-card__image" />
         <div className="event-card__content">

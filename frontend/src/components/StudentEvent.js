@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MyCalendar from "./Calendar";
+import StudentNavbar from "./StudentNavbar"
 import StudentEventCard from "./EventCard";
 
 function StudentEvent(){
@@ -14,10 +15,11 @@ function StudentEvent(){
     //   }
     //   fetchData();
     // }, []);
-
+    
     return(
         <div>
-            <MyCalendar/>
+        <StudentNavbar />
+        <MyCalendar/>
             <StudentEventCard 
             title="My Event"
             description="This is my event description"
@@ -27,7 +29,6 @@ function StudentEvent(){
             image="https://lh3.googleusercontent.com/p/AF1QipPOntyKJE_SNLRn5Z_Apy9ghlFgUi8h8OqJXSYZ=s680-w680-h510"
             link="https://example.com"
             />
-
         </div>
     );
 }

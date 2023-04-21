@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "./Header";
-import Navbar from "./AdminNavbar";
+import StudentNavbar from "./StudentNavbar"
 import { getCookie } from "../utils.js";
 function StudentFeedback() {
   const [setSchool] = useState("");
@@ -94,6 +94,8 @@ function StudentFeedback() {
   };
 
   return (
+    <div>
+    <StudentNavbar />
     <div className="border w-25 p-4 position-absolute top-50 start-50 translate-middle">
       <div class="form-group">
         <label for="exampleFormControlTextarea1" class="form-label">
@@ -163,6 +165,7 @@ function StudentFeedback() {
           onClick={FeedbackInfo}
         />
       </div>
+    </div>
     </div>
   );
 }

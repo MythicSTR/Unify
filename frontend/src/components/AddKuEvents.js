@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/AddEvents.css';
 
-
-
-function AddDepartmentEvents() {
+function AddKuEvents() {
   const [title, setTitle] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -20,11 +18,10 @@ function AddDepartmentEvents() {
           title: title,
           startDate: formattedStartDate,
           endDate: formattedEndDate,
-          description: description,
-          // dept_id : dept_id,
+          description: description
         };
       
-        fetch('http://localhost:8000/add_dept_events/', {
+        fetch('http://localhost:8000/add_ku_events/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -33,8 +30,6 @@ function AddDepartmentEvents() {
         })
         .then(response => {
           if (response.ok) {
-            console.log(data);
-            console.log(response);
             // Handle successful form submission
           } else {
             // Handle form submission error
@@ -105,4 +100,4 @@ function AddDepartmentEvents() {
   );
 }
 
-export default AddDepartmentEvents;
+export default AddKuEvents;

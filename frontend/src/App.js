@@ -11,6 +11,7 @@ import StudentFeedback from "./components/StudentFeedback";
 import TeacherFeedback from "./components/TeacherFeedback";
 import StudentAttendance from "./components/StudentAttendance";
 import Enrollment from "./components/Entrollment";
+import AdminEvents from "./components/AdminEvents";
 import setAuthToken from './redux/utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './redux/utils/actions/authActions';
 import store from './redux/utils/store';
@@ -50,7 +51,8 @@ function App() {
               <Route path='/admin/student' element = {<Admin student/>}></Route>
               <Route path='/admin/room' element = {<Admin room/>}></Route>
               <Route path='/admin/enrollment' element = {<Admin enrollment/>}></Route>
-             
+              <Route path='/admin/events' element = {<AdminEvents/>}></Route>
+                           
 
               <Route path='/faculty' element = {<Faculty />}></Route>
               <Route path='/faculty/attendance' element = {<Faculty attendance/>}></Route>
