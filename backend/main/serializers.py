@@ -15,6 +15,7 @@ class StudentSerializer(serializers.ModelSerializer):
             'district',
             'street_address',
             'city',
+            'dept_id',
             'phone_number',
             'admission_date',
             'graduation_date'

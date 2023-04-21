@@ -31,4 +31,6 @@ urlpatterns = [
     path('feedback/',views.feedback_view,name='feedback'),
     path('add_ku_events/',views.add_ku_events,name='add_ku_events'),
     path('add_dept_events/',views.add_dept_events,name='add_dept_events'),
+    path('ku_events/',views.ku_events,name='ku_events'),
+    path('dept_events/',views.dept_events,name='dept_events'),
 ]

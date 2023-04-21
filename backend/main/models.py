@@ -27,6 +27,7 @@ class Student(models.Model):
     date_of_birth = models.DateField()
     email = models.EmailField(max_length=254, unique=True)
     password = models.CharField(max_length=20,default='123456')
+    dept_id = models.CharField(max_length=10)
     country = models.CharField(max_length=50)
     province = models.CharField(max_length=50)
     district = models.CharField(max_length=50)

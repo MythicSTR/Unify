@@ -2,6 +2,7 @@ import json
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
+from django.core import serializers
 from django.http import JsonResponse
 from main.models import Student
 from main.models import Faculty
@@ -13,9 +14,10 @@ from main.models import KU_events
 from main.models import Dept_events
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
+import requests
 import jwt
 
-def generate_jwt_token(email,_id):
+def generate_jwt_token(email,_id,dept_id):
     """
     Generates a JWT token for the given user.
     """
@@ -30,6 +32,7 @@ def generate_jwt_token(email,_id):
     payload = {
         'user_mail': email,
         'user_id' : _id,
+        'dept_id' : dept_id,
         'exp': expiration_time,
     }
     token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
@@ -46,8 +49,6 @@ def login_view(request):
         data = json.loads(request.body)
         _email = data.get('email')
         _password = data.get('password')
-        print(_email)
-        print(_password)
 
         email_checker = _email.split('@')[1]
 
@@ -55,7 +56,8 @@ def login_view(request):
             student_results = Student.objects.filter(email=_email,password=_password)
             for result in student_results:
                 _id = result.student_id
-                return JsonResponse({'message':'Student','token':generate_jwt_token(_email,_id),'id':_id},status=400)
+                dept_id = result.dept_id
+                return JsonResponse({'message':'Student','token':generate_jwt_token(_email,_id,dept_id),'id':_id},status=400)
             
             else:
                 return JsonResponse({'message':'Not Student'}, status=400)
@@ -63,8 +65,9 @@ def login_view(request):
         else:
             faculty_answers = Faculty.objects.filter(email=_email,password=_password)
             for answer in faculty_answers:
-                _id = result.faculty_id
-                return JsonResponse({'message':'Teacher','token':generate_jwt_token(_email,_id)}, status=400)
+                _id = answer.faculty_id
+                dept_id = answer.department_id
+                return JsonResponse({'message':'Teacher','token':generate_jwt_token(_email,_id,dept_id)}, status=400)
             
             else:
                 return JsonResponse({'message':'Invalid'}, status=400)
@@ -121,7 +124,8 @@ def feedback_view(request):
     
     # else:
     #     return JsonResponse({'message':'working'},status=400)
-        
+
+# Add KU events      
 @csrf_exempt
 def add_ku_events(request):
     if request.method == "POST":
@@ -138,6 +142,7 @@ def add_ku_events(request):
     except:
         return JsonResponse({'message':'Error'},status=500)
 
+# Add departmental events
 @csrf_exempt
 def add_dept_events(request):
     if request.method == "POST":
@@ -153,3 +158,44 @@ def add_dept_events(request):
         return JsonResponse({'message':'sucessful'},status=400)
     except:
         return JsonResponse({'message':'Error'},status=500)
+    
+# Return KU events
+def ku_events(request):
+    if request.method == "GET":   
+        # lat = '28.3949'  # latitude of the location you want to check
+        # lng = '84.1240'  # longitude of the location you want to check
+        # timestamp = 'now'  # the timestamp to check (can be a UNIX timestamp or 'now')
+
+        # response = requests.get(f'https://maps.googleapis.com/maps/api/timezone/json?location={lat},{lng}&timestamp={timestamp}&key=YOUR_API_KEY')
+        # data = response.json()
+
+        # if data['status'] == 'OK':
+        #     timezone_name = data['timeZoneName']
+        #     print(f'The server time zone is {timezone_name}.')
+        # else:
+        #     print('Failed to retrieve time zone information.')
+ 
+        try:
+            events = KU_events.objects.filter()
+            data = serializers.serialize('json',events)
+            print(data)
+            return JsonResponse(data,safe=False)
+    
+        except:
+            return JsonResponse({'message':'error'},status=500)
+        
+# Return dept events
+@csrf_exempt
+def dept_events(request):
+    if request.method == "POST":    
+        data = json.loads(request.body)
+        dept_id = data.get('dept_id')
+        try:
+            events = Dept_events.objects.filter(dept_id=dept_id)
+            data = serializers.serialize('json',events)
+            print(data)
+            return JsonResponse(data,safe=False)
+    
+        except:
+            return JsonResponse({'message':'error'},status=500)
+    
