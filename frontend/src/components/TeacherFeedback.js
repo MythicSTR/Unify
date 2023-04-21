@@ -54,35 +54,6 @@ function TeacherFeedback() {
         />
       </div>
 
-      {/* <div class="form-group">
-        <label for="exampleFormControlTextarea1" class="form-label">
-          School
-        </label>
-        <select
-          class="form-control w-100"
-          onChange={(e) => {
-            setSelectedschool(e.target.value);
-          }}
-        >
-          {school.map((school) => {
-            return <option>{school}</option>;
-          })}
-        </select>
-        <label
-          for="exampleFormControlTextarea1"
-          class="form-label"
-          placeholder="Department"
-        >
-          Department
-        </label>
-        {selectedschool && (
-          <select class="form-control w-100">
-            {department[selectedschool].map((department) => {
-              return <option>{department}</option>;
-            })}
-          </select>
-        )}
-      </div> */}
 
       <div class="form-group">
         <label for="exampleFormControlTextarea1" class="form-label">

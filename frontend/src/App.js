@@ -9,6 +9,9 @@ import StudentEvent from "./components/StudentEvent";
 import StudentRoutine from "./components/StudentRoutine";
 import StudentFeedback from "./components/StudentFeedback";
 import TeacherFeedback from "./components/TeacherFeedback";
+import TeacherHome from "./Pages/TeacherHome";
+import TeacherRoutine from "./components/TeacherRoutine" 
+import TeacherAttendance from "./components/TeacherAttendance";
 import StudentAttendance from "./components/StudentAttendance";
 import Enrollment from "./components/Entrollment";
 import AdminEvents from "./components/AdminEvents";
@@ -66,10 +69,10 @@ function App() {
 
               {/* <Route path = '/student/home' element = {<StudentHome />}></Route> */}
 
-              {/* <Route path = '/teacher/home' element = {<TeacherHome />}></Route>
+              <Route path = '/teacher' element = {<TeacherHome />}></Route>
               <Route path = '/teacher/attendance' element = {<TeacherAttendance />}></Route>
               <Route path = '/teacher/events' element = {<TeacherEvent />}></Route>
-              <Route path = '/teacher/routine' element = {<TeacherRoutine />}></Route> */}
+              <Route path = '/teacher/routine' element = {<TeacherRoutine />}></Route>
 
               {/* <Route path = '/department/home' element = {<DepartmentHome />}></Route> */}
               <Route path = '/student' element = {<StudentHome />}></Route>
