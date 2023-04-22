@@ -1,5 +1,9 @@
 import {useState } from "react";
-import StudentNavbar from "./StudentNavbar"
+import StudentNavbar from "./StudentNavbar";
+import jwt_decode from 'jwt-decode';
+
+const jwt_token = localStorage.getItem('jwtToken');
+const token = jwt_decode(jwt_token);
 
 function StudentFeedback() {
 
@@ -51,7 +55,7 @@ function StudentFeedback() {
           comment : comment,
           dept_id : selecteddepartment,
           school : selectedschool,
-          student_id : 'SUSSCS200049'
+          student_id : token.user_id
         })
       });
       const get_response = await response.json();
