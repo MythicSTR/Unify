@@ -1,40 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Header from "./Header";
+import {useState } from "react";
 import StudentNavbar from "./StudentNavbar"
-import { getCookie } from "../utils.js";
+
 function StudentFeedback() {
-  const [setSchool] = useState("");
-  const [comment, setComment] = useState("");
-  const [setdepartment] = useState("");
-  const [setTopic] = useState("");
 
   const topic = ["Lecture", "Grade", "Assignment", "Attendence"];
   const school = [
-    // "School of Arts",
-    // "School of Education",
     "School of Engineering",
-    // "School of Management",
     "School of Science",
   ];
   const department = {
-    // "School of Education": [
-    //   "Continuing and Professional Education Program (CPEP)",
-    //   "Department of Development Education",
-    //   "Department of Educational Leadership",
-    //   "Department of Language Education",
-    //   "Department of STEAM Education",
-    //   "Research and Innovation Center (RIC)",
-    //   "Writing and Communication Center",
-    // ],
-
-    // "School of Arts": [
-    //   "Department of Arts and Design",
-    //   "Department of Development Studies",
-    //   "Department of Languages and Mass Communication",
-    //   "Department of Music",
-    // ],
 
     "School of Engineering": [
       "DOCHE",
@@ -45,14 +19,6 @@ function StudentFeedback() {
       "DOMEE",
     ],
 
-    // "School of Management": [
-    //   "Department of Finance, Economics and Accounting",
-    //   "Department of Human Resource and General Management",
-    //   " Department of Management Informatics and Communication",
-    //   "Department of Management Science and Information",
-    //   "Department of Marketing and Entrepreneurship",
-    // ],
-
     "School of Science": [
       "DOBiT",
       "DOESE",
@@ -62,32 +28,46 @@ function StudentFeedback() {
       "DOPHY",
     ],
   };
-  const [selectedschool, setSelectedschool] = useState("");
-  const [selectedtopic, setSelectedtopic] = useState("");
-  console.log(selectedschool);
-  console.log(selectedtopic);
+  const [selectedschool, setSelectedschool] = useState("School of Engineering");
+  const [selectedtopic, setSelectedtopic] = useState("Lecture");
+  const [selecteddepartment, setselecteddepartment] = useState("DOCHE");
+  const [comment,setComment] = useState("");
 
   const FeedbackInfo = async () => {
-    let formField = new FormData();
 
-    formField.append("topic", topic);
-    formField.append("comment", comment);
-    formField.append("department", department);
-    formField.append("school", school);
+    if(comment === ""){
+      window.alert("Please provide comment.")
+      return;
+    }
 
     try{
       const response = await fetch('http://localhost:8000/feedback/',{
         method: 'POST',
-        headers:'application/json',
+        headers:{
+          'Content-Type':'application/json'
+        },
         body:JSON.stringify({
-          topic : topic,
+          topic : selectedtopic,
           comment : comment,
-          department : department,
-          school : school
+          dept_id : selecteddepartment,
+          school : selectedschool,
+          student_id : 'SUSSCS200049'
         })
       });
-      const get_response = response.json();
-      console.log(get_response);
+      const get_response = await response.json();
+      if(get_response.message==='Sucessfull'){
+        window.alert("Feedback sucessfully submitted. Thank you for your feedback.");
+        setComment('');
+        setSelectedschool('School of Engineering');
+        setselecteddepartment('DOCHE');
+        setSelectedtopic('Lecture')
+      }
+      else if(get_response==="Error"){
+        window.alert("Server error. Please try again later.")
+      }
+      else{
+        window.alert("Please try again later.")
+      }
     }catch(error){
       console.log(error);
     }
@@ -103,6 +83,7 @@ function StudentFeedback() {
         </label>
         <select
           class="form-control w-100"
+          value={selectedschool}
           onChange={(e) => {
             setSelectedschool(e.target.value);
           }}
@@ -119,10 +100,13 @@ function StudentFeedback() {
           Department
         </label>
         {selectedschool && (
-          <select class="form-control w-100">
+          <select class="form-control w-100" value={selecteddepartment} onChange={(e) => {
+            setselecteddepartment(e.target.value);
+          }}>
             {department[selectedschool].map((department) => {
               return <option>{department}</option>;
             })}
+            {selectedschool=="School of Science" && selecteddepartment=="DOCHE"?(setselecteddepartment("DOBiT")):(selecteddepartment)}
           </select>
         )}
       </div>
@@ -133,10 +117,14 @@ function StudentFeedback() {
         </label>
         <select
           class="form-control w-100"
+          value={selectedtopic}
           onChange={(e) => {
             setSelectedtopic(e.target.value);
           }}
         >
+          {/* {
+            selectedtopic==""?(setSelectedtopic("Lecture")):(selectedtopic)
+          } */}
           {topic.map((topic) => {
             return <option>{topic}</option>;
           })}
@@ -154,6 +142,10 @@ function StudentFeedback() {
             placeholder=""
             required
             class="form-control w-100"
+            value={comment}
+            onChange={(e) => {
+              setComment(e.target.value);
+            }}
           ></textarea>
         </div>
       </div>

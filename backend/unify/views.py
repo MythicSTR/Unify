@@ -92,29 +92,34 @@ def enrollment_course(request):
                 return JsonResponse({'message':'succesfully enrolled'},status=400)
             except:
                 return JsonResponse({'message':'Invalid'},status=200)
-            
+
+# Add Feedback            
 @csrf_exempt
 def feedback_view(request):
     if request.method == "POST":
+        print("feedback backend")
         data = json.loads(request.body)
         print(data)
         student_id = data.get('student_id')
         topic = data.get('topic')
-        dept = data.get('department')
+        dept_id  = data.get('dept_id')
         comment = data.get('comment')
         school = data.get('school')
 
         #get_school_id = School.objects.filter(name__iexact=school).values_list('school_id')[0]
 
-        get_dept = Department.objects.filter(name__iexact=dept).values_list('department_id','school_id')[0]
-        dept_id = get_dept[0]
-        school_id = get_dept[1]
+        #get_dept = Department.objects.filter(name__iexact=dept).values_list('department_id','school_id')[0]
+        get_dept = Department.objects.filter(department_id=dept_id).values_list('school_id')[0]
+        # dept_id = get_dept[0]
+        # print(dept_id)
+        school_id = get_dept[0]
+        print(school_id)
 
     try:
         count = Feedback.objects.filter().count()
         print(count)
         Feedback.objects.create(id=count+1,topic=topic,comment=comment,dept_id=dept_id,school_id=school_id,student_id=student_id)
-        return JsonResponse({'message':'Succesfull'},status=500)      
+        return JsonResponse({'message':'Sucessfull'},status=500)      
     except:
         return JsonResponse({'message':'Error'},status=500)
     #return JsonResponse({'message':'working'},status=400)
