@@ -21,7 +21,10 @@ import store from './redux/utils/store';
 import jwt_decode from 'jwt-decode';
 import Feedback from "./components/messages";
 import TeacherEvent from "./components/TeacherEvent";
+// import TeacherRoutine from "./components/TeacherRoutine";
+
 const token = localStorage.jwtToken;
+
 function App() {
 
   // Check for token to keep user logged in
@@ -61,6 +64,7 @@ function App() {
               <Route path='/faculty/attendance' element = {<Faculty attendance/>}></Route>
               <Route path='/faculty/enroll' element = {<Enrollment />}></Route>
               <Route path='/faculty/events' element = {<TeacherEvent />}></Route>
+              <Route path='/faculty/routine' element = {<TeacherRoutine />}></Route>
               {/* <Route path='/faculty/school' element = {<Admin school/>}></Route>
               <Route path='/faculty/department' element = {<Admin department/>}></Route>
               <Route path='/faculty/faculty' element = {<Admin faculty/>}></Route>
@@ -72,7 +76,6 @@ function App() {
               <Route path = '/teacher' element = {<TeacherHome />}></Route>
               <Route path = '/teacher/attendance' element = {<TeacherAttendance />}></Route>
               <Route path = '/teacher/events' element = {<TeacherEvent />}></Route>
-              <Route path = '/teacher/routine' element = {<TeacherRoutine />}></Route>
 
               {/* <Route path = '/department/home' element = {<DepartmentHome />}></Route> */}
               <Route path = '/student' element = {<StudentHome />}></Route>

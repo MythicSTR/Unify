@@ -1,37 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import MyCalendar from "./Calendar";
-import StudentNavbar from "./StudentNavbar"
-import StudentEventCard from "./EventCard";
+import StudentEventCard from './EventCard';
 
-function StudentEvent(){
+function StudentEvent() {
+  const [data, setData] = useState([]);
 
-    // const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const requestData = {
+        dept_id: "DOCSE",
+      };
 
-    // useEffect(() => {
-    //   async function fetchData() {
-    //     const response = await fetch('/api/my-data/');
-    //     const data = await response.json();
-    //     setData(data);
-    //   }
-    //   fetchData();
-    // }, []);
-    
-    return(
-        <div>
-        <StudentNavbar />
-        <MyCalendar/>
-            <StudentEventCard 
-            title="My Event"
-            description="This is my event description"
-            location="New York"
-            date="March 17, 2023"
-            time="2:00 PM"
-            image="https://lh3.googleusercontent.com/p/AF1QipPOntyKJE_SNLRn5Z_Apy9ghlFgUi8h8OqJXSYZ=s680-w680-h510"
-            link="https://example.com"
-            />
-        </div>
-    );
+      try {
+        const response = await fetch('http://localhost:8000/dept_events/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestData)
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        setData(responseData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(data);
+
+  return (
+    <div>
+      {Array.isArray(data) && data.map(data => (
+        <StudentEventCard
+          
+          heading={data.heading}
+          description={data.description}
+          start_date={data.start_date}
+          end_date={data.end_date}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default StudentEvent;
-

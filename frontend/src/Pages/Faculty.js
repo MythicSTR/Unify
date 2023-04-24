@@ -1,15 +1,14 @@
 import React from 'react';
 
-import Header from "../components/Header";
 import Navbar from "../components/FacultyNavbar";
 import Attendance from "../components/Attendance";
-
+import MyCalendar from "../components/Calendar";
 function Faculty(props) {
     return (
         <div>
-            <Header />
             <Navbar />
             {props.attendance && <Attendance />}
+            <MyCalendar/>
         </div>
     )
 }

@@ -14,14 +14,14 @@ function AddDepartmentEvents() {
     event.preventDefault();
     const formattedStartDate = new Date(startDate).toISOString().slice(0, 10);
     const formattedEndDate = new Date(endDate).toISOString().slice(0, 10);
-  
+    
       
         const data = {
           title: title,
           startDate: formattedStartDate,
           endDate: formattedEndDate,
           description: description,
-          // dept_id : dept_id,
+          dept_id : "DOCSE",  
         };
       
         fetch('http://localhost:8000/add_dept_events/', {

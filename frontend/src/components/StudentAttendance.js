@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-
 import {getCookie} from '../utils.js';
 import useGeolocation from '../hooks/useGeolocation';
 import calculateDistance from '../hooks/calculateDistance';
+import Navbar from "../components/StudentNavbar";
 
 function StudentAttendance() {
     const studentLocation = useGeolocation();
@@ -37,6 +37,7 @@ function StudentAttendance() {
 
     return (
         <div>
+        <Navbar/>
             <button class="btn btn-primary" type="submit" onClick={markPresent}>Mark Present</button>
         </div>
     )

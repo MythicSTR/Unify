@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import "../styles/Enrollment.css";
+import Navbar from "./FacultyNavbar";
 function Enrollment() {
   const [course_code, setCourse] = useState("");
   const [studentid, setStudent] = useState("");
@@ -45,6 +46,8 @@ function Enrollment() {
   };
 
   return (
+    <div>
+    <Navbar/>
     <div className="border w-25 p-4 position-absolute top-50 start-50 translate-middle">
       <div class="form-group">
         <label for="exampleFormControlTextarea1" class="form-label">
@@ -93,6 +96,7 @@ function Enrollment() {
           onClick={EnrollmentInfo}
         />
       </div>
+    </div>
     </div>
   );
 }

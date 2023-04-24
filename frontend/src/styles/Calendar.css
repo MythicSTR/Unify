@@ -1,16 +1,17 @@
 .calendar-container {
-  position: absolute;
+  position: fixed;
+  top: 0;
   right: 0;
-  top: 50%;
-  margin-right: 5rem;
-  transform: translateY(-50%);
-
+  margin-top: 15rem;
+  margin-right: 2rem;
+  transform: translate(0, -50%);
 }
 
 .react-calendar {
   font-size: 14px;
+  background-color: #fdbd5773; /* set the background color */
+  color: #333; /* set the font color */
 }
-
 .react-calendar__month-view__weekdays {
   padding: 0.25rem;
 }
@@ -18,4 +19,3 @@
 .react-calendar__tile {
   padding: 0.5rem;
 }
-

@@ -20,11 +20,29 @@ const StudentEventCard = ({ title, date, location, image, description }) => {
   };
   
   StudentEventCard.propTypes = {
-    title: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
+    heading: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    start: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
   };
   
   export default StudentEventCard;
+
+
+// import React from 'react';
+
+// function StudentEventCard(props) {
+//   const { heading, description, start_date, end_date } = props;
+
+//   return (
+//     <div>
+//       <h2>{heading}</h2>
+//       <p>{description}</p>
+//       <p>Start date: {start_date}</p>
+//       <p>End date: {end_date}</p>
+//     </div>
+//   );
+// }
+
+// export default StudentEventCard;
