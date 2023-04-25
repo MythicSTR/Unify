@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/SigninForm.css';
+import jwtDecode from 'jwt-decode';
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -53,7 +54,9 @@ function LoginForm() {
   }
 
   useEffect(()=>{
-    if(localStorage.getItem('jwtToken')){
+    const token = localStorage.getItem('jwtToken')
+    const user = jwtDecode(token)
+    if(user.isLoggedin){
       window.history.back();
     }
   })

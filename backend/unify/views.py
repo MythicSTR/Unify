@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.http import JsonResponse
@@ -35,6 +35,7 @@ def generate_jwt_token(email,_id,dept_id,role):
         'dept_id' : dept_id,
         'exp': expiration_time,
         'isStudent' : True,
+        'isLoggedin' : True,
         }
 
     if(role==0):
@@ -45,6 +46,7 @@ def generate_jwt_token(email,_id,dept_id,role):
         'dept_id' : dept_id,
         'exp': expiration_time,
         'isFaculty' : True,
+        'isLoggedin' : True,
         }
     
     token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
@@ -52,7 +54,6 @@ def generate_jwt_token(email,_id,dept_id,role):
     print(decoded_token)
     # Return the JWT token as a string
     return token.decode('utf-8')
-
 
 @csrf_exempt
 def login_view(request):
@@ -198,4 +199,33 @@ def dept_events(request):
     
         except:
             return JsonResponse({'message':'error'},status=500)
-    
+
+@csrf_exempt
+def logout(request):
+    print('logout')
+    if request.method == "POST":
+        print('hahahahahahahahahahahaha')
+        data = json.loads(request.body)
+        JWT_SECRET_KEY = 'unIfy'
+        JWT_ALGORITHM = 'HS256'
+
+        expiration_time = datetime.utcnow() + timedelta(days=7)
+        
+        # decoded_token = jwt.decode(token,JWT_SECRET_KEY,JWT_ALGORITHM)
+        # print(decoded_token['isLoggedin'])
+
+        payload = {
+            'user_mail': data.get('user_mail'),
+            'user_id' : data.get('user_id'),
+            'dept_id' : data.get('dept_id'),
+            'exp': expiration_time,
+            'isFaculty' : data.get('isFaculty'),
+            'isStudent' : data.get('isStudent'),
+            'isLoggedin' : False,
+        }
+        token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
+        # Return the JWT token as a string
+        #return token.decode('utf-8')
+        return JsonResponse({'token':token.decode('utf-8')},status=400)
+    #     #return JsonResponse({'message':"kei che bhayo"},status=500)
+    return JsonResponse({'message':'error'},status=500)
