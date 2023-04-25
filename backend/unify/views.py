@@ -14,10 +14,9 @@ from main.models import KU_events
 from main.models import Dept_events
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
-import requests
 import jwt
 
-def generate_jwt_token(email,_id,dept_id):
+def generate_jwt_token(email,_id,dept_id,role):
     """
     Generates a JWT token for the given user.
     """
@@ -28,19 +27,31 @@ def generate_jwt_token(email,_id,dept_id):
     # Set the expiration time for the token (e.g. 7 days)
     expiration_time = datetime.utcnow() + timedelta(days=7)
     
-    # Generate the JWT token
-    payload = {
+    if(role==1):
+        # Generate the JWT token
+        payload = {
         'user_mail': email,
         'user_id' : _id,
         'dept_id' : dept_id,
         'exp': expiration_time,
-    }
+        'isStudent' : True,
+        }
+
+    if(role==0):
+        # Generate the JWT token
+        payload = {
+        'user_mail': email,
+        'user_id' : _id,
+        'dept_id' : dept_id,
+        'exp': expiration_time,
+        'isFaculty' : True,
+        }
+    
     token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
     decoded_token = jwt.decode(token,JWT_SECRET_KEY,JWT_ALGORITHM)
     print(decoded_token)
     # Return the JWT token as a string
     return token.decode('utf-8')
-
 
 
 @csrf_exempt
@@ -57,7 +68,7 @@ def login_view(request):
             for result in student_results:
                 _id = result.student_id
                 dept_id = result.dept_id
-                return JsonResponse({'message':'Student','token':generate_jwt_token(_email,_id,dept_id),'id':_id},status=400)
+                return JsonResponse({'message':'Student','token':generate_jwt_token(_email,_id,dept_id,1),'id':_id},status=400)
             
             else:
                 return JsonResponse({'message':'Not Student'}, status=400)
@@ -67,7 +78,7 @@ def login_view(request):
             for answer in faculty_answers:
                 _id = answer.faculty_id
                 dept_id = answer.department_id
-                return JsonResponse({'message':'Teacher','token':generate_jwt_token(_email,_id,dept_id)}, status=400)
+                return JsonResponse({'message':'Teacher','token':generate_jwt_token(_email,_id,dept_id,0)}, status=400)
             
             else:
                 return JsonResponse({'message':'Invalid'}, status=400)

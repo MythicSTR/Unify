@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import {getCookie} from '../utils.js';
 import useGeolocation from '../hooks/useGeolocation';
 import calculateDistance from '../hooks/calculateDistance';
 import Navbar from "../components/StudentNavbar";
+import jwtDecode from 'jwt-decode';
 
-function StudentAttendance() {
+const _token = localStorage.getItem('jwtToken');
+const token = jwtDecode(_token);
+console.log(token);
+
+function StudentAttendance(props) {
     const studentLocation = useGeolocation();
 
     const markPresent = async() => {

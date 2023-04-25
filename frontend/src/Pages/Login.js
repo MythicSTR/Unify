@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { redirect } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import '../styles/SigninForm.css';
 
 function LoginForm() {
@@ -24,16 +23,13 @@ function LoginForm() {
       });
       const data = await response.json();
       if(data.message==="Student"){
-          console.log("redirect to student page")
           localStorage.setItem('jwtToken', data.token);
-          window.location = 'http://localhost:3000/student/events';
+          window.location = 'http://localhost:3000/student';
       }
 
       if(data.message==="Teacher"){
-        console.log("redirect to teacher page")
         localStorage.setItem('jwtToken', data.token);
         window.location = 'http://localhost:3000/faculty';
-        console.log(data.token)
       }
 
       if(data.message==="Not Student"||data.message==="Invalid"){
@@ -55,6 +51,12 @@ function LoginForm() {
   const handleRememberMeChange = (event) => {
     setRememberMe(event.target.checked);
   }
+
+  useEffect(()=>{
+    if(localStorage.getItem('jwtToken')){
+      window.history.back();
+    }
+  })
 
   return (
     <div className="signin-form-container">

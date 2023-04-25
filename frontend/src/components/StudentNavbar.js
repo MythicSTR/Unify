@@ -3,7 +3,7 @@ import Header from "../components/Header";
 
 function Navbar() {
     const location = useLocation();
-    console.log(location);
+    //console.log(location);
     return (
       <div>
       <Header />

@@ -4,7 +4,8 @@ import jwt_decode from 'jwt-decode';
 
 const jwt_token = localStorage.getItem('jwtToken');
 const token = jwt_decode(jwt_token);
-
+console.log(token);
+  
 function StudentFeedback() {
 
   const topic = ["Lecture", "Grade", "Assignment", "Attendence"];

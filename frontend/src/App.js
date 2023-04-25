@@ -10,7 +10,7 @@ import StudentRoutine from "./components/StudentRoutine";
 import StudentFeedback from "./components/StudentFeedback";
 import TeacherFeedback from "./components/TeacherFeedback";
 import TeacherHome from "./Pages/TeacherHome";
-import TeacherRoutine from "./components/TeacherRoutine" 
+import TeacherRoutine from "./components/TeacherRoutine"; 
 import TeacherAttendance from "./components/TeacherAttendance";
 import StudentAttendance from "./components/StudentAttendance";
 import Enrollment from "./components/Entrollment";
@@ -21,14 +21,16 @@ import store from './redux/utils/store';
 import jwt_decode from 'jwt-decode';
 import Feedback from "./components/messages";
 import TeacherEvent from "./components/TeacherEvent";
+import NotFound from "./components/Notfound/Notfound";
 // import TeacherRoutine from "./components/TeacherRoutine";
+//import withAuthorization from "./withAuthorization";
 
-const token = localStorage.jwtToken;
-
+// const token = localStorage.jwtToken;
+// const user = jwtDecode(token);
 function App() {
-
   // Check for token to keep user logged in
-  if (localStorage.jwtToken) {
+  if (localStorage.getItem('jwtToken')) {
+    const token = localStorage.getItem('jwtToken');
     //   // Set auth token header auth
          setAuthToken(token);
     //   // Decode token and get user info and exp
@@ -47,8 +49,8 @@ function App() {
     <Router>
           <Routes>
               <Route exact path='/' element = {<LoginForm />}></Route>
-              <Route exact path='/login_user' element = {<LoginForm />}></Route>
-
+              <Route exact path='/login' element = {<LoginForm />}></Route>
+              
               <Route path='/admin' element = {<Admin />}></Route>
               <Route path='/admin/school' element = {<Admin school/>}></Route>
               <Route path='/admin/department' element = {<Admin department/>}></Route>
@@ -57,8 +59,7 @@ function App() {
               <Route path='/admin/student' element = {<Admin student/>}></Route>
               <Route path='/admin/room' element = {<Admin room/>}></Route>
               <Route path='/admin/enrollment' element = {<Admin enrollment/>}></Route>
-              <Route path='/admin/events' element = {<AdminEvents/>}></Route>
-                           
+              <Route path='/admin/events' element = {<AdminEvents/>}></Route>  
 
               <Route path='/faculty' element = {<Faculty />}></Route>
               <Route path='/faculty/attendance' element = {<Faculty attendance/>}></Route>
@@ -85,9 +86,8 @@ function App() {
               <Route path = '/student/attendance' element = {<StudentAttendance />}></Route>
               <Route path = '/student/message' element = {<Feedback />}></Route>
               
-
               <Route path = '/teacher/feedback' element = {<TeacherFeedback />}></Route>
-
+              <Route path="*" component={NotFound} />
             </Routes>
     </Router>
   );
