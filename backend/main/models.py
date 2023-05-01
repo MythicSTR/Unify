@@ -82,6 +82,7 @@ class Feedback(models.Model):
     dept = models.ForeignKey(Department, on_delete=models.CASCADE)
     comment = models.CharField(max_length=150)
     topic = models.CharField(max_length=10)
+    email = models.CharField(max_length=254)
 
 # Building Model
 class Building(models.Model):

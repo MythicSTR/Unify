@@ -91,6 +91,7 @@ class FeedbackSerializer(serializers.ModelSerializer):
             'school_id',
             'topic',
             'comment',
+            'email',
         ]
 
 class BuildingSerializer(serializers.ModelSerializer):

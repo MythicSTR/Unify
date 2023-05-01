@@ -114,6 +114,7 @@ def feedback_view(request):
         topic = data.get('topic')
         dept_id  = data.get('dept_id')
         comment = data.get('comment')
+        email = data.get('email')
 
         get_dept = Department.objects.filter(department_id=dept_id).values_list('school_id')[0]
         school_id = get_dept[0]
@@ -121,7 +122,7 @@ def feedback_view(request):
 
     try:
         count = Feedback.objects.filter().count()
-        Feedback.objects.create(id=count+1,topic=topic,comment=comment,dept_id=dept_id,school_id=school_id,student_id=student_id)
+        Feedback.objects.create(id=count+1,topic=topic,comment=comment,dept_id=dept_id,school_id=school_id,student_id=student_id,email=email)
         return JsonResponse({'message':'Sucessfull'},status=500)      
     except:
         return JsonResponse({'message':'Error'},status=500)
