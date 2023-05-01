@@ -138,3 +138,8 @@ class Dept_events(models.Model):
 #     blockno = models.IntegerField()
 #     lab = models.BooleanField()
 
+# Replies
+class Reply(models.Model):
+    id = models.IntegerField(primary_key=True)
+    comment = models.CharField(max_length=150)
+    feedback = models.ForeignKey(Feedback,on_delete=models.CASCADE)

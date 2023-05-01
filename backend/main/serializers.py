@@ -137,3 +137,12 @@ class Dept_eventsSerializer(serializers.ModelSerializer):
             'start_date',
             'end_date'
         ]
+
+class ReplySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Reply
+        fields = [
+            'id',
+            'comment',
+            'feedback_id'
+        ]

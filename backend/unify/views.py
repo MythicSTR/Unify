@@ -12,8 +12,10 @@ from main.models import Course
 from main.models import Feedback
 from main.models import KU_events
 from main.models import Dept_events
+from main.models import Reply
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
+from django.forms.models import model_to_dict
 import jwt
 
 def generate_jwt_token(email,_id,dept_id,role):
@@ -127,6 +129,19 @@ def feedback_view(request):
     except:
         return JsonResponse({'message':'Error'},status=500)
 
+#add_replies
+@csrf_exempt
+def add_reply(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        feedback_id = data.get('id')
+        comment = data.get('comment')
+
+    try:
+        Reply.objects.create(comment=comment,feedback_id=feedback_id)
+        return JsonResponse({'message':"sucessfull"},status=400)
+    except:
+        return JsonResponse({'message':'Error'},status=500)
 
 #receive feedback
 @csrf_exempt
@@ -134,11 +149,24 @@ def extract_feedback(request):
     if request.method == "POST":
         data = json.loads(request.body)
         email = data.get('email')
-
+        reply = []
+        new_list = []
+        
         try:
-            feedback = Feedback.objects.filter(email=email)
-            feedbacks = serializers.serialize('json',feedback)
-            return JsonResponse(feedbacks,safe=False)
+            feedbacks = Feedback.objects.filter(email=email)
+            for feedback in feedbacks:
+                replies = Reply.objects.filter(feedback_id = feedback.id)
+                if replies.exists():
+                    reply.append(replies.values())
+
+            for qs in reply:
+                for item in qs:
+                    new_list.append(item)
+
+            feedback_list = list(feedbacks)
+            feedback_dict_list = [model_to_dict(feedback) for feedback in feedback_list]
+            send = feedback_dict_list + new_list
+            return JsonResponse(send,safe=False)
         except:
             return JsonResponse({'message':'Error'},status=500)
 
