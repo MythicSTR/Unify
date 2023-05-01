@@ -127,6 +127,22 @@ def feedback_view(request):
     except:
         return JsonResponse({'message':'Error'},status=500)
 
+
+#receive feedback
+@csrf_exempt
+def extract_feedback(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        email = data.get('email')
+
+        try:
+            feedback = Feedback.objects.filter(email=email)
+            feedbacks = serializers.serialize('json',feedback)
+            return JsonResponse(feedbacks,safe=False)
+        except:
+            return JsonResponse({'message':'Error'},status=500)
+
+
 # Add KU events      
 @csrf_exempt
 def add_ku_events(request):
@@ -149,7 +165,6 @@ def add_ku_events(request):
 def add_dept_events(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        print(data)
         heading = data.get('heading')
         description = data.get('description')
         dept_id = data.get('dept_id')
@@ -195,7 +210,6 @@ def dept_events(request):
         try:
             events = Dept_events.objects.filter(dept_id=dept_id)
             data = serializers.serialize('json',events)
-            print(data)
             return JsonResponse(data,safe=False)
     
         except:
