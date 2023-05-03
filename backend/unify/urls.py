@@ -36,4 +36,5 @@ urlpatterns = [
     path('ku_events/',views.ku_events,name='ku_events'),
     path('dept_events/',views.dept_events,name='dept_events'),
     path('logout/',views.logout,name="logout"),
+    path('routine_generator/',views.routine_generator,name="routine_generator"),
 ]

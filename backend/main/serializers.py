@@ -146,3 +146,30 @@ class ReplySerializer(serializers.ModelSerializer):
             'comment',
             'feedback_id'
         ]
+
+class ProgramsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Programs
+        fields = [
+            'id',
+            'dept_id',
+            'school_id',
+            'name',
+            'capacity'
+        ]
+
+class RoutineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Routine
+        fields = [
+            'id',
+            'dept_id',
+            'program_id',
+            'batch',
+            'week_day',
+            'start_time',
+            'end_time',
+            'hours',
+            'room_no',
+            'block_no',
+        ]

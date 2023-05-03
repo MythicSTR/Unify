@@ -143,3 +143,22 @@ class Reply(models.Model):
     id = models.IntegerField(primary_key=True)
     comment = models.CharField(max_length=150)
     feedback = models.ForeignKey(Feedback,on_delete=models.CASCADE)
+
+class Programs(models.Model):
+    id = models.CharField(primary_key=True,max_length=5)
+    dept = models.ForeignKey(Department,on_delete=CASCADE)
+    school = models.ForeignKey(School,on_delete=CASCADE)
+    name = models.CharField(max_length=20)
+    capacity = models.IntegerField()
+
+class Routine(models.Model):
+    id = models.IntegerField(primary_key=True)
+    dept = models.ForeignKey(Department,on_delete=models.CASCADE)
+    program = models.ForeignKey(Programs,on_delete=models.CASCADE)
+    batch = models.IntegerField()
+    week_day = models.CharField(max_length=8)
+    start_time = models.IntegerField()
+    end_time = models.IntegerField()
+    hours = models.IntegerField()
+    room_no = models.IntegerField()
+    block_no = models.IntegerField()

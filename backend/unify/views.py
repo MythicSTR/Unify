@@ -13,10 +13,12 @@ from main.models import Feedback
 from main.models import KU_events
 from main.models import Dept_events
 from main.models import Reply
+from main.models import Routine
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 from django.forms.models import model_to_dict
 import jwt
+import numpy as np
 
 def generate_jwt_token(email,_id,dept_id,role):
     """
@@ -247,7 +249,6 @@ def dept_events(request):
 def logout(request):
     print('logout')
     if request.method == "POST":
-        print('hahahahahahahahahahahaha')
         data = json.loads(request.body)
         JWT_SECRET_KEY = 'unIfy'
         JWT_ALGORITHM = 'HS256'
@@ -272,3 +273,15 @@ def logout(request):
         return JsonResponse({'token':token.decode('utf-8')},status=400)
     #     #return JsonResponse({'message':"kei che bhayo"},status=500)
     return JsonResponse({'message':'error'},status=500)
+
+@csrf_exempt
+def routine_generator(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        dept_id = data.get('dept_id')
+    hours = 2
+    try:
+        Routine.objects.create(dept_id=dept_id,program_id="CS",batch=2020,week_day="Sunday",start_time=7,end_time=9,hours=hours,block_no=9)
+        return JsonResponse(dept_id,safe=False)
+    except:
+        return JsonResponse({'message':'error from first try'},status = 500)
