@@ -274,14 +274,55 @@ def logout(request):
     #     #return JsonResponse({'message':"kei che bhayo"},status=500)
     return JsonResponse({'message':'error'},status=500)
 
+#to save routine
+@csrf_exempt
+def routine(request):
+    if request.method=="POST":
+        data = json.loads(request.body)
+        routine = data.get('_routine')
+        dept_id = data.get('dept_id')
+        program_id = data.get('program_id')
+        batch = data.get('batch')
+        # week_day = data.get('week_day')
+        # start_time = data.get('start_time')
+        # end_time = data.get('end_time')
+        # course = data.get('course')
+        block_no = data.get('block_no')
+
+    
+    try:
+        for item in routine:
+            hours = item.end_time - item.start_time
+            Routine.objects.create(dept_id=dept_id,program_id=program_id,batch=batch,week_day=item.week_day,start_time=item.start_time,end_time=item.end_time,hours=hours,block_no=block_no,course=item.course)
+        return JsonResponse({'message':'sucess'},status=400)
+    except:
+        return JsonResponse({'message':'error'},status=500)
+
+#to allocate classroom to already prepared routine  
 @csrf_exempt
 def routine_generator(request):
     if request.method == "POST":
         data = json.loads(request.body)
         dept_id = data.get('dept_id')
-    hours = 2
     try:
-        Routine.objects.create(dept_id=dept_id,program_id="CS",batch=2020,week_day="Sunday",start_time=7,end_time=9,hours=hours,block_no=9)
+        Routine.objects.create(dept_id=dept_id,program_id="CS",batch=2020,week_day="Sunday",start_time=7,end_time=9,block_no=9)
         return JsonResponse(dept_id,safe=False)
     except:
         return JsonResponse({'message':'error from first try'},status = 500)
+    
+#to extract routine 
+@csrf_exempt
+def get_routine(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        dept_id = data.get('dept_id')
+        batch = data.get('batch')
+        program_id = data.get('program_id')
+
+    try:
+        routine = Routine.objects.filter(dept_id=dept_id,batch=batch,program_id=program_id)
+        _object = list(routine)
+        object = [model_to_dict(item) for item in _object]
+        return JsonResponse(object,safe=False)
+    except:
+        return JsonResponse({"message":"error"},status=500)

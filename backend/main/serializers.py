@@ -172,4 +172,5 @@ class RoutineSerializer(serializers.ModelSerializer):
             'hours',
             'room_no',
             'block_no',
+            'course',
         ]

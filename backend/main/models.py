@@ -162,3 +162,4 @@ class Routine(models.Model):
     hours = models.IntegerField()
     room_no = models.IntegerField()
     block_no = models.IntegerField()
+    course = models.CharField(max_length=10)
