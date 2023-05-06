@@ -174,3 +174,16 @@ class RoutineSerializer(serializers.ModelSerializer):
             'block_no',
             'course',
         ]
+
+class classroomsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Classrooms
+        fields = [
+            'id',
+            'dept_id',
+            'classno',
+            'blockno',
+            'capacity',
+            'lab'
+        ]
+       

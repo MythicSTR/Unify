@@ -14,6 +14,7 @@ from main.models import KU_events
 from main.models import Dept_events
 from main.models import Reply
 from main.models import Routine
+from main.models import Classrooms
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 from django.forms.models import model_to_dict
@@ -297,18 +298,6 @@ def routine(request):
         return JsonResponse({'message':'sucess'},status=400)
     except:
         return JsonResponse({'message':'error'},status=500)
-
-#to allocate classroom to already prepared routine  
-@csrf_exempt
-def routine_generator(request):
-    if request.method == "POST":
-        data = json.loads(request.body)
-        dept_id = data.get('dept_id')
-    try:
-        Routine.objects.create(dept_id=dept_id,program_id="CS",batch=2020,week_day="Sunday",start_time=7,end_time=9,block_no=9)
-        return JsonResponse(dept_id,safe=False)
-    except:
-        return JsonResponse({'message':'error from first try'},status = 500)
     
 #to extract routine 
 @csrf_exempt
@@ -326,3 +315,37 @@ def get_routine(request):
         return JsonResponse(object,safe=False)
     except:
         return JsonResponse({"message":"error"},status=500)
+    
+
+#to allocate classroom to already prepared routine  
+@csrf_exempt
+def routine_generator(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        dept_id = data.get('dept_id')
+        block_no = data.get('block_no')
+
+    #list of available classrooms in the given block
+    _rooms = Classrooms.objects.filter(blockno=block_no).values_list('classno')
+    rooms = list(_rooms)
+    rooms = [t[0] for t in rooms]
+
+    #list of time
+    time = [7,8,9,10,11,12,13,14,15,16]
+
+    #list of days
+    days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday']
+    #dictionary of routine for each day
+    routine_of_each_day = {'Sunday':[],'Monday':[],"Tuesday":[],"Wednesday":[],"Thursday":[],"Friday":[]}
+    try:
+        for day in days:
+            for routine_of_day in routine_of_each_day:
+                get_value = Routine.objects.filter(dept_id=dept_id,week_day=day)
+                routine_of_each_day[day] = [model_to_dict(item) for item in get_value]
+
+    except:
+        return JsonResponse({"message":"error from first try block"},status=500)
+    try:
+        return JsonResponse(routine_of_each_day,safe=False)
+    except:
+        return JsonResponse({'message':'error from first try'},status = 500)

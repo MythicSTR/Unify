@@ -163,3 +163,11 @@ class Routine(models.Model):
     room_no = models.IntegerField()
     block_no = models.IntegerField()
     course = models.CharField(max_length=10)
+
+class Classrooms(models.Model):
+    id = models.IntegerField(primary_key=True)
+    dept = models.ForeignKey(Department,max_length=10,on_delete=models.CASCADE)
+    classno = models.IntegerField()
+    blockno = models.IntegerField()
+    capacity = models.IntegerField()
+    lab = models.BooleanField()
