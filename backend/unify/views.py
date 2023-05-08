@@ -40,6 +40,7 @@ def generate_jwt_token(email,_id,dept_id,role):
         'dept_id' : dept_id,
         'exp': expiration_time,
         'isStudent' : True,
+        'isAdmin' : False,
         'isLoggedin' : True,
         }
 
@@ -51,6 +52,7 @@ def generate_jwt_token(email,_id,dept_id,role):
         'dept_id' : dept_id,
         'exp': expiration_time,
         'isFaculty' : True,
+        'isAdmin' : False,
         'isLoggedin' : True,
         }
     
@@ -268,6 +270,7 @@ def logout(request):
             'exp': expiration_time,
             'isFaculty' : data.get('isFaculty'),
             'isStudent' : data.get('isStudent'),
+            'isAdmin' : data.get('isAdmin'),
             'isLoggedin' : False,
         }
         token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)

@@ -25,8 +25,8 @@ import NotFound from "./components/Notfound/Notfound";
 // import TeacherRoutine from "./components/TeacherRoutine";
 //import withAuthorization from "./withAuthorization";
 
-// const token = localStorage.jwtToken;
-// const user = jwtDecode(token);
+const token = localStorage.jwtToken;
+const user = jwt_decode(token);
 function App() {
   // Check for token to keep user logged in
   if (localStorage.getItem('jwtToken')) {
@@ -51,21 +51,21 @@ function App() {
               <Route exact path='/' element = {<LoginForm />}></Route>
               <Route exact path='/login' element = {<LoginForm />}></Route>
               
-              <Route path='/admin' element = {<Admin />}></Route>
-              <Route path='/admin/school' element = {<Admin school/>}></Route>
-              <Route path='/admin/department' element = {<Admin department/>}></Route>
-              <Route path='/admin/faculty' element = {<Admin faculty/>}></Route>
-              <Route path='/admin/course' element = {<Admin course/>}></Route>
-              <Route path='/admin/student' element = {<Admin student/>}></Route>
-              <Route path='/admin/room' element = {<Admin room/>}></Route>
-              <Route path='/admin/enrollment' element = {<Admin enrollment/>}></Route>
-              <Route path='/admin/events' element = {<AdminEvents/>}></Route>  
+              {user.isAdmin && <Route path='/admin' element = {<Admin />}></Route> }
+              {user.isAdmin && <Route path='/admin/school' element = {<Admin school/>}></Route>}
+              {user.isAdmin && <Route path='/admin/department' element = {<Admin department/>}></Route>}
+              {user.isAdmin && <Route path='/admin/faculty' element = {<Admin faculty/>}></Route>}
+              {user.isAdmin && <Route path='/admin/course' element = {<Admin course/>}></Route>}
+              {user.isAdmin && <Route path='/admin/student' element = {<Admin student/>}></Route>}
+              {user.isAdmin && <Route path='/admin/room' element = {<Admin room/>}></Route>}
+              {user.isAdmin && <Route path='/admin/enrollment' element = {<Admin enrollment/>}></Route>}
+              {user.isAdmin && <Route path='/admin/events' element = {<AdminEvents/>}></Route>}
 
-              <Route path='/faculty' element = {<Faculty />}></Route>
-              <Route path='/faculty/attendance' element = {<Faculty attendance/>}></Route>
-              <Route path='/faculty/enroll' element = {<Enrollment />}></Route>
-              <Route path='/faculty/events' element = {<TeacherEvent />}></Route>
-              <Route path='/faculty/routine' element = {<TeacherRoutine />}></Route>
+              {user.isFaculty && <Route path='/faculty' element = {<Faculty />}></Route>}
+              {user.isFaculty && <Route path='/faculty/attendance' element = {<Faculty attendance/>}></Route>}
+              {user.isFaculty && <Route path='/faculty/enroll' element = {<Enrollment />}></Route>}
+              {user.isFaculty && <Route path='/faculty/events' element = {<TeacherEvent />}></Route>}
+              {user.isFaculty && <Route path='/faculty/routine' element = {<TeacherRoutine />}></Route>}
               {/* <Route path='/faculty/school' element = {<Admin school/>}></Route>
               <Route path='/faculty/department' element = {<Admin department/>}></Route>
               <Route path='/faculty/faculty' element = {<Admin faculty/>}></Route>
@@ -73,18 +73,17 @@ function App() {
               <Route path='/faculty/student' element = {<Admin student/>}></Route> */}
 
               {/* <Route path = '/student/home' element = {<StudentHome />}></Route> */}
-
-              <Route path = '/teacher' element = {<TeacherHome />}></Route>
-              <Route path = '/teacher/attendance' element = {<TeacherAttendance />}></Route>
-              <Route path = '/teacher/events' element = {<TeacherEvent />}></Route>
+              {user.isFaculty && <Route path = '/teacher' element = {<TeacherHome />}></Route>}
+              {user.isFaculty && <Route path = '/teacher/attendance' element = {<TeacherAttendance />}></Route>}
+              {user.isFaculty && <Route path = '/teacher/events' element = {<TeacherEvent />}></Route>}
 
               {/* <Route path = '/department/home' element = {<DepartmentHome />}></Route> */}
-              <Route path = '/student' element = {<StudentHome />}></Route>
-              <Route path = '/student/events' element = {<StudentEvent />}></Route>
-              <Route path = '/student/routine' element = {<StudentRoutine />}></Route>
-              <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>
-              <Route path = '/student/attendance' element = {<StudentAttendance />}></Route>
-              <Route path = '/student/message' element = {<Feedback />}></Route>
+              {user.isStudent && <Route path = '/student' element = {<StudentHome />}></Route>}
+              {user.isStudent && <Route path = '/student/events' element = {<StudentEvent />}></Route>}
+              {user.isStudent && <Route path = '/student/routine' element = {<StudentRoutine />}></Route>}
+              {user.isStudent && <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>}
+              {user.isStudent && <Route path = '/student/attendance' element = {<StudentAttendance />}></Route>}
+              {user.isStudent && <Route path = '/student/message' element = {<Feedback />}></Route>}
               
               <Route path = '/teacher/feedback' element = {<TeacherFeedback />}></Route>
               <Route path="*" component={NotFound} />
