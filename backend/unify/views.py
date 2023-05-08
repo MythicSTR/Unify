@@ -45,7 +45,6 @@ def generate_jwt_token(email,_id,dept_id,role):
         }
 
     if(role==0):
-        # Generate the JWT token
         payload = {
         'user_mail': email,
         'user_id' : _id,
@@ -53,6 +52,16 @@ def generate_jwt_token(email,_id,dept_id,role):
         'exp': expiration_time,
         'isFaculty' : True,
         'isAdmin' : False,
+        'isLoggedin' : True,
+        }
+
+    if(role==2):
+        payload = {
+        'user_mail': email,
+        'user_id' : _id,
+        'dept_id' : dept_id,
+        'exp': expiration_time,
+        'isAdmin' : True,
         'isLoggedin' : True,
         }
     
@@ -86,7 +95,14 @@ def login_view(request):
             for answer in faculty_answers:
                 _id = answer.faculty_id
                 dept_id = answer.department_id
-                return JsonResponse({'message':'Teacher','token':generate_jwt_token(_email,_id,dept_id,0)}, status=400)
+
+                if _id == "KUADM200001":
+                    print("admin part")
+                    return JsonResponse({'message':'Admin','token':generate_jwt_token(_email,_id,dept_id,2),'id':_id},status=400)
+                    
+                else:
+                    print("faculty part")
+                    return JsonResponse({'message':'Teacher','token':generate_jwt_token(_email,_id,dept_id,0)}, status=400)
             
             else:
                 return JsonResponse({'message':'Invalid'}, status=400)
@@ -250,9 +266,9 @@ def dept_events(request):
         except:
             return JsonResponse({'message':'error'},status=500)
 
+#logout
 @csrf_exempt
 def logout(request):
-    print('logout')
     if request.method == "POST":
         data = json.loads(request.body)
         JWT_SECRET_KEY = 'unIfy'
@@ -271,6 +287,9 @@ def logout(request):
             'isFaculty' : data.get('isFaculty'),
             'isStudent' : data.get('isStudent'),
             'isAdmin' : data.get('isAdmin'),
+            # 'isFaculty' : True,
+            # 'isStudent' : data.get('isStudent'),
+            # 'isAdmin' : False,
             'isLoggedin' : False,
         }
         token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)

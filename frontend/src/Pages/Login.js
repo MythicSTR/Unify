@@ -33,6 +33,11 @@ function LoginForm() {
         window.location = 'http://localhost:3000/faculty';
       }
 
+      if(data.message==="Admin"){
+        localStorage.setItem('jwtToken', data.token);
+        window.location = 'http://localhost:3000/admin';
+      }
+
       if(data.message==="Not Student"||data.message==="Invalid"){
         alert("Provided email address and password does not match !")
       }
