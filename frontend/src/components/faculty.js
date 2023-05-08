@@ -6,7 +6,7 @@ import Header from "./Header";
 import Navbar from "./AdminNavbar";
 import { getCookie } from "../utils.js";
 
-function Course() {
+function Faculty() {
   const [faculty_id, setFacultyId] = useState();
   const [first_name, setFName] = useState("");
   const [last_name, setLName] = useState("");
@@ -23,7 +23,7 @@ function Course() {
 
   const navigate = useNavigate();
 
-  const CourseInfo = async () => {
+  const FacultyInfo = async () => {
     let formField = new FormData();
 
     formField.append("faculty_id", faculty_id);
@@ -137,13 +137,13 @@ function Course() {
       </div>
       <div class="form-group">
         <label for="exampleFormControlTextarea6" class="form-label">
-          Provience
+          Province
         </label>
         <input
           type="text"
           class="form-control w-100"
           placeholder="provience"
-          name="provience"
+          name="province"
           value={provience}
           onChange={(e) => setprovience(e.target.value)}
           />
@@ -231,7 +231,7 @@ function Course() {
           type="submit"
           class="col btn btn-primary m-0 align-self-center"
           value="Submit"
-          onClick={CourseInfo}
+          onClick={FacultyInfo}
           />
           
               </div>
@@ -240,4 +240,4 @@ function Course() {
   );
 }
 
-export default Course;
+export default Faculty;

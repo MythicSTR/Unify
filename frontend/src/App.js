@@ -54,8 +54,8 @@ function App() {
               {user.isAdmin && <Route path='/admin' element = {<Admin />}></Route> }
               {user.isAdmin && <Route path='/admin/school' element = {<Admin school/>}></Route>}
               {user.isAdmin && <Route path='/admin/department' element = {<Admin department/>}></Route>}
-              {user.isAdmin && <Route path='/admin/faculty' element = {<Admin faculty/>}></Route>}
-              {user.isAdmin && <Route path='/admin/course' element = {<Admin course/>}></Route>}
+              {user.isAdmin && <Route path='/admin/faculty' element = {<Admin Faculty/>}></Route>}
+              {user.isAdmin && <Route path='/admin/course' element = {<Admin Course/>}></Route>}
               {user.isAdmin && <Route path='/admin/student' element = {<Admin student/>}></Route>}
               {user.isAdmin && <Route path='/admin/room' element = {<Admin room/>}></Route>}
               {user.isAdmin && <Route path='/admin/enrollment' element = {<Admin enrollment/>}></Route>}

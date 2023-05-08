@@ -8,7 +8,7 @@ import Room from '../components/Room';
 import Student from '../components/Student'
 import Enrollment from '../components/Entrollment';
 import Department from '../components/Department';
-import Course from '../components/Course'
+import Faculty from '../components/faculty'
 import Building from '../components/Building';
 
 
@@ -21,7 +21,7 @@ function Admin(props) {
             {props.department && <Department/>}
             {props.student && <Student/>}
             {props.room && <Room/>}
-            {props.course && <Course/>}
+            {props.Faculty && <Faculty/>}
             {props.building && <Building/>}
             {props.enrollment && <Enrollment/>}
 
