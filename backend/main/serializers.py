@@ -77,9 +77,10 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         model = models.Enrollment
         fields = [
             'enrollment_id',
-            'student',
-            'course',
+            'student_id',
+            'course_id',
             'enrollment_date',
+            'teacher_id'
         ]
 
 class FeedbackSerializer(serializers.ModelSerializer):

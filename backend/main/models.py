@@ -71,6 +71,7 @@ class Enrollment(models.Model):
     enrollment_id = models.CharField(max_length=10, primary_key=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Faculty,on_delete=models.CASCADE)
     enrollment_date = models.DateField()
     course_code = models.CharField(max_length=8)
 

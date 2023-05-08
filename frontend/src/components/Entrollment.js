@@ -2,6 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../styles/Enrollment.css";
 import Navbar from "./FacultyNavbar";
+import jwtDecode from "jwt-decode";
+
+const tok = localStorage.getItem('jwtToken')
+const token = jwtDecode(tok)
+
 function Enrollment() {
   const [course_code, setCourse] = useState("");
   const [studentid, setStudent] = useState("");
@@ -25,7 +30,8 @@ function Enrollment() {
       body:JSON.stringify({
         course_code : course_code,
         student_id : studentid,
-        enroll_date : enrollment_date
+        enroll_date : enrollment_date,
+        teacher_id : token.user_id
       })
     });
 
