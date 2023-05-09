@@ -74,6 +74,7 @@ def generate_jwt_token(email,_id,dept_id,role):
 @csrf_exempt
 def login_view(request):
     if request.method == "POST":
+        print("login")
         data = json.loads(request.body)
         _email = data.get('email')
         _password = data.get('password')
@@ -166,7 +167,7 @@ def add_reply(request):
     except:
         return JsonResponse({'message':'Error'},status=500)
 
-#receive feedback
+#receive feedback for teacher
 @csrf_exempt
 def extract_feedback(request):
     if request.method == "POST":
