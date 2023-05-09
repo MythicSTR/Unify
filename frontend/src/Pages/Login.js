@@ -23,6 +23,7 @@ function LoginForm() {
         })
       });
       const data = await response.json();
+      console.log(data.message)
       if(data.message==="Student"){
           localStorage.setItem('jwtToken', data.token);
           window.location = 'http://localhost:3000/student';

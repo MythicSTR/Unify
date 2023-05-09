@@ -59,7 +59,7 @@ function App() {
               {user.isAdmin && <Route path='/admin/student' element = {<Admin student/>}></Route>}
               {user.isAdmin && <Route path='/admin/room' element = {<Admin room/>}></Route>}
               {user.isAdmin && <Route path='/admin/enrollment' element = {<Admin enrollment/>}></Route>}
-              {user.isAdmin && <Route path='/admin/events' element = {<AdminEvents/>}></Route>}
+              {user.isAdmin && <Route path='/admin/events' element = {<Admin addKuEvents/>}></Route>}
 
               {user.isFaculty && <Route path='/faculty' element = {<Faculty />}></Route>}
               {user.isFaculty && <Route path='/faculty/attendance' element = {<Faculty attendance/>}></Route>}

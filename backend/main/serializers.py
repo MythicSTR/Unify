@@ -116,9 +116,9 @@ class RoomSerializer(serializers.ModelSerializer):
             'description'
         ]
 
-class KU_eventsSerializer(serializers.ModelSerializer):
+class Ku_eventsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.KU_events
+        model = models.Ku_events
         fields = [
             'ID',
             'heading',
