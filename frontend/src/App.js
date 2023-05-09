@@ -83,7 +83,7 @@ function App() {
               {user.isStudent && <Route path = '/student/routine' element = {<StudentRoutine />}></Route>}
               {user.isStudent && <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>}
               {user.isStudent && <Route path = '/student/attendance' element = {<StudentAttendance />}></Route>}
-              {user.isStudent && <Route path = '/student/message' element = {<Feedback />}></Route>}
+              {user.isStudent && <Route path = '/student/messages' element = {<Feedback />}></Route>}
               
               <Route path = '/teacher/feedback' element = {<TeacherFeedback />}></Route>
               <Route path="*" component={NotFound} />

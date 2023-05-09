@@ -1,30 +1,46 @@
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Navbar from "./StudentNavbar";
 import { getCookie } from "../utils.js";
+import"../styles/messages.css"
 
-function Feedback() {
-  const [feedbackMessage, setFeedbackMessage] = useState('');
+function StudentMessage() {
+  const [feedbackList, setFeedbackList] = useState([]);
 
   useEffect(() => {
-    async function fetchFeedback() {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/teacher/feedback/', {
-          headers: { "X-CSRFToken": getCookie("csrftoken") },
-        }); 
-        setFeedbackMessage(response.data.message);
-      } catch (error) {
-        console.error(error);
-      }
+    const fetchFeedback = async () => {
+      const studentCode = getCookie("student_code"); 
+      const response = await axios.get(`http://localhost:8000/Teacherfeedback/?student=${studentCode}`);
+      setFeedbackList(response.data);
     }
     fetchFeedback();
   }, []);
 
   return (
     <div>
-      <p>{feedbackMessage}</p>
+      <Navbar />
+
+      <div className="container mt-5">
+        <h3>Teacher Feedback</h3>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Topic</th>
+              <th scope="col">Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            {feedbackList.map((feedback) => (
+              <tr key={feedback.id}>
+                <td>{feedback.topic}</td>
+                <td>{feedback.comment}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
 
-export default Feedback;
+export default StudentMessage;
