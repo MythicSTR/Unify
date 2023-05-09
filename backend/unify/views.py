@@ -10,7 +10,7 @@ from main.models import Enrollment
 from main.models import Department,School
 from main.models import Course
 from main.models import Feedback
-from main.models import KU_events
+from main.models import Ku_events
 from main.models import Dept_events
 from main.models import Reply
 from main.models import Routine
@@ -75,6 +75,7 @@ def generate_jwt_token(email,_id,dept_id,role):
 def login_view(request):
     if request.method == "POST":
         data = json.loads(request.body)
+        print(data)
         _email = data.get('email')
         _password = data.get('password')
 
@@ -82,7 +83,9 @@ def login_view(request):
 
         if email_checker == 'student.ku.edu.np':
             student_results = Student.objects.filter(email=_email,password=_password)
+            print(student_results)
             for result in student_results:
+                print(result)
                 _id = result.student_id
                 dept_id = result.dept_id
                 return JsonResponse({'message':'Student','token':generate_jwt_token(_email,_id,dept_id,1),'id':_id},status=400)
@@ -206,7 +209,7 @@ def add_ku_events(request):
         end_date = data.get('end_date')
 
     try:
-        KU_events.objects.create(heading=heading,description=description,start_date=start_date,end_date=end_date)
+        Ku_events.objects.create(heading=heading,description=description,start_date=start_date,end_date=end_date)
         return JsonResponse({'message':'sucessful'},status=400)
     except:
         return JsonResponse({'message':'Error'},status=500)
