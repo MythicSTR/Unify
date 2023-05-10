@@ -7,8 +7,9 @@ import Navbar from "./AdminNavbar";
 import { getCookie } from "../utils.js";
 
 function Student() {
-  const [school, setSchool] = useState();
-  const [program, setProgram] = useState();
+  // const [school, setSchool] = useState();
+  // const [program, setProgram] = useState();
+  const [student_id,setStudentId]  = useState();
   const [first_name, setFName] = useState("");
   const [last_name, setLName] = useState("");
   const [date_of_birth, setDOB] = useState("");
@@ -23,43 +24,44 @@ function Student() {
   const [graduation_date, setGdate] = useState("");
 
   const navigate = useNavigate();
-  const schoolOptions = [
-    "School of Science",
-    "School of Engineering"
-  ];
+  // const schoolOptions = [
+  //   "School of Science",
+  //   "School of Engineering"
+  // ];
 
-  const programOptions = {
+  // const programOptions = {
 
-    "School of Science" : [
-      "Computer Science",
-      "Environmental Science",
-      "Pharmacy",
-      "Bio Technology",
-      "Agriculture",
-      "Computational Mathematics",
-      "Physics",
-      "Chemistry"
-    ],
+  //   "School of Science" : [
+  //     "Computer Science",
+  //     "Environmental Science",
+  //     "Pharmacy",
+  //     "Bio Technology",
+  //     "Agriculture",
+  //     "Computational Mathematics",
+  //     "Physics",
+  //     "Chemistry"
+  //   ],
   
-    "School of Engineering" : [
-      "Computer Engeering",
-      "Electrical and Electronics Engineering",
-      "Geomatics Engineering",
-      "Mechanical Engineering",
-      "Civil Engineering",
-      "Architecture",
-      "Chemical Engineering"
-    ]
+  //   "School of Engineering" : [
+  //     "Computer Engeering",
+  //     "Electrical and Electronics Engineering",
+  //     "Geomatics Engineering",
+  //     "Mechanical Engineering",
+  //     "Civil Engineering",
+  //     "Architecture",
+  //     "Chemical Engineering"
+  //   ]
 
-  }
+  // }
 
   const StudentInfo = async () => {
     let formField = new FormData();
 
-    formField.append("password","123456")
+    formField.append("student_id",student_id);
+    //formField.append("password","123456")
     formField.append("First_name", first_name);
-    formField.append("school",school);
-    formField.append("program",program);
+    // formField.append("school",school);
+    // formField.append("program",program);
     formField.append("Last_name", last_name);
     formField.append("DOB", date_of_birth);
     formField.append("email", email);
@@ -89,7 +91,7 @@ function Student() {
   return (
     <div className="group">
       <div className="border p-4 w-25 position-relative ">
-        <div className="form-group">
+        {/* <div className="form-group">
           <label for="exampleFormControlInput1" className="form-label">
             School
           </label>
@@ -122,6 +124,19 @@ function Student() {
             })}
           </select>
         )}
+        </div> */}
+         <div className="form-group">
+          <label for="exampleFormControlInput1" className="form-label">
+            Student ID
+          </label>
+          <input
+            type="text"
+            className="form-control w-100"
+            placeholder="KUSSCS200000"
+            name="student_id"
+            value={student_id}
+            onChange={(e) => setStudentId(e.target.value)}
+          />
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1" class="form-label">

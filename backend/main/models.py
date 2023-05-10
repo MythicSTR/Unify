@@ -26,7 +26,7 @@ class Student(models.Model):
     last_name = models.CharField(max_length=20)
     date_of_birth = models.DateField()
     email = models.EmailField(max_length=254, unique=True)
-    password = models.CharField(max_length=20,default='123456')
+    password = models.CharField(max_length=20,default='pbkdf2_sha256$390000$GoQqLdt0JRUOAB5PPrA7Fr$qnGx37r6+wrPvzdCbXHUmqs4/SGnvGlCwa6b0cRnRHg=')
     dept_id = models.CharField(max_length=10)
     country = models.CharField(max_length=50)
     province = models.CharField(max_length=50)
