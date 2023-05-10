@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/StudentNavbar";
+import Navbar from "./FacultyNavbar.js";
 import { getCookie } from "../utils.js";
 import axios from "axios";
 import "../styles/StudentRoutine.css";
 
-function StudentRoutine() {
+function TeacherRoutine() {
   const days = [
     "Sunday",
     "Monday",
@@ -101,4 +101,4 @@ function StudentRoutine() {
   );
 }
 
-export default StudentRoutine;
+export default TeacherRoutine;
