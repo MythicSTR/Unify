@@ -2,20 +2,20 @@ import React from "react";
 import PropTypes from 'prop-types';
 import "../styles/StudentEventCard.css"
 
-const StudentEventCard = ({ title, date, location, image, description }) => {
-    return (
-        <div>
+const StudentEventCard = (props) => {
+  const truncatedDescription = props.description.length > 90 
+    ? props.description.slice(0, 90) + "..."
+    : props.description;
 
-      <div className="event-card">
-        <img src={image} alt="event" className="event-card__image" />
-        <div className="event-card__content">
-          <div className="event-card__title">{title}</div>
-          <div className="event-card__date">{date}</div>
-          <div className="event-card__location">{location}</div>
-          <div className="event-card__description">{description}</div>
+    return (
+      <div className="article-card">
+        <div className="content">
+          <p className="title">{props.title}</p>
+          <p className="date">{props.start_date} - {props.end_date}</p>
+          <hr />
+          <p>{truncatedDescription}</p>
         </div>
       </div>
-    </div>
     );
   };
   
@@ -23,8 +23,8 @@ const StudentEventCard = ({ title, date, location, image, description }) => {
     heading: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     start: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    // location: PropTypes.string.isRequired,
+    // image: PropTypes.string.isRequired,
   };
   
   export default StudentEventCard;

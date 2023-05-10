@@ -1,5 +1,6 @@
 import json
 from django.shortcuts import render, redirect
+from django.contrib.auth.hashers import make_password,check_password
 from django.contrib.auth import authenticate, login,logout
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
@@ -76,37 +77,40 @@ def login_view(request):
     if request.method == "POST":
         print("login")
         data = json.loads(request.body)
-        print(data)
         _email = data.get('email')
         _password = data.get('password')
-
+        # password = make_password(_password)
+        # print(password)
         email_checker = _email.split('@')[1]
 
         if email_checker == 'student.ku.edu.np':
-            student_results = Student.objects.filter(email=_email,password=_password)
+            student_results = Student.objects.filter(email=_email)
             print(student_results)
             for result in student_results:
-                print(result)
                 _id = result.student_id
                 dept_id = result.dept_id
-                return JsonResponse({'message':'Student','token':generate_jwt_token(_email,_id,dept_id,1),'id':_id},status=400)
-            
+                if check_password(_password,result.password):
+                    return JsonResponse({'message':'Student','token':generate_jwt_token(_email,_id,dept_id,1),'id':_id},status=400)
+                else:
+                    return JsonResponse({'message':'Not Student'}, status=400)
             else:
                 return JsonResponse({'message':'Not Student'}, status=400)
 
         else:
-            faculty_answers = Faculty.objects.filter(email=_email,password=_password)
+            faculty_answers = Faculty.objects.filter(email=_email)
             for answer in faculty_answers:
                 _id = answer.faculty_id
                 dept_id = answer.department_id
 
                 if _id == "KUADM200001":
-                    print("admin part")
-                    return JsonResponse({'message':'Admin','token':generate_jwt_token(_email,_id,dept_id,2),'id':_id},status=400)
+                    if check_password(_password,answer.password):
+                        print("admin part")
+                        return JsonResponse({'message':'Admin','token':generate_jwt_token(_email,_id,dept_id,2),'id':_id},status=400)
                     
                 else:
-                    print("faculty part")
-                    return JsonResponse({'message':'Teacher','token':generate_jwt_token(_email,_id,dept_id,0)}, status=400)
+                    if check_password(_password,answer.password):
+                        print("faculty part")
+                        return JsonResponse({'message':'Teacher','token':generate_jwt_token(_email,_id,dept_id,0)}, status=400)
             
             else:
                 return JsonResponse({'message':'Invalid'}, status=400)
@@ -204,7 +208,7 @@ def add_ku_events(request):
     if request.method == "POST":
         data = json.loads(request.body)
         print(data)
-        heading = data.get('heading')
+        heading = data.get('title')
         description = data.get('description')
         start_date = data.get('start_date')
         end_date = data.get('end_date')
@@ -248,7 +252,7 @@ def ku_events(request):
         #     print('Failed to retrieve time zone information.')
  
         try:
-            events = KU_events.objects.filter()
+            events = Ku_events.objects.filter()
             data = serializers.serialize('json',events)
             print(data)
             return JsonResponse(data,safe=False)

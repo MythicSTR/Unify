@@ -7,13 +7,14 @@ import Navbar from "./AdminNavbar";
 import { getCookie } from "../utils.js";
 
 function Student() {
-  const [student_id, setStudentId] = useState();
+  const [school, setSchool] = useState();
+  const [program, setProgram] = useState();
   const [first_name, setFName] = useState("");
   const [last_name, setLName] = useState("");
   const [date_of_birth, setDOB] = useState("");
   const [email, setEmail] = useState("");
   const [country, setCountry] = useState("");
-  const [provience, setprovience] = useState("");
+  const [province, setprovience] = useState("");
   const [district, setDistrict] = useState("");
   const [street_address, setSaddress] = useState("");
   const [city, setCity] = useState("");
@@ -22,17 +23,48 @@ function Student() {
   const [graduation_date, setGdate] = useState("");
 
   const navigate = useNavigate();
+  const schoolOptions = [
+    "School of Science",
+    "School of Engineering"
+  ];
+
+  const programOptions = {
+
+    "School of Science" : [
+      "Computer Science",
+      "Environmental Science",
+      "Pharmacy",
+      "Bio Technology",
+      "Agriculture",
+      "Computational Mathematics",
+      "Physics",
+      "Chemistry"
+    ],
+  
+    "School of Engineering" : [
+      "Computer Engeering",
+      "Electrical and Electronics Engineering",
+      "Geomatics Engineering",
+      "Mechanical Engineering",
+      "Civil Engineering",
+      "Architecture",
+      "Chemical Engineering"
+    ]
+
+  }
 
   const StudentInfo = async () => {
     let formField = new FormData();
 
-    formField.append("student_id", student_id);
+    formField.append("password","123456")
     formField.append("First_name", first_name);
+    formField.append("school",school);
+    formField.append("program",program);
     formField.append("Last_name", last_name);
     formField.append("DOB", date_of_birth);
     formField.append("email", email);
     formField.append("country", country);
-    formField.append("provience", provience);
+    formField.append("provience", province);
     formField.append("district", district);
     formField.append("street_address", street_address);
     formField.append("city", city);
@@ -59,16 +91,37 @@ function Student() {
       <div className="border p-4 w-25 position-relative ">
         <div className="form-group">
           <label for="exampleFormControlInput1" className="form-label">
-            Student ID
+            School
           </label>
-          <input
-            type="text"
-            className="form-control w-100"
-            placeholder="1"
-            name="student_id"
-            value={student_id}
-            onChange={(e) => setStudentId(e.target.value)}
-          />
+          <select
+          class="form-control w-100"
+          value={school}
+          onChange={(e) => {
+            setSchool(e.target.value);
+          }}
+        >
+          <option value="">Select a school</option>
+            {schoolOptions.map((school) => (
+              <option key={school} value={school}>
+                {school}
+              </option>
+            ))}
+        </select>
+        </div>
+        <div className="form-group">
+          <label for="exampleFormControlInput1" className="form-label">
+            Program
+          </label>
+          {school && (
+          <select class="form-control w-100" value={program} onChange={(e) => {
+            setProgram(e.target.value);
+          }}>
+            <option value="">Select a Program</option>
+            {programOptions[school].map((prog) => {
+              return <option>{prog}</option>;
+            })}
+          </select>
+        )}
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1" class="form-label">
@@ -116,7 +169,7 @@ function Student() {
           <input
             type="text"
             class="form-control w-100"
-            placeholder="example@gamil.com"
+            placeholder="example@student.ku.edu.np"
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -137,14 +190,14 @@ function Student() {
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea6" class="form-label">
-            Provience
+            Province
           </label>
           <input
             type="text"
             class="form-control w-100"
-            placeholder="provience"
-            name="provience"
-            value={provience}
+            placeholder="province"
+            name="province"
+            value={province}
             onChange={(e) => setprovience(e.target.value)}
           />
         </div>

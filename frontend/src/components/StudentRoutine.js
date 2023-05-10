@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/StudentNavbar";
 import { getCookie } from "../utils.js";
 import axios from "axios";
@@ -17,91 +17,67 @@ function StudentRoutine() {
 
   const periods = [
     { start: "7:00 AM", end: "8:00 AM" },
-    { start: "7:00 AM", end: "9:00 AM" },
+    { start: "8:00 AM", end: "9:00 AM" },
     { start: "9:00 AM", end: "10:00 AM" },
     { start: "10:00 AM", end: "11:00 AM" },
     { start: "11:00 AM", end: "12:00 PM" },
-    { start: "12:00 AM", end: "1:00 PM" },
-    { start: "1:00 AM", end: "2:00 PM" },
+    { start: "12:00 PM", end: "1:00 PM" },
+    { start: "1:00 PM", end: "2:00 PM" },
+    { start: "2:00 PM", end: "3:00 PM" },
+    { start: "3:00 PM", end: "4:00 PM" },
   ];
 
-  const subjects = [
-    "MATH207",
-    "MCSC202",
-    "COMP204",
-    "COMP231",
-    "COMP232",
-    "COMP207",
-  ];
-  try {
-    axios
-      .post("http://127.0.0.1:8000/student/routine/", {
-        headers: { "X-CSRFToken": getCookie("csrftoken") },
-      })
-      .then((response) => {
-        console.log(response.data);
-      });
-  } catch (error) {
-    console.log(error);
-  }
+  const [schedule, setSchedule] = useState({});
+  const [email, setEmail] = useState('');
 
-  const schedule = {
-    Sunday: [
-      { period: periods[0], subject: subjects[0] },
-      { period: periods[1], subject: "Break" },
-      { period: periods[2], subject: subjects[1] },
-      { period: periods[3], subject: subjects[1] },
-    ],
-    Monday: [
-      { period: periods[0], subject: subjects[0] },
-      { period: periods[1], subject: "Break" },
-      { period: periods[2], subject: "Break" },
+  useEffect(() => {
+    const fetchRoutine = async () => {
+      try {
+        const response = await axios.post('http://localhost:8000/student/routine', { email });
+        setSchedule(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchRoutine();
+  }, [email]);
 
-      { period: periods[3], subject: subjects[2] },
-      { period: periods[4], subject: subjects[2] },
-    ],
-    Tuesday: [
-      { period: periods[0], subject: subjects[3] },
-      { period: periods[1], subject: "Break" },
-
-      { period: periods[2], subject: subjects[4] },
-      { period: periods[3], subject: subjects[4] },
-      { period: periods[4], subject: subjects[1] },
-      { period: periods[5], subject: subjects[1] },
-    ],
-    Wednesday: [
-      { period: periods[0], subject: subjects[0] },
-      { period: periods[1], subject: "Break" },
-
-      { period: periods[2], subject: "Break" },
-
-      { period: periods[3], subject: subjects[4] },
-      { period: periods[4], subject: subjects[4] },
-    ],
-    Thursday: [
-      { period: periods[0], subject: subjects[3] },
-      { period: periods[1], subject: "Break" },
-      { period: periods[2], subject: "Break" },
-
-      { period: periods[3], subject: subjects[2] },
-      { period: periods[4], subject: subjects[2] },
-    ],
-    Friday: [
-      { period: periods[0], subject: subjects[5] },
-    { period: periods[1], subject: subjects[5] },
-    { period: periods[2], subject: subjects[5] },
-    { period: periods[3], subject: subjects[5] },
-    { period: periods[4], subject: subjects[5] },
-    { period: periods[5], subject:subjects[5] },
-    ],
-    Saturday: [],
+  const getSubject = (day, period) => {
+    const subject = schedule[day]?.find(
+      (s) => s.start_time === period.start && s.end_time === period.end
+    );
+    if (subject) {
+      const startHour = parseInt(period.start.split(":")[0], 10);
+      const endHour = parseInt(period.end.split(":")[0], 10);
+      const hourDiff = endHour - startHour;
+      if (hourDiff === 1) {
+        return (
+          <td>
+            {subject.course}
+            <br />
+            <small>{subject.block}</small>
+          </td>
+        );
+      } else {
+        return (
+          <td colSpan={hourDiff}>
+            {subject.course}
+            <br />
+            <small>{subject.block}</small>
+          </td>
+        );
+      }
+    } else {
+      return <td></td>;
+    }
   };
+  
 
   return (
     <>
       <Navbar />
       <div className="container ">
-        <h1>Student Class Schedule</h1>
+        <h1>Teacher Class Schedule</h1>
         <table className="table mt-3">
           <thead>
             <tr>
@@ -115,18 +91,7 @@ function StudentRoutine() {
             {days.map((day) => (
               <tr key={day}>
                 <td>{day}</td>
-                {periods.map((period) => {
-                  const subject = schedule[day].find(
-                    (s) =>
-                      s.period.start === period.start &&
-                      s.period.end === period.end
-                  );
-                  return (
-                    <td key={`${day}-${period.start}`}>
-                      {subject ? subject.subject : ""}
-                    </td>
-                  );
-                })}
+                {periods.map((period) => getSubject(day, period))}
               </tr>
             ))}
           </tbody>
@@ -137,89 +102,3 @@ function StudentRoutine() {
 }
 
 export default StudentRoutine;
-
-
-
-
-// import React, { useState, useEffect } from "react";
-// import Navbar from "../components/StudentNavbar";
-// import { getCookie } from "../utils.js";
-// import axios from "axios";
-// import "../styles/StudentRoutine.css";
-
-// function StudentRoutine() {
-//   const days = [
-//     "Sunday",
-//     "Monday",
-//     "Tuesday",
-//     "Wednesday",
-//     "Thursday",
-//     "Friday",
-//     "Saturday",
-//   ];
-
-//   const periods = [
-//     { start: "7:00 AM", end: "8:00 AM" },
-//     { start: "8:00 AM", end: "9:00 AM" },
-//     { start: "9:00 AM", end: "10:00 AM" },
-//     { start: "10:00 AM", end: "11:00 AM" },
-//     { start: "11:00 AM", end: "12:00 PM" },
-//     { start: "12:00 PM", end: "1:00 PM" },
-//     { start: "1:00 PM", end: "2:00 PM" },
-//   ];
-
-//   const [schedule, setSchedule] = useState({});
-//   const [email, setEmail] = useState('');
-
-//   useEffect(() => {
-//     const fetchRoutine = async () => {
-//       try {
-//         const response = await axios.post('http://localhost:8000/student/routine', { email });
-//         setSchedule(response.data);
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     };
-//     fetchRoutine();
-//   }, [email]);
-
-//   return (
-//     <>
-//       <Navbar />
-//       <div className="container ">
-//         <h1>Student Class Schedule</h1>
-//         <table className="table mt-3">
-//           <thead>
-//             <tr>
-//               <th>Time</th>
-//               {periods.map((period) => (
-//                 <th key={period.start}>{`${period.start} - ${period.end}`}</th>
-//               ))}
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {days.map((day) => (
-//               <tr key={day}>
-//                 <td>{day}</td>
-//                 {periods.map((period) => {
-//                   const subject = schedule[day]?.find(
-//                     (s) =>
-//                       s.start_time === period.start &&
-//                       s.end_time === period.end
-//                   );
-//                   return (
-//                     <td key={`${day}-${period.start}`}>
-//                       {subject ? subject.course : ""}
-//                     </td>
-//                   );
-//                 })}
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     </>
-//   );
-// }
-
-// export default StudentRoutine;

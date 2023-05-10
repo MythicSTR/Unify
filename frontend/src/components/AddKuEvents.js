@@ -19,8 +19,8 @@ function AddKuEvents() {
       
         const data = {
           title: title,
-          startDate: formattedStartDate,
-          endDate: formattedEndDate,
+          start_date: formattedStartDate,
+          end_date: formattedEndDate,
           description: description
         };
       
