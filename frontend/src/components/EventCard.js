@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import "../styles/StudentEventCard.css"
 
 const StudentEventCard = (props) => {
-  const truncatedDescription = props.description.length > 120
-    ? props.description.slice(0, 120) + "..."
+  const truncatedDescription = props.description.length > 90 
+    ? props.description.slice(0, 90) + "..."
     : props.description;
 
     return (

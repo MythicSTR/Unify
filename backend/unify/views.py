@@ -248,7 +248,7 @@ def ku_events(request):
         #     print('Failed to retrieve time zone information.')
  
         try:
-            events = KU_events.objects.filter()
+            events = Ku_events.objects.filter()
             data = serializers.serialize('json',events)
             print(data)
             return JsonResponse(data,safe=False)
