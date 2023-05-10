@@ -59,7 +59,7 @@ function App() {
               {user.isAdmin && <Route path='/admin/student' element = {<Admin student/>}></Route>}
               {user.isAdmin && <Route path='/admin/room' element = {<Admin room/>}></Route>}
               {user.isAdmin && <Route path='/admin/enrollment' element = {<Admin enrollment/>}></Route>}
-              {user.isAdmin && <Route path='/admin/events' element = {<AdminEvents/>}></Route>}
+              {user.isAdmin && <Route path='/admin/events' element = {<Admin addKuEvents/>}></Route>}
 
               {user.isFaculty && <Route path='/faculty' element = {<Faculty />}></Route>}
               {user.isFaculty && <Route path='/faculty/attendance' element = {<Faculty attendance/>}></Route>}
@@ -83,7 +83,7 @@ function App() {
               {user.isStudent && <Route path = '/student/routine' element = {<StudentRoutine />}></Route>}
               {user.isStudent && <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>}
               {user.isStudent && <Route path = '/student/attendance' element = {<StudentAttendance />}></Route>}
-              {user.isStudent && <Route path = '/student/message' element = {<Feedback />}></Route>}
+              {user.isStudent && <Route path = '/student/messages' element = {<Feedback />}></Route>}
               
               <Route path = '/teacher/feedback' element = {<TeacherFeedback />}></Route>
               <Route path="*" component={NotFound} />

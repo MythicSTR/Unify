@@ -115,7 +115,7 @@ class Location(models.Model):
     longitude = models.FloatField()
 
 # KU Events
-class KU_events(models.Model):
+class Ku_events(models.Model):
     ID = models.IntegerField(primary_key=True)
     heading = models.CharField(max_length=50)
     description = models.CharField(max_length=250)

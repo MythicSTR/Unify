@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import '../styles/AddEvents.css';
-
+import MyCalendar from "./Calendar";
+import jwtDecode from 'jwt-decode';
+const token = localStorage.getItem('jwtToken')
+console.log(token)
 function AddKuEvents() {
   const [title, setTitle] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -46,6 +49,7 @@ function AddKuEvents() {
   }
 
   return (
+    <div>
     <form onSubmit={handleSubmit} className="add-event-form">
       <h2>Add Event</h2>
       <div className="form-group">
@@ -97,6 +101,9 @@ function AddKuEvents() {
 
       <button type="submit">Add Event</button>
     </form>
+    <MyCalendar/>
+    </div>
+
   );
 }
 
