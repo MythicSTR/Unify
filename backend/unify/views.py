@@ -200,7 +200,7 @@ def add_ku_events(request):
     if request.method == "POST":
         data = json.loads(request.body)
         print(data)
-        heading = data.get('heading')
+        heading = data.get('title')
         description = data.get('description')
         start_date = data.get('start_date')
         end_date = data.get('end_date')
