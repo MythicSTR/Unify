@@ -45,6 +45,7 @@ function Course() {
             type="text"
             class="form-control w-100"
             placeholder=""
+            
             name="id"
             value={id}
             onChange={(e) => setId(e.target.value)}
