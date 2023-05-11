@@ -415,4 +415,30 @@ def routine_generator(request):
 
     except:
         return JsonResponse({"message":"error from first try block"},status=500)
-    
+
+#get classroom    
+@csrf_exempt
+def get_student_classroom(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        student_id = data.get('user_id')
+
+    try:
+        _courses = list(Enrollment.objects.filter(student_id=student_id))
+        courses = [model_to_dict(item) for item in _courses]
+        return JsonResponse(courses,safe=False)
+    except:
+        return JsonResponse({'message':'error'},status=500)
+
+#get teacher classroom
+@csrf_exempt
+def get_teacher_classroom(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        teacher_id = data.get('user_id')
+
+        try:
+            courses = list(Enrollment.objects.filter(teacher_id = teacher_id).values('course_code','course_id').distinct())
+            return JsonResponse(courses,safe=False)
+        except:
+            return JsonResponse({'message':'error'},status=500)
