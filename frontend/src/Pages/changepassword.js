@@ -79,7 +79,7 @@ function ChangeForm() {
         </div>
 
         <button type="submit" className="btn btn-primary">
-          Sign In
+          Submit
         </button>
       </form>
       

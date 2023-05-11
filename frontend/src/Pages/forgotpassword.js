@@ -70,7 +70,7 @@ function ForgotForm() {
         </div>
         <div className="form-group">
           <label htmlFor="email">KU ID:</label>
-          <input type="email" id="id" className="form-control"  placeholder='Enter KU ID' value={id} onChange={handleIDChange} />
+          <input type="input" id="id" className="form-control"  placeholder='Enter KU ID' value={id} onChange={handleIDChange} />
         </div>
         <div className="form-group">
           <label htmlFor="password">Password:</label>
@@ -78,7 +78,7 @@ function ForgotForm() {
         </div>
 
         <button type="submit" className="btn btn-primary">
-          Sign In
+          Submit
         </button>
       </form>
       

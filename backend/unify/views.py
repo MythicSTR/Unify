@@ -475,14 +475,29 @@ def changePassword(request):
     except:
         return JsonResponse({'message':'error'},status=500)
     
-# #forgot password
-# @csrf_exempt
-# def forgotPassword(request):
-#     if request.method == "POST":
-#         data = json.loads(request.body)
-#         email = data.get('email')
-#         id = data.get('id')
-#         password = data.get('password')
-    
-#     try:
-#         user = Student.objects.filter(email=email,id=id)
+#forgot password
+@csrf_exempt
+def forgotPassword(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        email = data.get('email')
+        id = data.get('id')
+        password = data.get('password')
+        print(email,id,password)
+    try:
+        user = Student.objects.filter(email=email,student_id=id)
+        print(user)
+        if user.exists():
+            for item in user:
+                user.update(password=make_password(password))
+                return JsonResponse({'message':'Ok'},status=400)
+        else:
+            user = Faculty.objects.filter(email=email,faculty_id=id)
+            if user.exists():
+                for item in user:
+                    user.update(password=make_password(password))
+                    return JsonResponse({'message':'Ok'},status=400)
+            else:
+                return JsonResponse({'message':'incorrect'},status=500) 
+    except:
+        return JsonResponse({'message':'error'},status=500)
