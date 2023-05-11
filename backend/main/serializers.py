@@ -187,4 +187,15 @@ class classroomsSerializer(serializers.ModelSerializer):
             'capacity',
             'lab'
         ]
-       
+
+class classclass_noticeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Class_notice
+        fields = [
+            'id',
+            'notice',
+            'topic',
+            'student_id',
+            'teacher_id',
+            'course_id'
+        ]

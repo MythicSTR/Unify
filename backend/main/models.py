@@ -46,7 +46,7 @@ class Faculty(models.Model):
     date_of_birth = models.DateField()
     email = models.EmailField(max_length=254, unique=True)
     country = models.CharField(max_length=50)
-    password = models.CharField(max_length=20,default='123456')
+    password = models.CharField(max_length=20,default='pbkdf2_sha256$390000$GoQqLdt0JRUOAB5PPrA7Fr$qnGx37r6+wrPvzdCbXHUmqs4/SGnvGlCwa6b0cRnRHg=')
     province = models.CharField(max_length=50)
     district = models.CharField(max_length=50)
     street_address = models.CharField(max_length=50)
@@ -172,3 +172,12 @@ class Classrooms(models.Model):
     blockno = models.IntegerField()
     capacity = models.IntegerField()
     lab = models.BooleanField()
+
+
+class Class_notice(models.Model):
+    id = models.IntegerField(primary_key=True)
+    topic = models.CharField(max_length=15)
+    notice = models.CharField(max_length=150)
+    student = models.ForeignKey(Student,max_length=12,on_delete=models.CASCADE)
+    course = models.ForeignKey(Course,max_length=10,on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Faculty,max_length=12,on_delete=models.CASCADE)

@@ -501,3 +501,4 @@ def forgotPassword(request):
                 return JsonResponse({'message':'incorrect'},status=500) 
     except:
         return JsonResponse({'message':'error'},status=500)
+
