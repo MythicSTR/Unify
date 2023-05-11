@@ -11,6 +11,8 @@ import StudentFeedback from "./components/StudentFeedback";
 import TeacherFeedback from "./components/TeacherFeedback";
 import TeacherHome from "./Pages/TeacherHome";
 import TeacherRoutine from "./components/TeacherRoutine"; 
+import ForgotForm from "./Pages/forgotpassword";  
+import ChangeForm from "./Pages/changepassword";
 import TeacherAttendance from "./components/TeacherAttendance";
 import StudentAttendance from "./components/StudentAttendance";
 import Enrollment from "./components/Entrollment";
@@ -50,6 +52,8 @@ function App() {
           <Routes>
               <Route exact path='/' element = {<LoginForm />}></Route>
               <Route exact path='/login' element = {<LoginForm />}></Route>
+              <Route exact path='/forgotpassword' element={<ForgotForm/>}></Route>
+              <Route exact path='/changepassword' element={<ChangeForm/>}></Route>
               
               {user.isAdmin && <Route path='/admin' element = {<Admin />}></Route> }
               {user.isAdmin && <Route path='/admin/school' element = {<Admin school/>}></Route>}

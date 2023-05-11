@@ -48,7 +48,7 @@ def generate_jwt_token(email,_id,dept_id,role):
     if(role==0):
         payload = {
         'user_mail': email,
-        'user_id' : _id,
+        'user_id' : _id,    
         'dept_id' : dept_id,
         'exp': expiration_time,
         'isFaculty' : True,
@@ -416,7 +416,7 @@ def routine_generator(request):
     except:
         return JsonResponse({"message":"error from first try block"},status=500)
 
-#get classroom    
+#get student classroom    
 @csrf_exempt
 def get_student_classroom(request):
     if request.method == "POST":
@@ -442,3 +442,47 @@ def get_teacher_classroom(request):
             return JsonResponse(courses,safe=False)
         except:
             return JsonResponse({'message':'error'},status=500)
+        
+#change password
+@csrf_exempt
+def changePassword(request):
+    if request.method=="POST":
+        data = json.loads(request.body)
+        email = data.get('email')
+        oldpassword = data.get('oldpassword')
+        newpassword = data.get('newpassword')
+
+    try:
+        user = Student.objects.filter(email=email)  
+        if user.exists():
+            for item in user:
+                if check_password(oldpassword,item.password):
+                    user.update(password=make_password(newpassword))
+                    return JsonResponse({'message':'Ok'},status=400)
+                else:
+                    return JsonResponse({'message':'No'},status=500)
+        else:
+            user = Faculty.objects.filter(email=email)
+            if user.exists():
+                for item in user:
+                    if check_password(oldpassword,item.password):
+                        user.update(password=make_password(newpassword))
+                        return JsonResponse({'message':'Ok'},status=400)
+                    else:
+                        return JsonResponse({'message':'No'},status=500)
+            else:
+                return JsonResponse({'message':'incorrect'},status=500)
+    except:
+        return JsonResponse({'message':'error'},status=500)
+    
+# #forgot password
+# @csrf_exempt
+# def forgotPassword(request):
+#     if request.method == "POST":
+#         data = json.loads(request.body)
+#         email = data.get('email')
+#         id = data.get('id')
+#         password = data.get('password')
+    
+#     try:
+#         user = Student.objects.filter(email=email,id=id)

@@ -2,45 +2,37 @@ import React, { useEffect, useState } from 'react';
 import '../styles/SigninForm.css';
 import jwtDecode from 'jwt-decode';
 
-function LoginForm() {
+function ForgotForm() {
   const [email, setEmail] = useState("");
+  const [id, setID] = useState("");
   const [password, setPassword] = useState("");
   //const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(`Email: ${email}, Password: ${password}`);
 
     try {
-      const response = await fetch('http://localhost:8000/login_user/', {
+      const response = await fetch('http://localhost:8000/forgotpassword/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           email: email,
+          id : id,
           password: password
         })
       });
       const data = await response.json();
       console.log(data.message)
-      if(data.message==="Student"){
-          localStorage.setItem('jwtToken', data.token);
-          window.location = 'http://localhost:3000/student';
+      if(data.message==="Ok"){
+        window.location = 'http://localhost:3000/login'
       }
-
-      if(data.message==="Teacher"){
-        localStorage.setItem('jwtToken', data.token);
-        window.location = 'http://localhost:3000/faculty';
+      else if(data.message==="No"){
+        window.alert("Incorrect Credentials")
       }
-
-      if(data.message==="Admin"){
-        localStorage.setItem('jwtToken', data.token);
-        window.location = 'http://localhost:3000/admin';
-      }
-
-      if(data.message==="Not Student"||data.message==="Invalid"){
-        alert("Provided email address and password does not match !")
+      else{
+        window.alert("Error : Not Sucessful !!!")
       }
     } catch (error) {
       console.log('Login failed:', error);
@@ -51,13 +43,13 @@ function LoginForm() {
     setEmail(event.target.value);
   };
 
+  const handleIDChange = (event) => {
+    setID(event.target.value);
+  };
+
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
-  // const handleRememberMeChange = (event) => {
-  //   setRememberMe(event.target.checked);
-  // }
 
   useEffect(()=>{
     const token = localStorage.getItem('jwtToken')
@@ -69,7 +61,7 @@ function LoginForm() {
 
   return (
     <div className="signin-form-container">
-      <h1>Sign In</h1>
+      <h1 className='header-name'>Forgot Password</h1>
       <hr />
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -77,21 +69,13 @@ function LoginForm() {
           <input type="email" id="email" className="form-control"  placeholder='Enter email address' value={email} onChange={handleEmailChange} />
         </div>
         <div className="form-group">
+          <label htmlFor="email">KU ID:</label>
+          <input type="email" id="id" className="form-control"  placeholder='Enter KU ID' value={id} onChange={handleIDChange} />
+        </div>
+        <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" className="form-control" placeholder='Enter password' value={password} onChange={handlePasswordChange} />
         </div>
-        {/* <div className="form-group">
-          <label htmlFor="rememberMe">
-            <input
-              type="checkbox"
-              id="rememberMe"
-              className="form-check-input"
-              checked={rememberMe}
-              onChange={handleRememberMeChange}
-            />
-            <span className="form-check-label">Remember Me</span>
-          </label>
-        </div> */}
 
         <button type="submit" className="btn btn-primary">
           Sign In
@@ -99,15 +83,14 @@ function LoginForm() {
       </form>
       
       <div className='forgot-change'>
-      <div className="fc_form-group">
-          <label htmlFor="changePassword">
-            <a href="/changepassword" className="form-check-label">Change Password</a>
-          </label>
-        </div>
-
         <div className="fc_form-group">
           <label htmlFor="forgotPassword">
-            <a href="/forgotpassword" className="form-check-label">Forgot Password</a>
+          <a href="/changepassword" className="form-check-label">Change Password</a>
+          </label>
+        </div>
+        <div className="fc_form-group">
+          <label htmlFor="forgotPassword">
+            <a href="/login" className="form-check-label">Login</a>
           </label>
         </div>
       </div>
@@ -119,4 +102,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default ForgotForm;

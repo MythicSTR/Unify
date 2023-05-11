@@ -14,7 +14,7 @@
     transform: translate(-50%, -50%);
     border-radius: 10px;
     height: 27rem;
-    width: 20rem;
+    width: 25rem;
     padding-left:20px;
     padding-right: 20px;
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -32,6 +32,7 @@
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
+    margin-right: 20px;
   }
   
   .form-control {
@@ -52,7 +53,7 @@
   .btn-primary {
     display: block;
     /* align-items: center; */
-    width: 100%;
+    width: 95%;
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
@@ -69,10 +70,57 @@
 
     }
 
-  
+  .btn{
+    position :relative;
+    margin-bottom : 0px;
+    /* margin-right: 50px; */
+  }
+
   .btn-primary:hover {
     background-color: #0069d9;
   }
     h1{
     margin-left: 90px;
   }
+
+.forgot-change{
+  display: flex;
+  margin-top: 10px;
+}
+
+.fc_form-group{
+  margin-left :5px;
+  margin-top: 10px;
+  flex:1;
+}
+
+.form-check-label:hover{
+  color:blue;
+  cursor: pointer;
+}
+
+.signup-footer{
+  margin-top : 10px ;
+  margin-bottom : 0px;
+}
+
+.unify{
+  margin-left: 40%;
+  color:#999;
+  position: relative;
+  font-size: 30px;
+}
+
+.last{
+  justify-self: center;
+  color:#999;
+  font-size: 20px;
+  margin-left: 50px;
+}
+
+.header-name{
+  margin-top: 5px;
+  margin-left: 60px;
+  font-size: 30px;
+}
+
