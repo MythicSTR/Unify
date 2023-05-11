@@ -1,9 +1,0 @@
-.form-group {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .form-group input {
-    width: 50%;
-    margin-right: 20px;
-  }
