@@ -39,4 +39,6 @@ urlpatterns = [
     path('routine_generator/',views.routine_generator,name="routine_generator"),
     path('routine/',views.routine,name="routine"),
     path('get_routine/',views.get_routine,name="get_routine"),
+    path('get_student_classroom/',views.get_student_classroom,name="get_student_classroom"),
+    path('get_teacher_classroom/',views.get_teacher_classroom,name="get_teacher_classroom")
 ]

@@ -13,7 +13,7 @@ function Faculty() {
   const [date_of_birth, setDOB] = useState("");
   const [email, setEmail] = useState("");
   const [country, setCountry] = useState("");
-  const [provience, setprovience] = useState("");
+  const [province, setprovience] = useState("");
   const [district, setDistrict] = useState("");
   const [street_address, setSaddress] = useState("");
   const [city, setCity] = useState("");
@@ -32,7 +32,7 @@ function Faculty() {
     formField.append("DOB", date_of_birth);
     formField.append("email", email);
     formField.append("country", country);
-    formField.append("provience", provience);
+    formField.append("province", province);
     formField.append("district", district);
     formField.append("street_address", street_address);
     formField.append("city", city);
@@ -142,9 +142,9 @@ function Faculty() {
         <input
           type="text"
           class="form-control w-100"
-          placeholder="provience"
+          placeholder="province"
           name="province"
-          value={provience}
+          value={province}
           onChange={(e) => setprovience(e.target.value)}
           />
       </div>
