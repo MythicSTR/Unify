@@ -22,6 +22,7 @@ import jwt_decode from 'jwt-decode';
 import Feedback from "./components/messages";
 import TeacherEvent from "./components/TeacherEvent";
 import NotFound from "./components/Notfound/Notfound";
+import StudentClassroom from "./components/StudentClassroom";
 // import TeacherRoutine from "./components/TeacherRoutine";
 //import withAuthorization from "./withAuthorization";
 
@@ -84,6 +85,7 @@ function App() {
               {user.isStudent && <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>}
               {user.isStudent && <Route path = '/student/attendance' element = {<StudentAttendance />}></Route>}
               {user.isStudent && <Route path = '/student/messages' element = {<Feedback />}></Route>}
+              {user.isStudent && <Route path = '/student/classroom' element = {<StudentClassroom />}></Route>}
               
               <Route path = '/teacher/feedback' element = {<TeacherFeedback />}></Route>
               <Route path="*" component={NotFound} />

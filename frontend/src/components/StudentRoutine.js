@@ -76,6 +76,7 @@ function StudentRoutine() {
   return (
     <>
       <Navbar />
+<<<<<<< Updated upstream
       <div className="container ">
         <h1>Teacher Class Schedule</h1>
         <table className="table mt-3">
@@ -97,6 +98,9 @@ function StudentRoutine() {
           </tbody>
         </table>
       </div>
+=======
+      gg
+>>>>>>> Stashed changes
     </>
   );
 }
