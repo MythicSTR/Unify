@@ -5,95 +5,168 @@ import axios from "axios";
 import "../styles/StudentRoutine.css";
 
 function StudentRoutine() {
-  const days = [
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [selectedBatch, setSelectedBatch] = useState("");
+  const [routineData, setRoutineData] = useState([]);
+
+  useEffect(() => {
+    const fetchRoutine = async () => {
+      const requestData = {
+        dept_id: "DOCSE",
+        batch: 2020,
+        program_id: "CS"
+      };
+
+      try {
+        const response = await fetch('http://localhost:8000/get_routine/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestData)
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        setRoutineData(responseData);
+        
+        console.log(responseData)
+      } catch (error) {
+        console.error(error);
+      }
+  };
+
+  fetchRoutine();
+  }, [])
+
+  const handleDepartmentChange = (event) => {
+    setSelectedDepartment(event.target.value);
+  }
+
+  const handleBatchChange = (event) => {
+    setSelectedBatch(event.target.value);
+  }
+
+  const daysOfWeek = [
     "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday",
-  ];
+  ]
 
-  const periods = [
-    { start: "7:00 AM", end: "8:00 AM" },
-    { start: "8:00 AM", end: "9:00 AM" },
-    { start: "9:00 AM", end: "10:00 AM" },
-    { start: "10:00 AM", end: "11:00 AM" },
-    { start: "11:00 AM", end: "12:00 PM" },
-    { start: "12:00 PM", end: "1:00 PM" },
-    { start: "1:00 PM", end: "2:00 PM" },
-    { start: "2:00 PM", end: "3:00 PM" },
-    { start: "3:00 PM", end: "4:00 PM" },
-  ];
+  const timeInHours = [7, 8, 9, 10, 11, 12, 13, 14, 15]
 
-  const [schedule, setSchedule] = useState({});
-  const [email, setEmail] = useState('');
-
-  useEffect(() => {
-    const fetchRoutine = async () => {
-      try {
-        const response = await axios.post('http://localhost:8000/student/routine', { email });
-        setSchedule(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchRoutine();
-  }, [email]);
-
-  const getSubject = (day, period) => {
-    const subject = schedule[day]?.find(
-      (s) => s.start_time === period.start && s.end_time === period.end
+  const getCellData = (day, time) => {
+    const cell = routineData.find(
+      (item) =>
+        item.week_day === day && item.start_time <= time && item.end_time >= time + 1
     );
-    if (subject) {
-      const startHour = parseInt(period.start.split(":")[0], 10);
-      const endHour = parseInt(period.end.split(":")[0], 10);
-      const hourDiff = endHour - startHour;
-      if (hourDiff === 1) {
-        return (
-          <td>
-            {subject.course}
-            <br />
-            <small>{subject.block}</small>
-          </td>
-        );
+
+    return cell ? cell.course : "---";
+  }
+
+  const mergeCells = (rowData) => {
+    const mergedCells = [];
+
+    let currentCell = null;
+    let spanCount = 1;
+
+    for (let i = 0; i < rowData.length; i++) {
+      const cellValue = rowData[i];
+
+      if (currentCell === null) {
+        currentCell = {
+          value: cellValue,
+          span: 1,
+        };
+      } else if (currentCell.value === cellValue) {
+        currentCell.span += 1;
+        spanCount = currentCell.span;
       } else {
-        return (
-          <td colSpan={hourDiff}>
-            {subject.course}
-            <br />
-            <small>{subject.block}</small>
-          </td>
-        );
+        mergedCells.push(currentCell);
+        currentCell = {
+          value: cellValue,
+          span: 1,
+        };
       }
-    } else {
-      return <td></td>;
+
+      if (i === rowData.length - 1) {
+        mergedCells.push(currentCell);
+      }
     }
-  };
-  
+
+    // Update the span of the last merged cell to cover remaining columns
+    if (spanCount !== timeInHours.length) {
+      mergedCells[mergedCells.length - 1].span += timeInHours.length - spanCount;
+    }
+
+    return mergedCells;
+  }
+
+  const getRowData = (day) => {
+  const rowData = []; // Array to store the course values or '---'
+
+  for (let i = 0; i < routineData.length; i++) {
+    const timetableItem = routineData[i];
+
+    if (timetableItem.week_day === day) {
+      const startHour = timetableItem.start_time;
+      const endHour = timetableItem.start_time + timetableItem.hours;
+
+      for (let hour = startHour; hour < endHour; hour++) {
+        const course = timetableItem.course;
+        rowData[hour - 7] = course;
+      }
+    }
+  }
+
+  // Fill any empty time periods with '---'
+  for (let i = 0; i < timeInHours.length; i++) {
+    if (!rowData[i]) {
+      rowData[i] = '---';
+    }
+  }
+
+  return rowData;
+}
 
   return (
     <>
       <Navbar />
-      <div className="container ">
-        <h1>Teacher Class Schedule</h1>
-        <table className="table mt-3">
+      <div class="table100 ver5 m-b-110">
+        <table data-vertable="ver5">
           <thead>
-            <tr>
-              <th>Time</th>
-              {periods.map((period) => (
-                <th key={period.start}>{`${period.start} - ${period.end}`}</th>
+            <tr class="row100 head">
+              <th className={'column100 column1'}></th>
+              {timeInHours.map((time, index) => (
+                <th className={`column100 column${index + 2}`}>{time} - {time + 1}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {days.map((day) => (
-              <tr key={day}>
-                <td>{day}</td>
-                {periods.map((period) => getSubject(day, period))}
-              </tr>
+            {daysOfWeek.map((day, rowIndex) => {
+        const rowData = getRowData(day);
+        const mergedCells = mergeCells(rowData);
+
+        return (
+          <tr className="row100">
+            <td className={`column100 column${rowIndex + 1}`}>{day}</td>
+            {mergedCells.map((cell, cellIndex) => (
+              <td
+                className={`column100 column${cellIndex + 2}`}
+                colSpan={cell.span}
+              >
+                {cell.value}
+              </td>
             ))}
+          </tr>
+        );
+      })}
           </tbody>
         </table>
       </div>
