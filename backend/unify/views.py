@@ -539,3 +539,16 @@ def createClassroom(request):
             return JsonResponse({'message':'incorrect credentials'},status=500)
     except:
         return JsonResponse({'message':'error'},status=500)
+
+# load classrooms for student
+@csrf_exempt
+def get_classroom_notices_for_student(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        id = data.get('classroom')
+
+    try:
+        notices =list(Class_notice.objects.filter(classroom_id=id).values('topic','notice'))
+        return JsonResponse(notices,safe=False)
+    except:
+        return JsonResponse({'message':'error'},status=500)
