@@ -336,11 +336,17 @@ def routine(request):
 def get_routine(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        dept_id = data.get('dept_id')
         batch = data.get('batch')
         program_id = data.get('program_id')
+        user_id = data.get('user_id')
 
     try:
+        dept_id = Student.objects.filter(student_id=user_id).values_list('dept_id')[0]
+        # batch = Student.objects.filter(student_id=user_id).values('admission_date')[0]
+        # print(dept_id)
+        # print(batch.year)
+        # year_value = batch.strftime("%Y")
+        # print(year_value)
         routine = Routine.objects.filter(dept_id=dept_id,batch=batch,program_id=program_id)
         _object = list(routine)
         object = [model_to_dict(item) for item in _object]

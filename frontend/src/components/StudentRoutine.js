@@ -3,6 +3,9 @@ import Navbar from "../components/StudentNavbar";
 import { getCookie } from "../utils.js";
 import axios from "axios";
 import "../styles/StudentRoutine.css";
+import jwtDecode from "jwt-decode";
+const token = localStorage.getItem('jwtToken');
+const user = jwtDecode(token);
 
 function StudentRoutine() {
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -12,7 +15,7 @@ function StudentRoutine() {
   useEffect(() => {
     const fetchRoutine = async () => {
       const requestData = {
-        dept_id: "DOCSE",
+        user_id : user.user_id,
         batch: 2020,
         program_id: "CS"
       };
