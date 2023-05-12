@@ -16,6 +16,7 @@ from main.models import Dept_events
 from main.models import Reply
 from main.models import Routine
 from main.models import Classrooms
+from main.models import Class_notice
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 from django.forms.models import model_to_dict
@@ -508,3 +509,24 @@ def forgotPassword(request):
     except:
         return JsonResponse({'message':'error'},status=500)
 
+#add classroom notice
+#needs to be worked on
+@csrf_exempt
+def addClassroomNotice(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        topic = data.get('topic')
+        notice = data.get('notice')
+        user_id = data.get('user_id')
+        course_id = data.get('course_id')
+
+    try:
+        Class_notice.objects.create(teacher_id=user_id,course_id=course_id,topic=topic,notice=notice)
+        return JsonResponse({'message':'Ok'},status=400)
+    except:
+        return JsonResponse({'message':'error'},status=500)
+    
+# #create classroom
+# @csrf_exempt
+# def createClassroom(request):
+#     if request.method == "POST":
