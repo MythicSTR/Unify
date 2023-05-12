@@ -44,4 +44,6 @@ urlpatterns = [
     path('changepassword/',views.changePassword,name="changePassword"),
     path('forgotpassword/',views.forgotPassword,name="forgotPassword"),
     path('addclassnotice/',views.addClassroomNotice,name='addclassroomnotice'),
+    path('createclassroom/',views.createClassroom,name='createclassroom'),
+
 ]

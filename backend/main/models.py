@@ -66,15 +66,6 @@ class Course(models.Model):
     description = models.TextField(blank=True)
     prerequisites = models.ManyToManyField('self', symmetrical=False, blank=True)
 
-# Enrollment Model
-class Enrollment(models.Model):
-    enrollment_id = models.CharField(max_length=10, primary_key=True)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    teacher = models.ForeignKey(Faculty,on_delete=models.CASCADE)
-    enrollment_date = models.DateField()
-    course_code = models.CharField(max_length=8)
-
 #Feedback Model
 class Feedback(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -173,18 +164,27 @@ class Classrooms(models.Model):
     capacity = models.IntegerField()
     lab = models.BooleanField()
 
-
-class Class_notice(models.Model):
-    id = models.IntegerField(primary_key=True)
-    topic = models.CharField(max_length=15)
-    notice = models.CharField(max_length=150)
-    student_id = models.CharField(max_length=12)
-    course_id = models.CharField(max_length=10)
-    teacher_id = models.CharField(max_length=12)
-
+# google classroom
 class Virtual_classroom(models.Model):
     id = models.IntegerField(primary_key=True)
     batch = models.IntegerField()
     program_id = models.CharField(max_length=5)
     course_code = models.CharField(max_length=10)
     teacher_id = models.CharField(max_length=12)
+
+# classroom notice
+class Class_notice(models.Model):
+    id = models.IntegerField(primary_key=True)
+    topic = models.CharField(max_length=15)
+    notice = models.CharField(max_length=150)
+    classroom = models.ForeignKey(Virtual_classroom,max_length=12,on_delete=models.CASCADE)
+
+# Enrollment Model
+class Enrollment(models.Model):
+    enrollment_id = models.IntegerField(primary_key=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Faculty,on_delete=models.CASCADE)
+    classroom = models.ForeignKey(Virtual_classroom,on_delete=models.CASCADE)
+    enrollment_date = models.DateField()
+    course_code = models.CharField(max_length=8)

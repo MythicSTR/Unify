@@ -80,7 +80,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             'student_id',
             'course_id',
             'enrollment_date',
-            'teacher_id'
+            'teacher_id',
+            'classroom_id',
         ]
 
 class FeedbackSerializer(serializers.ModelSerializer):
@@ -195,9 +196,7 @@ class class_noticeSerializer(serializers.ModelSerializer):
             'id',
             'notice',
             'topic',
-            'student_id',
-            'teacher_id',
-            'course_id'
+            'classroom_id'
         ]
 
 class virtual_classroomSerializer(serializers.ModelSerializer):

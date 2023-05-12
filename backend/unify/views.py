@@ -5,18 +5,7 @@ from django.contrib.auth import authenticate, login,logout
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.http import JsonResponse
-from main.models import Student
-from main.models import Faculty
-from main.models import Enrollment
-from main.models import Department,School
-from main.models import Course
-from main.models import Feedback
-from main.models import Ku_events
-from main.models import Dept_events
-from main.models import Reply
-from main.models import Routine
-from main.models import Classrooms
-from main.models import Class_notice
+from main.models import Student,Faculty,Enrollment,Department,Course,Feedback,Ku_events,Dept_events,Reply,Routine,Classrooms,Class_notice,Virtual_classroom,Programs
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 from django.forms.models import model_to_dict
@@ -526,7 +515,23 @@ def addClassroomNotice(request):
     except:
         return JsonResponse({'message':'error'},status=500)
     
-# #create classroom
-# @csrf_exempt
-# def createClassroom(request):
-#     if request.method == "POST":
+#create google classroom
+@csrf_exempt
+def createClassroom(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        batch = data.get('batch')
+        course_code = data.get('course_code')
+        program_id = data.get('program_id') 
+        user_id = data.get('user_id')
+
+    try:
+        program = Programs.objects.filter(id__iexact=program_id)
+        course = Course.objects.filter(course_code__iexact=course_code)
+        if program.exists() & course.exists():
+            Virtual_classroom.objects.create(batch=batch,course_code=course_code,program_id=program_id,teacher_id=user_id)
+            return JsonResponse({'message':'working'},status=400)
+        else:
+            return JsonResponse({'message':'incorrect credentials'},status=500)
+    except:
+        return JsonResponse({'message':'error'},status=500)
