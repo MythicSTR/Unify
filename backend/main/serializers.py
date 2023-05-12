@@ -188,7 +188,7 @@ class classroomsSerializer(serializers.ModelSerializer):
             'lab'
         ]
 
-class classclass_noticeSerializer(serializers.ModelSerializer):
+class class_noticeSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Class_notice
         fields = [
@@ -198,4 +198,15 @@ class classclass_noticeSerializer(serializers.ModelSerializer):
             'student_id',
             'teacher_id',
             'course_id'
+        ]
+
+class virtual_classroomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Virtual_classroom
+        fields = [
+            'id',
+            'course_code',
+            'program_id'
+            'teacher_id',
+            'batch'
         ]
