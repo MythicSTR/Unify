@@ -62,6 +62,7 @@ def generate_jwt_token(email,_id,dept_id,role):
     # Return the JWT token as a string
     return token.decode('utf-8')
 
+#login
 @csrf_exempt
 def login_view(request):
     if request.method == "POST":
@@ -122,8 +123,10 @@ def enrollment_course(request):
         else:
             try:
                 # what = Enrollment.objects.create(enrollment_date=datetime.today().date(),course_id=course_code,student_id=student_id)
-                count = Enrollment.objects.filter().count()
-                Enrollment.objects.create(enrollment_id=count+1,enrollment_date=enrollment_date,course_id=course_id[0],student_id=student_id,course_code=course_code,teacher_id=teacher_id)
+                # count = Enrollment.objects.filter().count()
+                id = Virtual_classroom.objects.filter(teacher_id=teacher_id,course_code__iexact=course_code).values_list('id')[0]
+                print(id[0])
+                Enrollment.objects.create(enrollment_date=enrollment_date,course_id=course_id[0],student_id=student_id,course_code=course_code,teacher_id=teacher_id,classroom_id=id[0])
                 return JsonResponse({'message':'succesfully enrolled'},status=400)
             except:
                 return JsonResponse({'message':'Invalid'},status=200)
@@ -412,7 +415,7 @@ def routine_generator(request):
     except:
         return JsonResponse({"message":"error from first try block"},status=500)
 
-#get student classroom    
+#get student classroom - student ko view
 @csrf_exempt
 def get_student_classroom(request):
     if request.method == "POST":
@@ -426,7 +429,7 @@ def get_student_classroom(request):
     except:
         return JsonResponse({'message':'error'},status=500)
 
-#get teacher classroom
+#get teacher classroom - teacher ko view
 @csrf_exempt
 def get_teacher_classroom(request):
     if request.method == "POST":
@@ -434,7 +437,8 @@ def get_teacher_classroom(request):
         teacher_id = data.get('user_id')
 
         try:
-            courses = list(Enrollment.objects.filter(teacher_id = teacher_id).values('course_code','course_id').distinct())
+            # courses = list(Virtual_classroom.objects.filter(teacher_id = teacher_id).values('course_code','course_id'))
+            courses = list(Virtual_classroom.objects.filter(teacher_id = teacher_id).values('course_code','program_id','batch'))
             return JsonResponse(courses,safe=False)
         except:
             return JsonResponse({'message':'error'},status=500)
@@ -499,7 +503,6 @@ def forgotPassword(request):
         return JsonResponse({'message':'error'},status=500)
 
 #add classroom notice
-#needs to be worked on
 @csrf_exempt
 def addClassroomNotice(request):
     if request.method == "POST":
@@ -507,10 +510,11 @@ def addClassroomNotice(request):
         topic = data.get('topic')
         notice = data.get('notice')
         user_id = data.get('user_id')
-        course_id = data.get('course_id')
+        course_code = data.get('course_code')
 
     try:
-        Class_notice.objects.create(teacher_id=user_id,course_id=course_id,topic=topic,notice=notice)
+        id = Virtual_classroom.objects.filter(teacher_id=user_id,course_code__iexact=course_code).values_list('id')[0]
+        Class_notice.objects.create(topic=topic,notice=notice,classroom_id=id[0])
         return JsonResponse({'message':'Ok'},status=400)
     except:
         return JsonResponse({'message':'error'},status=500)
