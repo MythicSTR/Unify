@@ -15,6 +15,7 @@ import ForgotForm from "./Pages/forgotpassword";
 import ChangeForm from "./Pages/changepassword";
 import TeacherAttendance from "./components/TeacherAttendance";
 import StudentAttendance from "./components/StudentAttendance";
+import TeacherMessage from "./components/messages";
 import Enrollment from "./components/Entrollment";
 import AdminEvents from "./components/AdminEvents";
 import setAuthToken from './redux/utils/setAuthToken';
@@ -71,6 +72,7 @@ function App() {
               {user.isFaculty && <Route path='/faculty/enroll' element = {<Enrollment />}></Route>}
               {user.isFaculty && <Route path='/faculty/events' element = {<TeacherEvent />}></Route>}
               {user.isFaculty && <Route path='/faculty/routine' element = {<TeacherRoutine />}></Route>}
+              {user.isFaculty && <Route path='/faculty/report' element = {<TeacherMessage />}></Route>}
               {/* <Route path='/faculty/school' element = {<Admin school/>}></Route>
               <Route path='/faculty/department' element = {<Admin department/>}></Route>
               <Route path='/faculty/faculty' element = {<Admin faculty/>}></Route>
