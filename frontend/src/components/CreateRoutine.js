@@ -94,7 +94,7 @@ function CreateRoutine() {
         const requestData = {
             dept_id: "DOCSE",
             batch: 2020,
-            program_id: "CS",
+            program_id: "Computer Science",
             user_id : user.user_id,
             dept_id : user.dept_id
         };
