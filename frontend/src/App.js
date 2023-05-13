@@ -72,9 +72,8 @@ function App() {
               {user.isFaculty && <Route path='/faculty/attendance' element = {<Faculty attendance/>}></Route>}
               {user.isFaculty && <Route path='/faculty/enroll' element = {<Enrollment />}></Route>}
               {user.isFaculty && <Route path='/faculty/events' element = {<TeacherEvent />}></Route>}
-              {user.isFaculty && <Route path='/faculty/routine' element = {<TeacherRoutine />}></Route>}
-              {user.isFaculty && <Route path='/faculty/report' element = {<TeacherMessage />}></Route>}
               {user.isFaculty && <Route path='/faculty/routine' element = {<CreateRoutine />}></Route>}
+              {user.isFaculty && <Route path='/faculty/report' element = {<TeacherMessage />}></Route>}
               {/* <Route path='/faculty/school' element = {<Admin school/>}></Route>
               <Route path='/faculty/department' element = {<Admin department/>}></Route>
               <Route path='/faculty/faculty' element = {<Admin faculty/>}></Route>

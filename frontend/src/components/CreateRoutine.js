@@ -3,6 +3,9 @@ import axios from "axios";
 import Navbar from "../components/FacultyNavbar";
 import { getCookie } from '../utils.js';
 import "../styles/StudentRoutine.css";
+import jwtDecode from "jwt-decode";
+const token = localStorage.getItem("jwtToken")
+const user = jwtDecode(token)
 
 function CreateRoutine() {
     const [departments, setDepartments] = useState([]);
@@ -91,7 +94,8 @@ function CreateRoutine() {
         const requestData = {
             dept_id: "DOCSE",
             batch: 2020,
-            program_id: "CS"
+            program_id: "CS",
+            user_id : user.user_id
         };
 
         try {
