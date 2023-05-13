@@ -1,126 +1,102 @@
-
-/* 
-.login_canvas{
-  background-image: url(https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=886&q=80);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #0069d9;
-} */
-
-.signin-form-container {
-    position:absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    height: 27rem;
-    width: 25rem;
-    padding-left:20px;
-    padding-right: 20px;
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
-    border-radius: 10px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+  .login-canvas{
+    background: url('https://img.freepik.com/free-vector/student-campus-flat-composition-with-university-building-background-vector-illustration_1284-81556.jpg?w=996&t=st=1683974654~exp=1683975254~hmac=3190901c365c6a3b4eeb5382eda88a1701028dc64d33b31d28a2330d3f69df5d');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
   }
-  
-  .form-group {
+  .signin-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 400px;
+    height: 85vh;
+    padding: 50px;
+    /* border: 1px solid #ddd; */
+    border-radius: 5px;
+    backdrop-filter: blur(2px);
+    background-color: rgba(255, 255, 255, 0.082);
+  }
+
+  .signin-form-container h1 {
     margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
   }
-  
-  label {
-    display: block;
+
+  .signin-form-container hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 2px solid #ffffff;
+    width: 100%;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 210%;
+  }
+
+  .form-group label {
     font-weight: bold;
     margin-bottom: 5px;
-    margin-right: 20px;
   }
-  
+
   .form-control {
-    display: block;
-    width: 85%;
     padding: 10px;
-    font-size: 13px;
-    border: none;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) inset;
-  }
-  
-  .form-check-input {
-    display: inline-block;
-    margin-right: 1px;
-  }
-  
-  .btn-primary {
-    display: block;
-    /* align-items: center; */
-    width: 95%;
-    padding: 10px;
+    border: 1px solid #ddd;
     font-size: 16px;
-    font-weight: bold;
-    border: none;
+    width: 15rem;
+  }
+
+  .login_button {
+    background-color: #00ccff;
+    color: #bd4040;
+    padding: 10px 20px;
     border-radius: 5px;
+    border: none;
+    font-size: 16px;
     cursor: pointer;
-    background-color: #5aa6f7;
-  }
-   
-    .emailField, .passField {
-      display: flex;  
-      align-items: center ;
-      justify-content: space-around;
-
-    }
-
-  .btn{
-    position :relative;
-    margin-bottom : 0px;
-    /* margin-right: 50px; */
+    transition: all 0.3s ease-in-out;
   }
 
-  .btn-primary:hover {
+  .login_button:hover {
     background-color: #0069d9;
   }
-    h1{
-    margin-left: 90px;
+
+  .forgot-change {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
   }
 
-.forgot-change{
-  display: flex;
-  margin-top: 10px;
-}
+  .fc_form-group a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
 
-.fc_form-group{
-  margin-left :5px;
-  margin-top: 10px;
-  flex:1;
-}
+  .signup-footer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
 
-.form-check-label:hover{
-  color:blue;
-  cursor: pointer;
-}
+  .unify {
+    margin-bottom: 5px;
+    font-size: 28px;
+    font-weight: bold;
+  }
 
-.signup-footer{
-  margin-top : 10px ;
-  margin-bottom : 0px;
-}
-
-.unify{
-  margin-left: 40%;
-  color:#999;
-  position: relative;
-  font-size: 30px;
-}
-
-.last{
-  justify-self: center;
-  color:#999;
-  font-size: 20px;
-  margin-left: 50px;
-}
-
-.header-name{
-  margin-top: 5px;
-  margin-left: 60px;
-  font-size: 30px;
-}
-
+  .last {
+    font-size: 14px;
+    color: #1d1b1b;
+  }
