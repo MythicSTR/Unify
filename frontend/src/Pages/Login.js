@@ -68,6 +68,8 @@ function LoginForm() {
   })
 
   return (
+    <div className='login-canvas'>
+    
     <div className="signin-form-container">
       <h1>Sign In</h1>
       <hr />
@@ -90,10 +92,10 @@ function LoginForm() {
               onChange={handleRememberMeChange}
             />
             <span className="form-check-label">Remember Me</span>
-          </label>
+          </label>  
         </div> */}
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="login_button">
           Sign In
         </button>
       </form>
@@ -116,6 +118,9 @@ function LoginForm() {
         <h4 className='last'>Kathmandu University &copy;Unify</h4>
       </div>
     </div>
+    </div>
+   
+
   );
 }
 
