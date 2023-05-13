@@ -126,7 +126,7 @@ function TeacherMessage() {
 
                     <div className="reply-container">
 
-                    {
+                    { 
                         response_replies.map((item)=>{
                           console.log(item)
                           if(feedback.id===item.feedback_id){
