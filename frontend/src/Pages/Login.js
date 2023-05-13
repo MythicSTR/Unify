@@ -74,11 +74,11 @@ function LoginForm() {
       <h1>Sign In</h1>
       <hr />
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="_form-group">
           <label htmlFor="email">Email:</label>
           <input type="email" id="email" className="form-control"  placeholder='Enter email address' value={email} onChange={handleEmailChange} />
         </div>
-        <div className="form-group">
+        <div className="_form-group">
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" className="form-control" placeholder='Enter password' value={password} onChange={handlePasswordChange} />
         </div>

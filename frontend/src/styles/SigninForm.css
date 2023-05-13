@@ -33,11 +33,11 @@
   width: 100%;
 }
 
-.form-group {
+._form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
-  width: 210%;
+  width: 120%;
 }
 
 .form-group label {

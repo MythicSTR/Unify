@@ -315,7 +315,7 @@ def routine(request):
         # course = data.get('course')
         block_no = data.get('block_no')
 
-    
+        print(routine,dept_id,program_id,batch)
     try:
         for item in routine:
             print(item)
