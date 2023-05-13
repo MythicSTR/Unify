@@ -142,7 +142,6 @@ const MyPopup = () => {
   const token = localStorage.getItem('jwtToken');
   const decodedToken = jwt_decode(token);
   const userId = decodedToken.user_id;
-console.log(userId)
   const [formData, setFormData] = useState({
     batch: '',
     course_code: '',
@@ -168,6 +167,7 @@ console.log(userId)
       .then(data => console.log(data))
       .catch(error => console.error(error));
   };
+  
  
   return (
     <Popup trigger={<button className='popup-plus'><span className='literallyplus'>+</span></button>} position="center center">
@@ -176,10 +176,10 @@ console.log(userId)
           <div className="form-group">
             <label htmlFor="batch">Batch:</label>
             <select
-              id="year"
-              name="year"
+              id="batch"
+              name="batch"
               className="form-control"
-              value={formData.year}
+              value={formData.batch}
               onChange={handleChange}
             >
               <option value="2017">2017</option>
@@ -194,21 +194,21 @@ console.log(userId)
             <label htmlFor="program">Program:</label>
             <input
               type="text"
-              id="program"
-              name="program"
+              id="program_id"
+              name="program_id"
               className="form-control"
-              value={formData.program}
+              value={formData.program_id}
               onChange={handleChange}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="course-code">Course Code:</label>
+            <label htmlFor="course_code">Course Code:</label>
             <input
               type="text"
-              id="course-code"
-              name="courseCode"
+              id="course_code"
+              name="course_code"
               className="form-control"
-              value={formData.courseCode}
+              value={formData.course_code}
               onChange={handleChange}
             />
           </div>

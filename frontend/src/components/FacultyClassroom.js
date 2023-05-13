@@ -1,48 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "../components/FacultyNavbar";
 import MyPopup from './Popup';
+import RenderTeacherClassroom from './RenderTeacherClassroom';
+import "../styles/FacultyClassroom.css";
 function FacultyClassroom() {
   
     return(
         <div>
-            <Navbar />
-            <div className="classroom">
-               
-                <div className="class-card">
-                    <div className="inner-card">
-                        <a href="#" className="class-title">MATH207</a>
-                        <p className="class-author">Shyam Sundar Shah</p>
-                    </div>
-
-                </div>
-                <div className="class-card">
-                <div className="inner-card">
-                    <a href="#" className="class-title">MATH207</a>
-                    <p className="class-author">Shyam Sundar Shah</p>
-                </div>
-
-            </div>
-                <div className="class-card">
-                    <div className="inner-card">
-                        <a href="#" className="class-title">MATH207</a>
-                        <p className="class-author">Shyam Sundar Shah</p>
-                    </div>
-                </div>
-                <div className="class-card">
-                <div className="inner-card">
-                    <a href="#" className="class-title">MATH207</a>
-                    <p className="class-author">Shyam Sundar Shah</p>
-                </div>
-            </div>
-                <div className="class-card">
-                    <div className="inner-card">
-                        <a href="#" className="class-title">MATH207</a>
-                        <p className="class-author">Shyam Sundar Shah</p>
-                    </div>
-                </div>
+        <Navbar />
+        <div className='faculty_container'>
+                <RenderTeacherClassroom/>
                 <MyPopup/>
                 </div>
-        </div>
+                </div>
     );
 }
 
