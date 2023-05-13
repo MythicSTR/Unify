@@ -48,7 +48,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Navbar from "./FacultyNavbar";
+import Navbar from "./StudentNavbar";
 import { getCookie } from "../utils.js";
 import "../styles/messages.css";
 import jwtDecode from "jwt-decode";
@@ -69,8 +69,8 @@ function TeacherMessage() {
       'email' : user.user_mail
     })
     response = _response.data
-    // console.log(response)
-    // console.log(response.length)
+    console.log(`responses: ${response}`)
+    console.log(response.length)
     response_replies = response.map((item)=>{
       // console.log(item.id)
       // console.log(item.feedback_id)

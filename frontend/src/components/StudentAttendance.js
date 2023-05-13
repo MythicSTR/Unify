@@ -27,7 +27,7 @@ function StudentAttendance(props) {
         formField.append('status', 'Present');
         formField.append('course_id', 1);
         formField.append('faculty_id', 1);
-        formField.append('student_id', 1);
+        formField.append('student_id', 'SUSSCS200049');
 
         if(elapsedTime <= 5 && distance <= 50) {
             try {

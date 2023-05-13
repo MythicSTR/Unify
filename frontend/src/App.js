@@ -26,6 +26,7 @@ import Feedback from "./components/messages";
 import TeacherEvent from "./components/TeacherEvent";
 import NotFound from "./components/Notfound/Notfound";
 import StudentClassroom from "./components/StudentClassroom";
+import CreateRoutine from "./components/CreateRoutine";
 // import TeacherRoutine from "./components/TeacherRoutine";
 //import withAuthorization from "./withAuthorization";
 
@@ -73,6 +74,7 @@ function App() {
               {user.isFaculty && <Route path='/faculty/events' element = {<TeacherEvent />}></Route>}
               {user.isFaculty && <Route path='/faculty/routine' element = {<TeacherRoutine />}></Route>}
               {user.isFaculty && <Route path='/faculty/report' element = {<TeacherMessage />}></Route>}
+              {user.isFaculty && <Route path='/faculty/routine' element = {<CreateRoutine />}></Route>}
               {/* <Route path='/faculty/school' element = {<Admin school/>}></Route>
               <Route path='/faculty/department' element = {<Admin department/>}></Route>
               <Route path='/faculty/faculty' element = {<Admin faculty/>}></Route>

@@ -101,3 +101,19 @@ th,td {
     pointer-events: none;
     border: 1px solid #fe3e64
 }
+
+.dropdown-container {
+    margin: 5vh 10vw 5vh 20vw;
+}
+
+.selected {
+    background-color: royalblue;
+}
+
+.class-form-field-container {
+    margin: 5vh 10vw 5vh 20vw;
+}
+
+input {
+    margin-bottom: 3vh;
+}

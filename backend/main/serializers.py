@@ -72,6 +72,17 @@ class DepartmentSerializer(serializers.ModelSerializer):
             'school',
         ]
 
+class ProgramSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Programs
+        fields = [
+            'id',
+            'dept_id',
+            'school_id',
+            'name',
+            'capacity',
+        ]
+
 class EnrollmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Enrollment
