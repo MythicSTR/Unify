@@ -73,6 +73,56 @@ function StudentRoutine() {
     return cell ? cell.course : "---";
   }
 
+const mergeCells = (rowData) => {
+  const mergedCells = [];
+
+  let currentCell = null;
+  let spanCount = 1;
+
+  for (let i = 0; i < rowData.length; i++) {
+    const cellValue = rowData[i];
+
+    if (currentCell === null) {
+      currentCell = {
+        value: cellValue,
+        span: 1,
+      };
+    } else if (currentCell.value === cellValue && cellValue !== '---') {
+      currentCell.span += 1;
+      spanCount = currentCell.span;
+    } else {
+      mergedCells.push(currentCell);
+      currentCell = {
+        value: cellValue,
+        span: 1,
+      };
+    }
+
+    // Handle last column separately to avoid skipping
+    if (i === rowData.length - 1) {
+      if (cellValue === currentCell.value && cellValue !== '---') {
+        currentCell.span += 1;
+      } else if (cellValue !== '---') {
+        mergedCells.push(currentCell);
+        currentCell = {
+          value: cellValue,
+          span: 1,
+        };
+      }
+      mergedCells.push(currentCell);
+    }
+  }
+
+  // Update the span of the last merged cell to cover remaining columns
+  if (spanCount !== timeInHours.length && currentCell !== null && currentCell.value !== '---') {
+    currentCell.span += timeInHours.length - spanCount;
+  }
+
+  return mergedCells;
+};
+
+
+/*
   const mergeCells = (rowData) => {
     const mergedCells = [];
 
@@ -110,7 +160,7 @@ function StudentRoutine() {
 
     return mergedCells;
   }
-
+*/
   const getRowData = (day) => {
   const rowData = []; // Array to store the course values or '---'
 

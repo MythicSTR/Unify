@@ -80,6 +80,18 @@ def DepartmentList(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+def ProgramList(request):
+    programs = models.Programs.objects.all()
+    serializer = ProgramSerializer(programs, many=True)
+
+    # Modify the serialized data to include the 'id' field
+    # serialized_data_with_id = [
+    #     {**item['fields'], 'id': item['pk']} for item in serializer.data
+    # ]
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
 def DepartmentDetail(request, pk):
     department = models.Department.objects.get(department_id=pk)
     serializer = DepartmentSerializer(department, many=False)

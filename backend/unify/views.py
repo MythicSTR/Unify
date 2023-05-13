@@ -318,9 +318,21 @@ def routine(request):
     
     try:
         for item in routine:
-            hours = item.end_time - item.start_time
-            Routine.objects.create(dept_id=dept_id,program_id=program_id,batch=batch,week_day=item.week_day,start_time=item.start_time,end_time=item.end_time,hours=hours,block_no=block_no,course=item.course)
-        return JsonResponse({'message':'sucess'},status=400)
+            print(item)
+            hours = item['end_time'] - item['start_time']
+            Routine.objects.create(
+                dept_id=dept_id,
+                program_id=program_id,
+                batch=batch,
+                week_day=item['week_day'],
+                start_time=item['start_time'],
+                end_time=item['end_time'],
+                hours=hours,
+                block_no=block_no,
+                course=item['course']
+            )
+            
+        return JsonResponse({'message':'sucess'},status=200)
     except:
         return JsonResponse({'message':'error'},status=500)
     
