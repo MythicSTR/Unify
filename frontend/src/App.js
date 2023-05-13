@@ -92,7 +92,7 @@ function App() {
               {user.isStudent && <Route path = '/student/routine' element = {<StudentRoutine />}></Route>}
               {user.isStudent && <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>}
               {user.isStudent && <Route path = '/student/attendance' element = {<StudentAttendance />}></Route>}
-              {user.isStudent && <Route path = '/student/messages' element = {<Feedback />}></Route>}
+              {/* {user.isStudent && <Route path = '/student/messages' element = {<Feedback />}></Route>} */}
               {user.isStudent && <Route path = '/student/classroom' element = {<StudentClassroom />}></Route>}
               
               <Route path = '/teacher/feedback' element = {<TeacherFeedback />}></Route>

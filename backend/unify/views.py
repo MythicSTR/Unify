@@ -564,3 +564,30 @@ def get_classroom_notices_for_student(request):
         return JsonResponse(notices,safe=False)
     except:
         return JsonResponse({'message':'error'},status=500)
+    
+#get feedbacks for student
+@csrf_exempt
+def extract_feedback_for_student(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        id = data.get('id')
+        reply = []
+        new_list = []
+        
+        try:
+            feedbacks = Feedback.objects.filter(student_id=id)
+            for feedback in feedbacks:
+                replies = Reply.objects.filter(feedback_id = feedback.id)
+                if replies.exists():
+                    reply.append(replies.values())
+
+            for qs in reply:
+                for item in qs:
+                    new_list.append(item)
+
+            feedback_list = list(feedbacks)
+            feedback_dict_list = [model_to_dict(feedback) for feedback in feedback_list]
+            send = feedback_dict_list + new_list
+            return JsonResponse(send,safe=False)
+        except:
+            return JsonResponse({'message':'Error'},status=500)

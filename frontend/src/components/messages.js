@@ -48,7 +48,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Navbar from "./StudentNavbar";
+import Navbar from "./FacultyNavbar";
 import { getCookie } from "../utils.js";
 import "../styles/messages.css";
 import jwtDecode from "jwt-decode";
