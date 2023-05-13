@@ -337,25 +337,30 @@ def routine(request):
         return JsonResponse({'message':'error'},status=500)
     
 #to extract routine 
+#batch kasari extract garne tyo kura baki cha
 @csrf_exempt
 def get_routine(request):
     if request.method == "POST":
         data = json.loads(request.body)
         batch = data.get('batch')
-        program_id = data.get('program_id')
+        program = data.get('program_id')
         user_id = data.get('user_id')
+        dept_id = data.get('dept_id')
 
     try:
-        dept_id = Student.objects.filter(student_id=user_id).values_list('dept_id')[0]
-        # batch = Student.objects.filter(student_id=user_id).values('admission_date')[0]
-        # print(dept_id)
-        # print(batch.year)
-        # year_value = batch.strftime("%Y")
-        # print(year_value)
-        routine = Routine.objects.filter(dept_id=dept_id,batch=batch,program_id=program_id)
-        _object = list(routine)
-        object = [model_to_dict(item) for item in _object]
-        return JsonResponse(object,safe=False)
+        student = Student.objects.filter(student_id=user_id)
+        if student.exists():
+            program_id = Programs.objects.filter(dept_id=dept_id).values_list('id')[0]
+            routine = Routine.objects.filter(dept_id=dept_id,batch=batch,program_id=program_id[0])
+            _object = list(routine)
+            object = [model_to_dict(item) for item in _object]
+            return JsonResponse(object,safe=False)
+        else:
+            program_id = Programs.objects.filter(name__iexact=program).values_list('id')[0]
+            routine = Routine.objects.filter(dept_id=dept_id,batch=batch,program_id=program_id[0])
+            _object = list(routine)
+            object = [model_to_dict(item) for item in _object]
+            return JsonResponse(object,safe=False)
     except:
         return JsonResponse({"message":"error"},status=500)
     
@@ -540,7 +545,7 @@ def createClassroom(request):
         course_code = data.get('course_code')
         program_id = data.get('program_id') 
         user_id = data.get('user_id')
-    
+
     try:
         program = Programs.objects.filter(id__iexact=program_id)
         course = Course.objects.filter(course_code__iexact=course_code)

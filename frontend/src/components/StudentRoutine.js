@@ -17,7 +17,8 @@ function StudentRoutine() {
       const requestData = {
         user_id : user.user_id,
         batch: 2020,
-        program_id: "CS"
+        program_id: "CS",
+        dept_id : user.dept_id
       };
 
       try {

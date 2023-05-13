@@ -95,7 +95,8 @@ function CreateRoutine() {
             dept_id: "DOCSE",
             batch: 2020,
             program_id: "CS",
-            user_id : user.user_id
+            user_id : user.user_id,
+            dept_id : user.dept_id
         };
 
         try {
