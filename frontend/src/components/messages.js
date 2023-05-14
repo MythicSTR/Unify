@@ -67,7 +67,7 @@ function TeacherMessage() {
 
   useEffect(()=>{
     fetchFeedback();
-  }, [])
+  })
 
   const fetchFeedback = async () => {
     console.log("called")
