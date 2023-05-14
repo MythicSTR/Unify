@@ -67,7 +67,7 @@ function TeacherMessage() {
 
   useEffect(()=>{
     fetchFeedback();
-  }, [])
+  })
 
   const fetchFeedback = async () => {
     const _response = await axios.post('http://localhost:8000/extract_feedback/',{
