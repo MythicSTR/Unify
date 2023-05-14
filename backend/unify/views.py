@@ -160,6 +160,8 @@ def add_reply(request):
         data = json.loads(request.body)
         feedback_id = data.get('id')
         comment = data.get('comment')
+        print(comment)
+        print(feedback_id)
 
     try:
         Reply.objects.create(comment=comment,feedback_id=feedback_id)

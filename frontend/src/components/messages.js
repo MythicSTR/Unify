@@ -70,7 +70,6 @@ function TeacherMessage() {
   })
 
   const fetchFeedback = async () => {
-    console.log("called")
     const _response = await axios.post('http://localhost:8000/extract_feedback/',{
       'email' : user.user_mail
     })
