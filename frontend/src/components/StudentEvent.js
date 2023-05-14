@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import StudentEventCard from './EventCard';
 import Navbar from "../components/StudentNavbar";
+import "../styles/StudentEventCard.css";
 
 function StudentEvent() {
   const [data, setData] = useState([]);
@@ -67,7 +68,7 @@ function StudentEvent() {
   return (
     <div>
       <Navbar />
-      <div className='container'>
+      <div className='event-container'>
         <h1 className='display-1'>KU Events</h1>
         <div className='card-list-container'>
         {data2.map((item, index) => (

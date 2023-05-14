@@ -46,7 +46,7 @@
 // export default StudentMessage;
 
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import Navbar from "./FacultyNavbar";
 import { getCookie } from "../utils.js";
@@ -57,129 +57,105 @@ const user = jwtDecode(token)
 
 function TeacherMessage() {
   const [feedbackList, setFeedbackList] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [feedback, setFeedback] = useState([]);
+  const [responseReplies, setResponseReplies] = useState([]);
+  
+  const [replyContent, setReplyContent] = useState("");
+  const [showReplyBox, setShowReplyBox] = useState(false);
+  const [selectedThread, setSelectedThread] = useState(null);
 
-  let response = '';
-  let response_replies = ''
   useEffect(()=>{
     fetchFeedback();
   })
+
   const fetchFeedback = async () => {
     console.log("called")
     const _response = await axios.post('http://localhost:8000/extract_feedback/',{
       'email' : user.user_mail
     })
-    response = _response.data
-    console.log(`responses: ${response}`)
-    console.log(response.length)
-    response_replies = response.map((item)=>{
-      // console.log(item.id)
-      // console.log(item.feedback_id)
-      if(item.feedback_id !== undefined)
-        // response_replies = response_replies + item
-        return item;
-    })
-    console.log(response_replies)
-}
-  // useEffect(() => {
-  //   const fetchFeedback = async () => {
-  //     const studentCode = getCookie("student_code");
-  //     const response = await axios.get(`http://localhost:8000/Teacherfeedback/?student=${studentCode}`);
-  //     setFeedbackList(response.data);
-  //   };
-  //   fetchFeedback();
-  // }, []);
+    setMessages(_response.data)
 
-  // const handleReply = async (e, feedbackId, replyText) => {
-  //   e.preventDefault();
-  //   const response = await axios.post(`http://localhost:8000/Teacherfeedback/${feedbackId}/reply/`, {
-  //     reply: replyText,
-  //   });
-  //   setFeedbackList(
-  //     feedbackList.map((feedback) =>
-  //       feedback.id === feedbackId ? { ...feedback, reply: response.data.reply } : feedback
-  //     )
-  //   );
-  // };
+    setFeedback(messages.filter(item => !item.hasOwnProperty('feedback_id')));
+
+    setResponseReplies(messages.filter(item => item.hasOwnProperty('feedback_id')));
+
+    console.log(feedback)
+  }
+
+  const handleReplyButtonClick = (threadId) => {
+    setShowReplyBox(!showReplyBox)
+    setSelectedThread(threadId);
+  }
+
+  const handleReplyContentChange = (event) => {
+    setReplyContent(event.target.value)
+  }
+
+  const handlePostReplyClick = async (id) => {
+    setReplyContent(replyContent);
+    
+    const feedData = {
+      id: id,
+      comment: replyContent
+    }
+
+    try {
+      const response = await fetch('http://localhost:8000/add_reply/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(feedData)
+      });
+    } catch (error) {
+      console.log("Error sending data: ", error);
+    }
+  }
+
 
   return (
     <>
       <Navbar />
-      <div className="container">
-        <h3 className="text-center">Teacher Feedback</h3>
+      <div className="messages-container">
+        <h1>Feedback</h1>
+        <hr />
+        <div className="feedback-container">
+          {feedback.map((feed, index) => {
+            const replies = responseReplies.filter(reply => feed.id === reply.feedback_id)
 
-        {response.length === 0 && (
-          <div className="no-feedback text-center">
-            <p>No feedback to display</p>
-          </div>
-        )}
-
-        {
-          response.length > 0 && (
-            <div className="feedback-container">
-
-              {
-                response.map((feedback,index) => {
-                  console.log("called response");
-                  <div className="response-item" key={index}>
-                    <div className="feedback-topic">{feedback.topic}</div>
-                    <div className="feedback-message">{feedback.comment}</div>
-
-                    <div className="reply-container">
-
-                    { 
-                        response_replies.map((item)=>{
-                          console.log(item)
-                          if(feedback.id===item.feedback_id){
-                            <div className="reply-item">
-                              <div className="reply-message">{item.comment}</div>
-                            </div>
-                          }
-                        })
-                    }
-
-                    </div>
+            return (
+              <div>
+                <div className="feedback-card">
+                  <div className="feedback-title">{feed.student}</div>
+                  <div className="feedback-message">{feed.comment}</div>
+                  <button className="reply-button" onClick={() => handleReplyButtonClick(index)}>Reply</button>
+                  {showReplyBox && selectedThread === index && (<div className="reply-box">
+                    <textarea
+                      className="reply=textarea"
+                      value={replyContent}
+                      onChange={handleReplyContentChange} 
+                      >
+                    </textarea>
+                    <button 
+                      className="post-reply-button"
+                      onClick={() => handlePostReplyClick(feed.id)}
+                    >
+                      Post
+                    </button>
                   </div>
-              })
-              }
-
-            </div>
-          )
-        }
-        {/* {feedbackList.length > 0 && (
-          <div className="feedback-container">
-            {feedbackList.map((feedback, index) => (
-              <div className="feedback-item" key={index}>
-                <div className="feedback-topic">{feedback.topic}</div>
-                <div className="feedback-message">{feedback.comment}</div>
-
-                <div className="reply-container">
-                  {feedback.reply && (
-                    <div className="reply-item">
-                      <div className="reply-message">{feedback.reply}</div>
-                    </div>
-                  )}
-
-                  {!feedback.reply && (
-                    <form onSubmit={(e) => handleReply(e, feedback.id, e.target.replyText.value)}>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Write a reply"
-                          name="replyText"
-                        />
-                      </div>
-
-                      <button type="submit" className="btn btn-primary">
-                        Reply
-                      </button>
-                    </form>
                   )}
                 </div>
+                {replies.map((reply, index) => (
+                  <div className="reply-card">
+                    <div className="reply-title">{reply.student}</div>
+                    <div className="reply-message">{reply.comment}</div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}  */}
+            )
+          })}
+        </div>
       </div>
     </>
   );

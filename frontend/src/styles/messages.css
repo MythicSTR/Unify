@@ -1,122 +1,39 @@
 /* Styles for feedback container */
-.container {
+.messages-container {
   margin-top: 1rem;
-  justify-content: center;
-  align-items: center;
-}
-.feedback-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
+  margin-left: 20rem;
+  margin-right: 2rem;
 }
 
-.feedback-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
-  margin-bottom: 20px;
-  padding: 10px;
-  width: 80%;
+.feedback-card {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding: 0.8rem 0.8rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.feedback-topic {
+.feedback-title {
+  font-family: sans-serif;
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 10px;
+  color: rgba(13,110,253,255);
 }
 
-.feedback-message {
-  margin-bottom: 10px;
+.reply-card {
+  margin-left: 4rem;
+  margin-bottom: 1rem;
+  padding: 0.8rem 0.8rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-/* Styles for reply container */
-.reply-container {
-  margin-top: 20px;
-  width: 100%;
-}
-
-.reply-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
-  margin-top: 10px;
-  padding: 10px;
-}
-
-.reply-message {
-  margin-bottom: 10px;
-}
-
-/* Styles for reply form */
-.form-group {
-  margin-bottom: 10px;
-}
-
-.form-control {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid black;
-  border-radius: 4px;
-  font-size: 16px;
-  font-family: inherit;
-}
-
-.btn-primary {
-  padding: 10px 20px;
-  background-color: blue;
-  color: white;
+.reply-button {
+  margin-top: 0.4rem;
+  font-size: 14px;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  background-color: #fff;
+  color: grey;
 }
 
-.btn-primary:hover {
-  background-color: darkblue;
-}
-
-.feedback-container {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.feedback-item {
-  margin-bottom: 10px;
-}
-
-.feedback-topic {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.feedback-message {
-  margin-bottom: 10px;
-}
-
-.reply-container {
-  margin-top: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 5px;
-}
-
-.reply-item {
-  margin-bottom: 5px;
-}
-
-.reply-message {
-  margin-left: 5px;
-}
-.no-feedback {
-  margin-top: 50px;
-  font-size: 20px;
-  color: gray;
+.reply-button:Hover {
+  color: rgba(13,110,253,255);
 }
