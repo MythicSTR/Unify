@@ -1,3 +1,6 @@
+.event-container {
+  margin-left: 20rem;
+}
 .event-card {
     display: flex;
     flex-direction: column;
