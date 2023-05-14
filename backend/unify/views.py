@@ -456,6 +456,7 @@ def get_teacher_classroom(request):
         try:
             # courses = list(Virtual_classroom.objects.filter(teacher_id = teacher_id).values('course_code','course_id'))
             courses = list(Virtual_classroom.objects.filter(teacher_id = teacher_id).values('course_code','program_id','batch'))
+            print(courses)
             return JsonResponse(courses,safe=False)
         except:
             return JsonResponse({'message':'error'},status=500)

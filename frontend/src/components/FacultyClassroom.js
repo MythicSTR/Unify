@@ -8,11 +8,11 @@ function FacultyClassroom() {
     return(
         <div>
         <Navbar />
-        <div className='faculty_container'>
-                <RenderTeacherClassroom/>
-                <MyPopup/>
-                </div>
-                </div>
+            <div className='faculty_container'> 
+            <RenderTeacherClassroom/>
+            </div>
+        <MyPopup/>
+        </div>
     );
 }
 

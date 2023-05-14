@@ -1,5 +1,9 @@
-.faculty_container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+.faculty_container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    margin-left: 20rem;
+    cursor: pointer;
+  }
+  
+  

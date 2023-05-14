@@ -153,6 +153,9 @@ const MyPopup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const confirmation = () => {
+    window.alert(`${formData.program_id} class created`);
+  }
   const handleSubmit = e => {
     e.preventDefault();
     fetch('http://127.0.0.1:8000/createclassroom/', {
@@ -160,12 +163,23 @@ const MyPopup = () => {
       body: JSON.stringify(formData),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // include the JWT token in the headers
+        'Authorization': `Bearer ${token}` 
       }
     })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then((data) => {
+        console.log(data)
+        if(data.message === "working"){
+          const response = window.confirm(`${formData.course_code} class for ${formData.program_id} ${formData.batch} created`);
+          if(response){
+            window.location.href = "/faculty/classroom";
+                    }          
+        }
+        else
+        window.alert(`Error while creating ${formData.course_code} class`);
+      })
       .catch(error => console.error(error));
+  
   };
   
  
@@ -212,7 +226,7 @@ const MyPopup = () => {
               onChange={handleChange}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary" >
             Create
           </button>
         </form>

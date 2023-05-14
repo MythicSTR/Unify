@@ -1,15 +1,16 @@
 .popup-plus{
   width: 16rem;
   height: 10rem;
-  background: linear-gradient(90deg, rgba(50,172,113,255), rgb(152, 194, 150));
   border: 0.5px solid rgba(220,222,225,255);
   border-radius: 5px;
+  margin-left: 22rem;
+  background-color: rgb(190, 241, 241);
 }
 
 .literallyplus{
     font-size: 80px;
     font-weight: 100;
-    color: rgb(255, 255, 255);
+    color: rgb(2, 2, 2);
 }
 .popup-content {
   margin: auto;
