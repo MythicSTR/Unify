@@ -11,25 +11,27 @@ function Attendance() {
     
 
     const attendanceSession = async() => {
-        const currentTime = new Date();
-        let formField = new FormData()
-
-        const attendance = {time: currentTime, location};
-        localStorage.setItem('attendance', JSON.stringify(attendance));
-
-        formField.append('faculty_id', 1)
-        formField.append('lat', location.coordinates.lat)
-        formField.append('lng', location.coordinates.lng)
-
-        try {
-            axios.post("http://127.0.0.1:8000/attendance/faculty/", formField, {headers: {'X-CSRFToken': getCookie('csrftoken')}}).then((response) => {
-                console.log(response.data)
-            })
-        } catch(error) {
-            console.log(error)
+        console.log(location)
+        const sessionData = {
+            faculty_id: 1,
+            program_id: 'CS',
+            batch: 2020,
+            latitude: location.coordinates.lat,
+            longitude: location.coordinates.lng,
+            start_time: new Date()
         }
 
-        return attendance;
+        try {
+            const response = await fetch('http://localhost:8000/start_session/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(sessionData)
+            });
+        } catch (error) {
+            console.log("Error sending data", error);
+        }
     }
 
     return (

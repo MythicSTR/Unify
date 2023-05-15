@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login,logout
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.http import JsonResponse
-from main.models import Student,Faculty,Enrollment,Department,Course,Feedback,Ku_events,Dept_events,Reply,Routine,Classrooms,Class_notice,Virtual_classroom,Programs
+from main.models import Student,Faculty,Enrollment,Department,Course,Feedback,Ku_events,Dept_events,Reply,Routine,Classrooms,Class_notice,Virtual_classroom,Programs,Session
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 from django.forms.models import model_to_dict
@@ -599,3 +599,48 @@ def extract_feedback_for_student(request):
             return JsonResponse(send,safe=False)
         except:
             return JsonResponse({'message':'Error'},status=500)
+
+@csrf_exempt
+def start_session(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        print("Received data:", data)
+
+    try:
+        new_session = Session()
+
+        new_session.faculty_id = data.get('faculty_id')
+        new_session.program_id = data.get('program_id')
+        new_session.batch = data.get('batch')
+        new_session.latitude = data.get('latitude')
+        new_session.longitude = data.get('longitude')
+        start_time_str = data.get('start_time')
+        start_time = datetime.strptime(start_time_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+        new_session.start_time = start_time
+
+        new_session.save()
+
+        return JsonResponse({'message': 'success'}, status=200)
+    except Exception as e:
+        print(str(e))
+        return JsonResponse({'message': 'error'}, status=500)
+
+@csrf_exempt
+def get_session(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+    try:
+        session = Session.objects.filter(
+            faculty_id = data.get('faculty_id'),
+            program_id = data.get('program_id'),
+            batch = data.get('batch')
+        )
+
+        _session = serializers.serialize('json', session)
+        __session = [model_to_dict(item) for item in session]
+
+        return JsonResponse(__session, safe=False)
+    except Exception as e:
+        print(str(e))
+        return JsonResponse({'message': 'error'}, status=500)

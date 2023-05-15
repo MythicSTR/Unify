@@ -188,3 +188,13 @@ class Enrollment(models.Model):
     classroom = models.ForeignKey(Virtual_classroom,on_delete=models.CASCADE)
     enrollment_date = models.DateField()
     course_code = models.CharField(max_length=8)
+
+# Attendance Session Model
+class Session(models.Model):
+    id = models.IntegerField(primary_key=True)
+    faculty_id = models.CharField(max_length=12)
+    program_id = models.CharField(max_length=12)
+    batch = models.IntegerField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    start_time = models.TimeField()
