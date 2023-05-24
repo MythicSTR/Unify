@@ -81,7 +81,7 @@ function StudentFeedback() {
   return (
     <div>
     <StudentNavbar />
-    <div className="border w-25 p-4 position-absolute top-50 start-50 translate-middle">
+    <div className="border w-25 p-4 position-absolute top-50 start-50 translate-middle" style={{ marginTop: '1rem' }}>
       <div class="form-group">
         <label for="exampleFormControlTextarea1" class="form-label">
           School
