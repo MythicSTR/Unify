@@ -24,6 +24,7 @@ import store from './redux/utils/store';
 import jwt_decode from 'jwt-decode';
 import Feedback from "./components/messages";
 import TeacherEvent from "./components/TeacherEvent";
+import Coordinator from "./components/Coordinator";
 import NotFound from "./components/Notfound/Notfound";
 import StudentClassroom from "./components/StudentClassroom";
 import CreateRoutine from "./components/CreateRoutine";
@@ -69,6 +70,7 @@ function App() {
               {user.isAdmin && <Route path='/admin/room' element = {<Admin room/>}></Route>}
               {user.isAdmin && <Route path='/admin/enrollment' element = {<Admin enrollment/>}></Route>}
               {user.isAdmin && <Route path='/admin/events' element = {<Admin addKuEvents/>}></Route>}
+              {user.isAdmin && <Route path='/admin/coordinator' element = {<Admin coordinator/>}></Route>}
 
               {user.isFaculty && <Route path='/faculty' element = {<Faculty />}></Route>}
               {user.isFaculty && <Route path='/faculty/attendance' element = {<Faculty attendance/>}></Route>}

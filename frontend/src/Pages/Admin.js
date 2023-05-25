@@ -12,7 +12,7 @@ import Faculty from '../components/faculty'
 import Building from '../components/Building';
 import AddKuEvents from '../components/AddKuEvents';
 import Course from '../components/Course';
-
+import Coordinator from '../components/Coordinator';
 function Admin(props) {
     return (
         <div>
@@ -27,6 +27,9 @@ function Admin(props) {
             {props.enrollment && <Enrollment/>}
             {props.addKuEvents && <AddKuEvents/>}
             {props.Course && <Course/>}
+            {props.coordinator && <Coordinator/>}
+
+
 
 
 
