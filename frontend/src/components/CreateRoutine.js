@@ -140,8 +140,6 @@ function CreateRoutine() {
                 console.error('Error fetching programs:', error);
             });
 
-
-        fetchRoutine();
     }, [])
 
     useEffect(() => {
@@ -361,6 +359,7 @@ const mergeCells = (rowData) => {
                         <option value="2020">2020</option>
                         <option value="2021">2021</option>
                     </select>
+                    <button onClick={() => fetchRoutine()}>Load</button>
                 </div>
                 <div class="table100 ver5 m-b-110">
                     <table data-vertable="ver5">
