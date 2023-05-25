@@ -80,6 +80,7 @@ function App() {
               {user.isFaculty && <Route path='/faculty/routine' element = {<CreateRoutine />}></Route>}
               {user.isFaculty && <Route path='/faculty/report' element = {<TeacherMessage />}></Route>}
               {user.isFaculty && <Route path = '/faculty/classroom' element = {<FacultyClassroom />}></Route>}
+              {user.isFaculty && <Route path = '/faculty/classroom/:course_code' element = {<Base />}></Route>}
              
               {/* <Route path='/faculty/school' element = {<Admin school/>}></Route>
               <Route path='/faculty/department' element = {<Admin department/>}></Route>

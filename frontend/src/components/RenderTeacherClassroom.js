@@ -34,6 +34,8 @@ function RenderTeacherClassroom() {
         course_code={item.course_code}
         program_id={item.program_id}
         batch={item.batch}
+        id = {item.id}
+
       />
     ))}
     </div>

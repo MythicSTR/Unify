@@ -6,7 +6,7 @@
     padding: 1rem;
     transition: all 0.3s ease-in-out;
     width: 18rem;
-    height: 10rem;
+    height: 12rem;
     margin: 2rem;
     background-color: #1c1d1c;
     color: #f8f9fa;
@@ -22,6 +22,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-decoration: none;
+
   }
   
   .course-id {
@@ -42,3 +44,6 @@
     margin-bottom: 0;
   }
   
+.link-decoration{
+  text-decoration: none;
+}

@@ -1,3 +1,11 @@
-.main-base-container{
-    margin: 5rem 0 0 15rem;
+.main-base-container {
+    margin: 2rem 0 0 15rem;
+}   
+
+.base-notice-section{
+    margin: 2rem 0 0 15rem;
+}
+
+.Submit-Button-Notice{
+    margin-left: 70rem;
 }

@@ -25,7 +25,7 @@ function RenderStudentClassroom() {
       .catch(error => console.log(error));
   },[userId] ); 
 
-//   console.log(classrooms);
+  console.log(classrooms) ;
  
   return (
     <div>
@@ -34,6 +34,7 @@ function RenderStudentClassroom() {
         course_code={item.course_code}
         batch = {item.batch}
         program_id = {item.program_id}
+        id = {item.id}
        />
     ))}
     </div>
