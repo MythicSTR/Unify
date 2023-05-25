@@ -590,15 +590,30 @@ def delete_classroom(request):
     except:
         return JsonResponse({'message':'error'},status=500)
 
-# load classrooms for student
+# load classrooms for teacher
 @csrf_exempt
-def get_classroom_notices_for_student(request):
+def get_classroom_tnotices(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        id = data.get('classroom')
+        id = data.get('id')
 
     try:
         notices =list(Class_notice.objects.filter(classroom_id=id).values('notice'))
+        return JsonResponse(notices,safe=False)
+    except:
+        return JsonResponse({'message':'error'},status=500)
+    
+# load classrooms for student
+@csrf_exempt
+def get_classroom_snotices(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        id = data.get('user_id')
+        course_code = data.get('course_code')
+
+    try:
+        classroom_id = Enrollment.objects.filter(student_id=id,course_code=course_code).values_list('classroom_id')[0]
+        notices =list(Class_notice.objects.filter(classroom_id=classroom_id[0]).values('notice'))
         return JsonResponse(notices,safe=False)
     except:
         return JsonResponse({'message':'error'},status=500)
