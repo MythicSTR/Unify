@@ -1,9 +1,10 @@
-.login-canvas{
+.login-canvas {
   background: url('https://img.freepik.com/free-vector/student-campus-flat-composition-with-university-building-background-vector-illustration_1284-81556.jpg?w=996&t=st=1683974654~exp=1683975254~hmac=3190901c365c6a3b4eeb5382eda88a1701028dc64d33b31d28a2330d3f69df5d');
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
 }
+
 .signin-form-container {
   display: flex;
   flex-direction: column;
@@ -77,8 +78,8 @@
 }
 
 .fc_form-group a {
-  text-decoration: none;
-  color: #007bff;
+  text-decoration: underline;
+  color: #222325;
   font-weight: bold;
 }
 

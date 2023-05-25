@@ -1,9 +1,10 @@
 .faculty_container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    margin-left: 20rem;
-    cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
+  margin: 2rem 0 0 8rem;
   }
   
-  
+ .item{
+  flex: 0 0 33.33%;
+ }

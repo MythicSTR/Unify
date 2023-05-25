@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/SigninForm.css';
+import '../styles/ForgotPassword.css';
 import jwtDecode from 'jwt-decode';
 
 function ForgotForm() {
@@ -60,21 +60,22 @@ function ForgotForm() {
   })
 
   return (
-    <div className="signin-form-container">
+    <div className='forgot-wrapper'>
+    <div className="forgot-form-container">
       <h1 className='header-name'>Forgot Password</h1>
       <hr />
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="__form-group">
           <label htmlFor="email">Email:</label>
-          <input type="email" id="email" className="form-control"  placeholder='Enter email address' value={email} onChange={handleEmailChange} />
+          <input type="email" id="email" className="_form-control"  placeholder='Enter email address' value={email} onChange={handleEmailChange} />
         </div>
-        <div className="form-group">
+        <div className="__form-group">
           <label htmlFor="email">KU ID:</label>
-          <input type="input" id="id" className="form-control"  placeholder='Enter KU ID' value={id} onChange={handleIDChange} />
+          <input type="input" id="id" className="_form-control"  placeholder='Enter KU ID' value={id} onChange={handleIDChange} />
         </div>
-        <div className="form-group">
+        <div className="__form-group">
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" className="form-control" placeholder='Enter password' value={password} onChange={handlePasswordChange} />
+          <input type="password" id="password" className="_form-control" placeholder='Enter password' value={password} onChange={handlePasswordChange} />
         </div>
 
         <button type="submit" className="btn btn-primary">
@@ -98,6 +99,7 @@ function ForgotForm() {
         <h1 className='unify'>UNIFY</h1>
         <h4 className='last'>Kathmandu University &copy;Unify</h4>
       </div>
+    </div>
     </div>
   );
 }

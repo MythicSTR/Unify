@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
-import IndividualClassroom from "../components/IndividualClassroom";
+import IndividualClassroom from "./IndividualClassroom";
 
 function RenderTeacherClassroom() {
   const token = localStorage.getItem('jwtToken');
@@ -28,7 +28,7 @@ function RenderTeacherClassroom() {
   console.log(classrooms);
  
   return (
-    <div>
+    <div className='faculty_container'>
     {classrooms.map((item, index) => (
       <IndividualClassroom 
         course_code={item.course_code}
