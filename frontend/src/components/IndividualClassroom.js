@@ -6,9 +6,9 @@ const IndividualClassroom = (props) => {
     <div className="individual-classroom-card-container">
       <div className="individual-classroom-card-inner">
         <p className="course-id">{props.course_code}</p>
+        <span className="program-id">{props.program_id} - <span className="batch">{props.batch}</span></span>
+        
         <hr/>
-        <p className="program-id">{props.program_id}</p>
-        <p className="batch">{props.batch}</p>
       </div>
     </div>
   );

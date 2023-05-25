@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/SigninForm.css';
+// import '../styles/SigninForm.css';
+import "../styles/ChangePassword.css";
 import jwtDecode from 'jwt-decode';
 
 function ChangeForm() {
@@ -61,19 +62,20 @@ function ChangeForm() {
   })
 
   return (
-    <div className="signin-form-container">
+    <div className='change_password_canvas'>
+    <div className="change-form-container">
       <h1 className='header-name'>Change Password</h1>
       <hr />
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="_form-group">
           <label htmlFor="email">Email:</label>
           <input type="email" id="email" className="form-control"  placeholder='Enter email address' value={email} onChange={handleEmailChange} />
         </div>
-        <div className="form-group">
+        <div className="_form-group">
           <label htmlFor="password">Old Password:</label>
           <input type="password" id="oldpassword" className="form-control" placeholder='Old Password' value={oldpassword} onChange={handleOldPasswordChange} />
         </div>
-        <div className="form-group">
+        <div className="_form-group">
           <label htmlFor="password">New Password:</label>
           <input type="password" id="newpassword" className="form-control" placeholder='New Password' value={newpassword} onChange={handleNewPasswordChange} />
         </div>
@@ -98,6 +100,7 @@ function ChangeForm() {
       <div className='signup-footer'>
         <h1 className='unify'>UNIFY</h1>
         <h4 className='last'>Kathmandu University &copy;Unify</h4>
+      </div>
       </div>
     </div>
   );
