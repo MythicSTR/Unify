@@ -90,12 +90,12 @@ function StudentAttendance(props) {
     }
 
     return (
-        <div style={{ marginTop: '3.8rem' }}>
+        <div>
           <Navbar />
           <button class="btn btn-primary" type="submit" onClick={markPresent}>
             Mark Present
           </button>
-        </div>
+          </div>
       );
     }
 export default StudentAttendance;
