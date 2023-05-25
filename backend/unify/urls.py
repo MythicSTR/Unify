@@ -49,4 +49,5 @@ urlpatterns = [
     path('createclassroom/',views.createClassroom,name='createclassroom'),
     path('getnotices/',views.get_classroom_notices_for_student),
     path('studentFeedbacks/',views.extract_feedback_for_student),
+    path('deleteclassroom/',views.delete_classroom,name='delete_classroom')
 ]

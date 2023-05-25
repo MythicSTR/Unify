@@ -9,6 +9,7 @@ from main.models import Student,Faculty,Enrollment,Department,Course,Feedback,Ku
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 from django.forms.models import model_to_dict
+from django.utils.crypto import get_random_string
 import jwt
 import numpy as np
 
@@ -552,11 +553,28 @@ def createClassroom(request):
     try:
         program = Programs.objects.filter(id__iexact=program_id)
         course = Course.objects.filter(course_code__iexact=course_code)
+        code = get_random_string(length=5)
         if program.exists() & course.exists():
-            Virtual_classroom.objects.create(batch=batch,course_code=course_code,program_id=program_id,teacher_id=user_id)
+            Virtual_classroom.objects.create(batch=batch,course_code=course_code,program_id=program_id,teacher_id=user_id,code=code)
             return JsonResponse({'message':'working'},status=400)
         else:
             return JsonResponse({'message':'incorrect credentials'},status=500)
+    except:
+        return JsonResponse({'message':'error'},status=500)
+
+@csrf_exempt
+def delete_classroom(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        id = data.get('id')
+
+    try:
+        deleted_count = Virtual_classroom.objects.filter(id=id).delete()[0]
+        print(deleted_count)
+        if deleted_count:
+            return JsonResponse({'message':'ok'},status=400)
+        else:
+            return JsonResponse({'message':'error'},status=500)
     except:
         return JsonResponse({'message':'error'},status=500)
 
