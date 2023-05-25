@@ -318,7 +318,6 @@ def routine(request):
         # course = data.get('course')
         block_no = data.get('block_no')
 
-        print(routine,dept_id,program_id,batch)
     try:
         for item in routine:
             print(item)
@@ -454,11 +453,20 @@ def get_student_classroom(request):
     if request.method == "POST":
         data = json.loads(request.body)
         student_id = data.get('user_id')
-
+        classrooms = []
+        new_list = []
     try:
-        _courses = list(Enrollment.objects.filter(student_id=student_id))
-        courses = [model_to_dict(item) for item in _courses]
-        return JsonResponse(courses,safe=False)
+        classroom_id = Enrollment.objects.filter(student_id=student_id).values_list('classroom_id')
+        for id in list(classroom_id):
+            store = Virtual_classroom.objects.filter(id=id[0])
+            if store.exists():
+                classrooms.append(store.values())
+
+        for qs in classrooms:
+            for item in qs:
+                new_list.append(item)
+
+        return JsonResponse(new_list,safe=False)
     except:
         return JsonResponse({'message':'error'},status=500)
 
