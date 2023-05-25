@@ -176,7 +176,6 @@ class Virtual_classroom(models.Model):
 # classroom notice
 class Class_notice(models.Model):
     id = models.IntegerField(primary_key=True)
-    topic = models.CharField(max_length=15)
     notice = models.CharField(max_length=150)
     classroom = models.ForeignKey(Virtual_classroom,on_delete=models.CASCADE)
 

@@ -345,22 +345,26 @@ def routine(request):
 def get_routine(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        batch = data.get('batch')
+        _batch = data.get('batch')
         program = data.get('program_id')
         user_id = data.get('user_id')
         dept_id = data.get('dept_id')
 
     try:
-        student = Student.objects.filter(student_id=user_id)
+        student = Student.objects.filter(student_id=user_id).values_list('admission_date')
+        user = student[0]
+        date = datetime.strptime(user[0], "%Y-%m-%d").date()
+        batch = date.year
+        print(user[0].date().year)
         if student.exists():
             program_id = Programs.objects.filter(dept_id=dept_id).values_list('id')[0]
-            routine = Routine.objects.filter(dept_id=dept_id,batch=batch,program_id=program_id[0])
+            routine = Routine.objects.filter(dept_id=dept_id,batch=_batch,program_id=program_id[0])
             _object = list(routine)
             object = [model_to_dict(item) for item in _object]
             return JsonResponse(object,safe=False)
         else:
             program_id = Programs.objects.filter(name__iexact=program).values_list('id')[0]
-            routine = Routine.objects.filter(dept_id=dept_id,batch=batch,program_id=program_id[0])
+            routine = Routine.objects.filter(dept_id=dept_id,batch=_batch,program_id=program_id[0])
             _object = list(routine)
             object = [model_to_dict(item) for item in _object]
             return JsonResponse(object,safe=False)
@@ -375,65 +379,74 @@ def routine_generator(request):
         data = json.loads(request.body)
         dept_id = data.get('dept_id')
         block_no = data.get('block_no')
-
-    #list of available classrooms in the given block
-    _rooms = Classrooms.objects.filter(blockno=block_no).values_list('classno')
-    rooms = list(_rooms)
-    rooms = [t[0] for t in rooms]
-
-    #list of time
-    times = [7,8,9,10,11,12,13,14,15]
-
-    #list of days
-    days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"]
-
-    #dictionary of routine for each day
-    routine_of_each_day = {"Sunday":[],"Monday":[],"Tuesday":[],"Wednesday":[],"Thursday":[],"Friday":[]}
-
+        id = data.get('id')
+    
     try:
-        for day in days:
-            for routine_of_day in routine_of_each_day:
-                get_value = Routine.objects.filter(dept_id=dept_id,week_day=day)
-                routine_of_each_day[day] = [model_to_dict(item) for item in get_value]
+        user = Coordinators.objects.filter(teacher_id=id)
+        if user.exists():
+             #list of available classrooms in the given block
+            _rooms = Classrooms.objects.filter(blockno=block_no).values_list('classno')
+            rooms = list(_rooms)
+            rooms = [t[0] for t in rooms]
 
-        # actual allocation of classrooms takes places here:
-        try:
-            for din in days:  #loops through each day
-                routine_of_given_day = routine_of_each_day[din]     #getting the routine of each day while looping through each day
-                classrooms = np.zeros((9,len(rooms)))   # matrix of classroom. With rows denoting time and columns denoting room
-                for x in range(7,16):   #looping through start_time
-                    for item in routine_of_given_day:  #for each class in the routine
-                        if item['start_time'] == x:  # with start time == start_time. Only runs if class exist at that time
-                            hours = item['hours']   # getting the class duration
-                            val = 1
-                            column = 0  #column refers to class room
-                            row = x # row refers to time
-                            while val <= hours:     # looping through the duration of class
-                                if classrooms[times.index(row)][column] == 0:
-                                    if val==hours:
-                                        #item['classno'] = rooms[column] 
-                                        Routine.objects.filter(id=item['id']).update(room_no=rooms[column])
-                                        val += 1
-                                        for i in range(hours):
-                                            classrooms[times.index(row-i)][column] = 1
-                                    else:   # checking for next hour ma class khali cha ki nai
-                                        if classrooms[times.index(row+1)][column] == 0:   # if available
-                                            val += 1
-                                            row += 1
-                                        else:   # if not available
+            #list of time
+            times = [7,8,9,10,11,12,13,14,15]
+
+            #list of days
+            days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"]
+
+            #dictionary of routine for each day
+            routine_of_each_day = {"Sunday":[],"Monday":[],"Tuesday":[],"Wednesday":[],"Thursday":[],"Friday":[]}
+
+            try:
+                for day in days:
+                    for routine_of_day in routine_of_each_day:
+                        get_value = Routine.objects.filter(dept_id=dept_id,week_day=day)
+                        routine_of_each_day[day] = [model_to_dict(item) for item in get_value]
+
+                # actual allocation of classrooms takes places here:
+                try:
+                    for din in days:  #loops through each day
+                        routine_of_given_day = routine_of_each_day[din]     #getting the routine of each day while looping through each day
+                        classrooms = np.zeros((9,len(rooms)))   # matrix of classroom. With rows denoting time and columns denoting room
+                        for x in range(7,16):   #looping through start_time
+                            for item in routine_of_given_day:  #for each class in the routine
+                                if item['start_time'] == x:  # with start time == start_time. Only runs if class exist at that time
+                                    hours = item['hours']   # getting the class duration
+                                    val = 1
+                                    column = 0  #column refers to class room
+                                    row = x # row refers to time
+                                    while val <= hours:     # looping through the duration of class
+                                        if classrooms[times.index(row)][column] == 0:
+                                            if val==hours:
+                                                #item['classno'] = rooms[column] 
+                                                Routine.objects.filter(id=item['id']).update(room_no=rooms[column])
+                                                val += 1
+                                                for i in range(hours):
+                                                    classrooms[times.index(row-i)][column] = 1
+                                            else:   # checking for next hour ma class khali cha ki nai
+                                                if classrooms[times.index(row+1)][column] == 0:   # if available
+                                                    val += 1
+                                                    row += 1
+                                                else:   # if not available
+                                                    column += 1
+                                                    val = 1
+                                                    row = x
+                                        else:
                                             column += 1
-                                            val = 1
-                                            row = x
-                                else:
-                                    column += 1
 
-                
-            return JsonResponse({'message':"working"},status=500)
-        except:
-            return JsonResponse({'message':'error from second try block'},status = 500)
+                        
+                    return JsonResponse({'message':"working"},status=500)
+                except:
+                    return JsonResponse({'message':'error from second try block'},status = 500)
+
+            except:
+                return JsonResponse({"message":"error from first try block"},status=500)
 
     except:
-        return JsonResponse({"message":"error from first try block"},status=500)
+        return JsonResponse({"message":"Invalid"},status=500)
+
+   
 
 #get student classroom - student ko view
 @csrf_exempt
@@ -528,14 +541,13 @@ def forgotPassword(request):
 def addClassroomNotice(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        topic = data.get('topic')
         notice = data.get('notice')
         user_id = data.get('user_id')
         course_code = data.get('course_code')
 
     try:
         id = Virtual_classroom.objects.filter(teacher_id=user_id,course_code__iexact=course_code).values_list('id')[0]
-        Class_notice.objects.create(topic=topic,notice=notice,classroom_id=id[0])
+        Class_notice.objects.create(notice=notice,classroom_id=id[0])
         return JsonResponse({'message':'Ok'},status=400)
     except:
         return JsonResponse({'message':'error'},status=500)
@@ -586,7 +598,7 @@ def get_classroom_notices_for_student(request):
         id = data.get('classroom')
 
     try:
-        notices =list(Class_notice.objects.filter(classroom_id=id).values('topic','notice'))
+        notices =list(Class_notice.objects.filter(classroom_id=id).values('notice'))
         return JsonResponse(notices,safe=False)
     except:
         return JsonResponse({'message':'error'},status=500)

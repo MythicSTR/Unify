@@ -206,7 +206,6 @@ class class_noticeSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'notice',
-            'topic',
             'classroom_id'
         ]
 
