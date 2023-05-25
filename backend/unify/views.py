@@ -562,6 +562,22 @@ def createClassroom(request):
     except:
         return JsonResponse({'message':'error'},status=500)
 
+@csrf_exempt
+def delete_classroom(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        id = data.get('id')
+
+    try:
+        deleted_count = Virtual_classroom.objects.filter(id=id).delete()[0]
+        print(deleted_count)
+        if deleted_count:
+            return JsonResponse({'message':'ok'},status=400)
+        else:
+            return JsonResponse({'message':'error'},status=500)
+    except:
+        return JsonResponse({'message':'error'},status=500)
+
 # load classrooms for student
 @csrf_exempt
 def get_classroom_notices_for_student(request):
