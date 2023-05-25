@@ -218,5 +218,6 @@ class virtual_classroomSerializer(serializers.ModelSerializer):
             'course_code',
             'program_id'
             'teacher_id',
-            'batch'
+            'batch',
+            'code'
         ]

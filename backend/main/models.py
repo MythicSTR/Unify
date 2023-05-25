@@ -171,6 +171,7 @@ class Virtual_classroom(models.Model):
     program_id = models.CharField(max_length=5)
     course_code = models.CharField(max_length=10)
     teacher_id = models.CharField(max_length=12)
+    code = models.CharField(max_length=5)
 
 # classroom notice
 class Class_notice(models.Model):
