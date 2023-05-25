@@ -221,3 +221,16 @@ class virtual_classroomSerializer(serializers.ModelSerializer):
             'batch',
             'code'
         ]
+
+class CoordinatorsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Coordinators
+        fields = [
+            'id',
+            'first_name',
+            'last_name',
+            'email',
+            'program_id',
+            'department_id',
+            'teacher_id'
+        ]

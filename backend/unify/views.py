@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login,logout
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.http import JsonResponse
-from main.models import Student,Faculty,Enrollment,Department,Course,Feedback,Ku_events,Dept_events,Reply,Routine,Classrooms,Class_notice,Virtual_classroom,Programs,Session
+from main.models import Student,Faculty,Enrollment,Department,Course,Feedback,Ku_events,Dept_events,Reply,Routine,Classrooms,Class_notice,Virtual_classroom,Programs,Session,Coordinators
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 from django.forms.models import model_to_dict
@@ -562,6 +562,7 @@ def createClassroom(request):
     except:
         return JsonResponse({'message':'error'},status=500)
 
+# To delete classroom
 @csrf_exempt
 def delete_classroom(request):
     if request.method == "POST":
@@ -570,7 +571,6 @@ def delete_classroom(request):
 
     try:
         deleted_count = Virtual_classroom.objects.filter(id=id).delete()[0]
-        print(deleted_count)
         if deleted_count:
             return JsonResponse({'message':'ok'},status=400)
         else:
@@ -618,6 +618,24 @@ def extract_feedback_for_student(request):
         except:
             return JsonResponse({'message':'Error'},status=500)
 
+
+#fetching students list in classrooms
+@csrf_exempt
+def getStudentList(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        id = data.get('classroom_id')
+
+    try:
+        students_id = Enrollment.objects.filter(classroom_id=id).values('student_id')
+        for student in students_id:
+            names = Student.objects.filter(student_id=student['student_id']).values_list('first_name','last_name')
+            print(names)
+        listNames = list(names)
+        return JsonResponse(listNames,safe=False)
+    except:
+        return JsonResponse({'message':'error'},status=500)
+
 @csrf_exempt
 def start_session(request):
     if request.method == "POST":
@@ -664,3 +682,27 @@ def get_session(request):
     except Exception as e:
         print(str(e))
         return JsonResponse({'message': 'error'}, status=500)
+
+#add program coordinator  
+@csrf_exempt
+def add_program_coordinator(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        email = data.get("email")
+        first_name = data.get("first_name")
+        last_name = data.get("last_name")
+        program = data.get("program_id")
+        dept_id = data.get("dept_id")
+    
+    try:
+        teacher_id = Faculty.objects.filter(email=email).values_list('faculty_id')
+        program_id = Programs.objects.filter(name__iexact=program).values_list('id')
+        #dept_id = Department.objects.filter(name__iexact=dept).values_list('department_id')
+        if program_id.exists() & teacher_id.exists():
+            Coordinators.objects.create(first_name=first_name,last_name=last_name,email=email,program_id=program_id,department_id=dept_id,teacher_id=teacher_id)
+            return JsonResponse({"message":"working"},status=500)
+        else:
+            return JsonResponse({'message':"not found"},status=401)
+
+    except:
+        return JsonResponse({'message':'error'},status=400)

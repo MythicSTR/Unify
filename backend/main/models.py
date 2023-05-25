@@ -198,3 +198,13 @@ class Session(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     start_time = models.TimeField()
+
+# Program Coordinator Model
+class Coordinators(models.Model):
+    id = models.IntegerField(primary_key=True)
+    first_name = models.CharField(max_length=15)
+    last_name = models.CharField(max_length=15)
+    email = models.CharField(max_length=15)
+    program = models.ForeignKey(Programs,on_delete=models.CASCADE)
+    department = models.ForeignKey(Department,on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Faculty,on_delete=models.CASCADE)
