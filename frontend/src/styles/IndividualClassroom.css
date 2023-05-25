@@ -12,7 +12,9 @@
     color: #f8f9fa;
 
   }
-  
+ .classroom{
+  margin-top: 5rem;
+ } 
   .individual-classroom-card-container:hover {
     transform: translateY(-0.25rem);
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);

@@ -2,12 +2,12 @@ function toRadians(degrees) {
   return degrees * Math.PI / 180;
 }
 
-function calculateDistance(location1, location2) {
+function calculateDistance(location1, lat, lng) {
   const R = 6371e3; // Earth's radius in meters
   const lat1 = toRadians(location1.coordinates.lat);
-  const lat2 = toRadians(location2.coordinates.lat);
-  const deltaLat = toRadians(location2.coordinates.lat - location1.coordinates.lat);
-  const deltaLon = toRadians(location2.coordinates.lng - location1.coordinates.lng);
+  const lat2 = toRadians(lat);
+  const deltaLat = toRadians(lat - location1.coordinates.lat);
+  const deltaLon = toRadians(lng - location1.coordinates.lng);
 
   const a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2)
     + Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);

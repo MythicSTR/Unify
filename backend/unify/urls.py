@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', include('reactadmin.urls')),
     path('faculty/', include('faculty.urls')),
     path('student/', include('student.urls')),
+    path('start_session/', views.start_session, name="start_session"),
+    path('get_session/', views.get_session, name="get_session"),
     path('attendance/', include('attendance.urls')),
     path('login_user/',include('django.contrib.auth.urls')),
     path('login_user/', views.login_view, name="login"),
