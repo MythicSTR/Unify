@@ -22,6 +22,8 @@ function CreateRoutine() {
     const [routine, setRoutine] = useState([]);
     const [preRoutine, setPreRoutine] = useState([]);
 
+    const [alertShown, setAlertShown] = useState(false);
+
     const isEqual = (obj1, obj2) => {
         for (let key in obj1) {
             if (obj1[key] !== obj2[key]) {
@@ -185,16 +187,48 @@ function CreateRoutine() {
         };
     };
 
+    const elementHasOverlap = (existingElement, newElement) => {
+        const existingStart = existingElement.start_time;
+        const existingEnd = existingElement.end_time;
+        const newStart = newElement.start_time;
+        const newEnd = newElement.end_time;
+
+        console.log(existingStart)
+        return (
+            (existingStart <= newStart && existingEnd >= newEnd) || // Class 1 completely overlaps Class 2
+            (newStart <= existingStart &&  newEnd >= existingEnd) || // Class 2 completely overlaps Class 1
+            (existingStart >= newStart && existingEnd <= newEnd) || // Class 1 is completely within Class 2
+            (newStart >= existingStart &&  newEnd<= existingEnd) || // Class 2 is completely within Class 1
+            (existingStart <  newEnd&& existingEnd >newStart ) || // Classes overlap partially from start
+            (newStart < existingEnd &&  newEnd> existingStart) 
+        );
+    };
+
     const handleSubmit = (event) => {
         const timeData = calculateSelectedPeriod();
-        setRoutine([...routine, {
+
+        const newElement = {
             week_day: timeData.day,
             start_time: timeData.start_time,
             end_time: timeData.end_time,
             course: courseCode
-        }])
+        }
+
+
+        setRoutine((routine) => {
+            const hasOverlap = preRoutine.some(element => elementHasOverlap(element, newElement));
+
+            if(hasOverlap) {
+                alert("You need to delete the old class!");
+                return routine;
+            } else {
+                console.log("nooo")
+                return [...routine, newElement];
+            }
+        })
     
         console.log(routine)
+        return;
     }
 
     const saveRoutine = async (event) => {
