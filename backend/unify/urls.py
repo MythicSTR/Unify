@@ -52,5 +52,5 @@ urlpatterns = [
     path('deleteclassroom/',views.delete_classroom,name='delete_classroom'),
     path('getstudents/',views.getStudentList,name="get_student_list"),
     path('addcoordinator/',views.add_program_coordinator,name='addCoordinator'),
-    path('updateRoutine',views.updateRoutine,name='updateroutine')
+    path('updateRoutine/',views.updateRoutine,name='updateroutine')
 ]
