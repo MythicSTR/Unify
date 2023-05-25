@@ -706,3 +706,10 @@ def add_program_coordinator(request):
 
     except:
         return JsonResponse({'message':'error'},status=400)
+    
+#delete/update routine
+def updateRoutine(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+    
+    return JsonResponse({"message":"thank you"},status=500)
