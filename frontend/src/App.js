@@ -30,6 +30,7 @@ import StudentClassroom from "./components/StudentClassroom";
 import CreateRoutine from "./components/CreateRoutine";
 import FacultyClassroom from "./components/FacultyClassroom"
 import StudentMessages from "./components/StudentMessages"
+import Base from "./components/Base";
 // import TeacherRoutine from "./components/TeacherRoutine";
 //import withAuthorization from "./withAuthorization";
 
@@ -79,6 +80,7 @@ function App() {
               {user.isFaculty && <Route path='/faculty/routine' element = {<CreateRoutine />}></Route>}
               {user.isFaculty && <Route path='/faculty/report' element = {<TeacherMessage />}></Route>}
               {user.isFaculty && <Route path = '/faculty/classroom' element = {<FacultyClassroom />}></Route>}
+             
               {/* <Route path='/faculty/school' element = {<Admin school/>}></Route>
               <Route path='/faculty/department' element = {<Admin department/>}></Route>
               <Route path='/faculty/faculty' element = {<Admin faculty/>}></Route>
@@ -98,8 +100,10 @@ function App() {
               {user.isStudent && <Route path = '/student/feedbacks' element = {<StudentFeedback />}></Route>}
               {user.isStudent && <Route path = '/student/attendance' element = {<StudentAttendance />}></Route>}
               {/* {user.isStudent && <Route path = '/student/messages' element = {<Feedback />}></Route>} */}
-              {user.isStudent && <Route path = '/student/classroom' element = {<StudentClassroom />}></Route>}
+             
 
+              {user.isStudent && <Route path = '/student/classroom' element = {<StudentClassroom />}></Route>}
+              {user.isStudent && <Route path = '/student/classroom/:course_code' element = {<Base />}></Route>}
               {user.isStudent && <Route path = '/student/messages' element = {<StudentMessages />}></Route>}
               
               

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
-import IndividualClassroom from "../components/IndividualClassroom";
+import IndividualClassroom from "./IndividualClassroom";
 
 function RenderStudentClassroom() {
   const token = localStorage.getItem('jwtToken');
@@ -23,7 +23,7 @@ function RenderStudentClassroom() {
       .then(response => response.json())
       .then(data => setClassrooms(data))
       .catch(error => console.log(error));
-  },[userId] );
+  },[userId] ); 
 
 //   console.log(classrooms);
  
@@ -32,7 +32,9 @@ function RenderStudentClassroom() {
     {classrooms.map((item, index) => (
       <IndividualClassroom 
         course_code={item.course_code}
-      />
+        batch = {item.batch}
+        program_id = {item.program_id}
+       />
     ))}
     </div>
   );

@@ -8,14 +8,14 @@
     width: 18rem;
     height: 10rem;
     margin: 2rem;
-    background-color: #333;
+    background-color: #1c1d1c;
     color: #f8f9fa;
-
   }
   
   .individual-classroom-card-container:hover {
     transform: translateY(-0.25rem);
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+    cursor: pointer;
   }
   
   .individual-classroom-card-inner {
@@ -28,12 +28,13 @@
     font-weight: bold;
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
   
   .program-id {
     font-size: 1rem;
     margin-bottom: 0.5rem;
+    text-transform: capitalize;
   }
   
   .batch {
