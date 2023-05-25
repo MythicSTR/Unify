@@ -12,13 +12,14 @@ function Attendance() {
 
     const attendanceSession = async() => {
         console.log(location)
+        const dateObj = new Date();
         const sessionData = {
             faculty_id: 1,
             program_id: 'CS',
             batch: 2020,
             latitude: location.coordinates.lat,
             longitude: location.coordinates.lng,
-            start_time: new Date()
+            start_time: dateObj
         }
 
         try {

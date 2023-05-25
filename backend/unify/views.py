@@ -658,6 +658,8 @@ def get_session(request):
         _session = serializers.serialize('json', session)
         __session = [model_to_dict(item) for item in session]
 
+        print(__session)
+
         return JsonResponse(__session, safe=False)
     except Exception as e:
         print(str(e))

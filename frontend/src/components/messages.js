@@ -79,7 +79,7 @@ function TeacherMessage() {
 
     setResponseReplies(messages.filter(item => item.hasOwnProperty('feedback_id')));
 
-    console.log(feedback)
+    console.log(_response)
   }
 
   const handleReplyButtonClick = (threadId) => {

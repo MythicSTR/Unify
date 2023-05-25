@@ -41,15 +41,15 @@ from datetime import datetime
 
     # return render(request, 'build/index.html')
 
-
+@csrf_exempt
 def student_view(request):
     print("writing to database")
     if request.method == 'POST':
-        # date = request.POST.get('date');
-        status = request.POST.get('status');
-        course_id = request.POST.get('course_id');
-        faculty_id= request.POST.get('faculty_id');
-        student_id = request.POST.get('student_id');
+        data = json.loads(request.body)
+        status = data.get('status');
+        course_id = data.get('course_id');
+        faculty_id= data.get('faculty_id');
+        student_id = data.get('student_id');
 
     try:
         print("entered try block")

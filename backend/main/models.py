@@ -192,7 +192,6 @@ class Enrollment(models.Model):
 
 # Attendance Session Model
 class Session(models.Model):
-    id = models.IntegerField(primary_key=True)
     faculty_id = models.CharField(max_length=12)
     program_id = models.CharField(max_length=12)
     batch = models.IntegerField()

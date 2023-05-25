@@ -19,8 +19,8 @@ function StudentAttendance(props) {
       faculty_id: '1',
       program_id: 'CS',
       batch: 2020,
-      latitude: 27.61892318584409,
-      longitude: 85.53885644191998,
+      latitude: 17.623662511889,
+      longitude: 55.5414568443318,
       start_time: '07:19:29.040',
     },
   },
@@ -53,9 +53,10 @@ function StudentAttendance(props) {
             }
 
             const responseData = await response.json();
-            setSessionData(responseData);
+            setSessionData(responseData[0]);
 
-            console.log(responseData)
+            console.log(sessionData[0].fields)
+
         } catch (error) {
             console.log(error);
         }
@@ -63,13 +64,18 @@ function StudentAttendance(props) {
 
     const markPresent = async() => {
         console.log("pressed markPresent")
-        const CurrentTime = new Date();
+        const CurrentDate = new Date();
+        const CurrentTime = CurrentDate.toISOString().slice(11, -5);
         const formField = new FormData();
 
         const attendanceSession = JSON.parse(localStorage.getItem('attendance'));
-        const startTime = new Date(sessionData[0].start_time);
-        const elapsedTime = new Date(CurrentTime - startTime) / (1000 * 60); // elapsed time in minutes
-        const distance = calculateDistance(studentLocation, sessionData[0].latitude, sessionData[0].longitude);
+        const date1 = new Date(`2000-01-01T${sessionData.start_time}Z`);
+        const date2 = new Date(`2000-01-01T${CurrentTime}Z`);
+
+        const diffInMilliseconds = date2 - date1;
+
+        const elapsedTime = Math.floor(diffInMilliseconds / (1000 * 60));
+        const distance = calculateDistance(studentLocation, sessionData.latitude, sessionData.longitude);
 
         formField.append('date', CurrentTime);
         formField.append('status', 'Present');
@@ -77,15 +83,28 @@ function StudentAttendance(props) {
         formField.append('faculty_id', 1);
         formField.append('student_id', 'SUSSCS200049');
 
-        if(true) {
+        const presenceData = {
+            status: 'Present',
+            course_id: '1',
+            faculty_id: '1',
+            student_id: 'SUSSCS200049'
+        }
+
+        if (elapsedTime < 5 && distance < 50) {
+            console.log(elapsedTime)
             try {
-                console.log("hello")
-                axios.post("http://127.0.0.1:8000/attendance/student/", formField, {headers: {'X-CSRFToken': getCookie('csrftoken')}}).then((response) => {
-                    console.log(response.data);
+                const response = await fetch('http://localhost:8000/attendance/student/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(presenceData)
                 })
-            } catch(error) {
-                console.log(error);
+            } catch (error) {
+                console.log("Error sending data", error);
             }
+        } else {
+            console.log(sessionData.start_time)
         }
     }
 
