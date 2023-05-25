@@ -92,9 +92,9 @@ function CreateRoutine() {
 
     const fetchRoutine = async() => {
         const requestData = {
-            dept_id: "DOCSE",
-            batch: 2020,
-            program_id: "Computer Science",
+            dept_id: selectedDepartment,
+            batch: selectedBatch,
+            program_id: selectedProgram,
             user_id : user.user_id,
             dept_id : user.dept_id
         };
@@ -215,6 +215,29 @@ function CreateRoutine() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(routineData)
+            });
+        } catch (error) {
+            console.log("Error sending data:", error);
+        }
+    }
+
+    const deleteRoutine = async (event) => {
+        const cellData = calculateSelectedPeriod();
+
+        try {
+            const response = await fetch('http://localhost:8000/updateRoutine', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    department: selectedDepartment,
+                    program: selectedProgram,
+                    batch: selectedBatch,
+                    day: cellData.day,
+                    start_time: cellData.start_time,
+                    end_time: cellData.end_time
+                })
             });
         } catch (error) {
             console.log("Error sending data:", error);
