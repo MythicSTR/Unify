@@ -145,7 +145,6 @@ def feedback_view(request):
 
         get_dept = Department.objects.filter(department_id=dept_id).values_list('school_id')[0]
         school_id = get_dept[0]
-        print(school_id)
 
     try:
         count = Feedback.objects.filter().count()
@@ -181,6 +180,33 @@ def extract_feedback(request):
         
         try:
             feedbacks = Feedback.objects.filter(email=email)
+            for feedback in feedbacks:
+                replies = Reply.objects.filter(feedback_id = feedback.id)
+                if replies.exists():
+                    reply.append(replies.values())
+
+            for qs in reply:
+                for item in qs:
+                    new_list.append(item)
+
+            feedback_list = list(feedbacks)
+            feedback_dict_list = [model_to_dict(feedback) for feedback in feedback_list]
+            send = feedback_dict_list + new_list
+            return JsonResponse(send,safe=False)
+        except:
+            return JsonResponse({'message':'Error'},status=500)
+        
+#receive feedback for student
+@csrf_exempt
+def extract_sfeedback(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        id = data.get('user_id')
+        reply = []
+        new_list = []
+        
+        try:
+            feedbacks = Feedback.objects.filter(student_id=id)
             for feedback in feedbacks:
                 replies = Reply.objects.filter(feedback_id = feedback.id)
                 if replies.exists():
@@ -743,8 +769,36 @@ def add_program_coordinator(request):
         return JsonResponse({'message':'error'},status=400)
     
 #delete/update routine
-def updateRoutine(request):
+def deleteRoutine(request):
     if request.method == "POST":
         data = json.loads(request.body)
+        start_time = data.get('start_time')
     
     return JsonResponse({"message":"thank you"},status=500)
+
+# enrollment through code
+@csrf_exempt
+def enroll (request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        code = data.get('code')
+        user_id = data.get('user_id')
+    
+    try:
+        classrooms = Virtual_classroom.objects.filter(code=code).values_list()[0]
+        course_id = Course.objects.filter(course_code__iexact=classrooms[3]).values_list('course_id')[0]
+        check = Enrollment.objects.filter(student_id=user_id,classroom_id=classrooms[0])
+        if check.exists():
+            return JsonResponse({'message':'already'},status=600)
+        else:
+            Enrollment.objects.create(
+                enrollment_date=datetime.today().date(),
+                course_id = course_id[0],
+                student_id = user_id,
+                course_code = classrooms[3],
+                teacher_id = classrooms[4],
+                classroom_id = classrooms[0]
+            )
+            return JsonResponse({"message":"working"},status=400)
+    except:
+        return JsonResponse({"message":"not found"},status=500)

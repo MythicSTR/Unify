@@ -32,6 +32,7 @@ urlpatterns = [
     path('enrollment/',views.enrollment_course,name='enrollment'),
     path('feedback/',views.feedback_view,name='feedback'),
     path('extract_feedback/',views.extract_feedback,name="extract_feedback"),
+    path('extract_sfeedback/',views.extract_sfeedback,name="extract_feedback"),
     path('add_reply/',views.add_reply,name="add_reply"),
     path('add_ku_events/',views.add_ku_events,name='add_ku_events'),
     path('add_dept_events/',views.add_dept_events,name='add_dept_events'),
@@ -53,5 +54,6 @@ urlpatterns = [
     path('deleteclassroom/',views.delete_classroom,name='delete_classroom'),
     path('getstudents/',views.getStudentList,name="get_student_list"),
     path('addcoordinator/',views.add_program_coordinator,name='addCoordinator'),
-    path('updateRoutine/',views.updateRoutine,name='updateroutine'),
+    path('updateRoutine/',views.deleteRoutine,name='updateroutine'),
+    path('enroll/',views.enroll)
 ]
