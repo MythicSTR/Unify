@@ -1,11 +1,27 @@
 .main-base-container {
     margin: 2rem 0 0 15rem;
-}   
+}
 
-.base-notice-section{
+.base-notice-section {
     margin: 2rem 0 0 15rem;
 }
 
-.Submit-Button-Notice{
+.Submit-Button-Notice {
     margin-left: 70rem;
+}
+
+.notice-blocks {
+    display: flex;
+    flex-direction: column;
+    width: 50rem;
+    margin-bottom: 2rem;
+}
+
+.notice-block {
+    background-color: #d6d7d8;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    color: black;
+    margin-top: 1rem 0 1rem 0;
 }
