@@ -259,7 +259,7 @@ function CreateRoutine() {
         const cellData = calculateSelectedPeriod();
 
         try {
-            const response = await fetch('http://localhost:8000/updateRoutine', {
+            const response = await fetch('http://localhost:8000/deleteRoutine', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

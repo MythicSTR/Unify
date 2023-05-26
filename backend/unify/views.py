@@ -5,11 +5,12 @@ from django.contrib.auth import authenticate, login,logout
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.http import JsonResponse
-from main.models import Student,Faculty,Enrollment,Department,Course,Feedback,Ku_events,Dept_events,Reply,Routine,Classrooms,Class_notice,Virtual_classroom,Programs,Session,Coordinators
+from main.models import Student,Faculty,Enrollment,Department,Course,Feedback,Ku_events,Dept_events,Reply,Routine,Classrooms,Class_notice,Virtual_classroom,Programs,Session,Coordinators,Attendance
 from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 from django.forms.models import model_to_dict
 from django.utils.crypto import get_random_string
+from dateutil.parser import parse
 import jwt
 import numpy as np
 
@@ -377,19 +378,18 @@ def get_routine(request):
 
     try:
         student = Student.objects.filter(student_id=user_id).values_list('admission_date')
-        user = student[0]
-        date = datetime.strptime(user[0], "%Y-%m-%d").date()
-        batch = date.year
-        print(user[0].date().year)
         if student.exists():
+            _user = student[0]
+            user = str(_user[0])
+            batch = user[:4]
             program_id = Programs.objects.filter(dept_id=dept_id).values_list('id')[0]
-            routine = Routine.objects.filter(dept_id=dept_id,batch=_batch,program_id=program_id[0])
+            routine = Routine.objects.filter(dept_id=dept_id,batch=batch,program_id=program_id[0])
             _object = list(routine)
             object = [model_to_dict(item) for item in _object]
             return JsonResponse(object,safe=False)
         else:
-            program_id = Programs.objects.filter(name__iexact=program).values_list('id')[0]
-            routine = Routine.objects.filter(dept_id=dept_id,batch=_batch,program_id=program_id[0])
+            program_id = Programs.objects.filter(name__iexact=program).values_list('id','dept_id')[0]
+            routine = Routine.objects.filter(dept_id=program_id[1],batch=_batch,program_id=program_id[0])
             _object = list(routine)
             object = [model_to_dict(item) for item in _object]
             return JsonResponse(object,safe=False)
@@ -691,7 +691,6 @@ def getStudentList(request):
         students_id = Enrollment.objects.filter(classroom_id=id).values('student_id')
         for student in students_id:
             names = Student.objects.filter(student_id=student['student_id']).values_list('first_name','last_name')
-            print(names)
         listNames = list(names)
         return JsonResponse(listNames,safe=False)
     except:
@@ -773,7 +772,11 @@ def deleteRoutine(request):
     if request.method == "POST":
         data = json.loads(request.body)
         start_time = data.get('start_time')
-    
+        end_time = data.get('end_time')
+        program = data.get('program')
+        batch = data.get('batch')
+        day = data.get('day')
+
     return JsonResponse({"message":"thank you"},status=500)
 
 # enrollment through code
@@ -802,3 +805,21 @@ def enroll (request):
             return JsonResponse({"message":"working"},status=400)
     except:
         return JsonResponse({"message":"not found"},status=500)
+    
+#return attendance
+def get_attendance(request):
+    if request.method(request.body):
+        data = json.loads(request.body)
+        course_id = data.get('course_id')
+        faculty_id = data.get('faculty_id')
+    
+    try:
+        attendance_list = Attendance.objects.filter(course_id=course_id,faculty_id=faculty_id)
+        # print(attendance_list)
+        # print(list(attendance_list))
+        return JsonResponse(list(attendance_list),safe=False)
+
+    except:
+        return JsonResponse({'message':"error"},status=500)
+
+    
