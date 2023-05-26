@@ -21,6 +21,7 @@ function AddSchool() {
         try {
             axios.post("http://127.0.0.1:8000/api/addschool/", formField, {headers: {'X-CSRFToken': getCookie('csrftoken')}}).then((response) => {
                 console.log(response.data)
+                window.alert("School added successfully");
             })
         } catch(error) {
             console.log(error)
@@ -34,7 +35,7 @@ function AddSchool() {
                 <input
                     type="text"
                     className="form-control w-100"
-                    placeholder="1"
+                    placeholder="e.g. SOS"
                     name="id"
                     value={id}
                     onChange={(e) => setId(e.target.value)}

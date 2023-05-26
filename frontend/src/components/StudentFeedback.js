@@ -37,6 +37,7 @@ function StudentFeedback() {
   const [selectedtopic, setSelectedtopic] = useState("Lecture");
   const [selecteddepartment, setselecteddepartment] = useState("DOCHE");
   const [comment,setComment] = useState("");
+  const [email,setEmail] = useState("");
 
   const FeedbackInfo = async () => {
 
@@ -56,12 +57,15 @@ function StudentFeedback() {
           comment : comment,
           dept_id : selecteddepartment,
           school : selectedschool,
-          student_id : token.user_id
+          student_id : token.user_id,
+          email : email
+
         })
       });
       const get_response = await response.json();
       if(get_response.message==='Sucessfull'){
         window.alert("Feedback sucessfully submitted. Thank you for your feedback.");
+        setEmail('');
         setComment('');
         setSelectedschool('School of Engineering');
         setselecteddepartment('DOCHE');
@@ -81,7 +85,27 @@ function StudentFeedback() {
   return (
     <div>
     <StudentNavbar />
-    <div className="border w-25 p-4 position-absolute top-50 start-50 translate-middle" style={{ marginTop: '3rem' }}>
+    <div className="border w-25 p-4 position-absolute top-50 start-50 translate-middle" style={{ marginTop: '7rem' }}>
+
+    <div class="form-group">
+    <label for="exampleFormControlTextarea1" class="form-label">
+      Email
+    </label>
+    <div className="email">
+      <input
+        name="email"
+        rows="7"
+        placeholder=""
+        required
+        class="form-control w-100"
+        value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}
+      ></input>
+    </div>
+  </div>
+
       <div class="form-group">
         <label for="exampleFormControlTextarea1" class="form-label">
           School

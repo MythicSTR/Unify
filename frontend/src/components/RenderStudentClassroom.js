@@ -23,7 +23,7 @@ function RenderStudentClassroom() {
       .then(response => response.json())
       .then(data => setClassrooms(data))
       .catch(error => console.log(error));
-  },[userId] ); 
+  },[userId]); 
 
   console.log(classrooms) ;
  

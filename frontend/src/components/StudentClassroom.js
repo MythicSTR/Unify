@@ -12,6 +12,7 @@ function StudentClassroom() {
             <StudentAttendance />
             <div className='Student-classroom-container-temp'>
             <RenderStudentClassroom />
+            <div className='EnrollPlusButton'></div>
             <ClassroomCodeEnroll />
             </div>
 

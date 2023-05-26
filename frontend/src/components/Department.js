@@ -1,9 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-import Header from "./Header";
-import Navbar from "./AdminNavbar";
 import { getCookie } from "../utils.js";
 
 function Department() {
@@ -37,7 +33,7 @@ function Department() {
 
   return (
     
-    <div className="border w-25 p-4 position-absolute top-50 start-50 translate-middle">
+    <div className="border w-25 p-4 m-5 position-absolute top-50 start-50 translate-middle">
       <div className="form-group">
         <label for="exampleFormControlInput4" className="form-label">
           Department ID
@@ -45,7 +41,7 @@ function Department() {
         <input
           type="text"
           className="form-control w-100"
-          placeholder="1"
+          placeholder="e.g. DOCSE"
           name="department_id"
           value={department_id}
           onChange={(e) => setDepartId(e.target.value)}
@@ -58,7 +54,7 @@ function Department() {
         <input
           type="text"
           class="form-control w-100"
-          placeholder="Username"
+          placeholder="e.g. Department Name"
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}

@@ -49,7 +49,7 @@ const MyPopup = () => {
   
  
   return (
-    <Popup trigger={<button className='popup-plus'><span className='literallyplus'>+</span></button>} position="center center">
+    <Popup trigger={<button className='popup-plus'><span className='literallyplus'>+</span></button>} position="top right">
       <div className="popup-content">
         <form onSubmit={handleSubmit}>
           <div className="form-group">

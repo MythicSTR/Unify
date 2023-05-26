@@ -62,7 +62,7 @@ function Enrollment() {
         <input
           type="text"
           class="form-control w-100"
-          placeholder="Name"
+          placeholder="e.g. SUSSCS200010"
           name="student"
           value={studentid}
           onChange={(e) => setStudent(e.target.value)}
@@ -75,7 +75,7 @@ function Enrollment() {
         <input
           type="text"
           class="form-control w-100"
-          placeholder="Course Code"
+          placeholder="e.g. COMP 232"
           name="course"
           value={course_code}
           onChange={(e) => setCourse(e.target.value)}

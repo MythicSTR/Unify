@@ -28,8 +28,8 @@ function Coordinator() {
           "DOPHY",
         ],
       };
-      const [selectedschool, setSelectedschool] = useState("School of Engineering");
-      const [selecteddepartment, setselecteddepartment] = useState("DOCHE");
+      const [selectedschool, setSelectedschool] = useState("School of Science");
+      const [selecteddepartment, setselecteddepartment] = useState("DOBiT");
   const [email, setEmail] = useState('');
 
   const CoordinatorInfo = async () => {
@@ -42,7 +42,7 @@ function Coordinator() {
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/admin/coordinator/',
+        'http://127.0.0.1:8000/admin/addcoordinator/',
         formField,
         {
           headers: { 'X-CSRFToken': getCookie('csrftoken') },

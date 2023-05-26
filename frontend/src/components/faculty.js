@@ -64,7 +64,7 @@ function Faculty() {
         <input
           type="text"
           className="form-control w-100"
-          placeholder="1"
+          placeholder="KUADM200001"
           name="faculty_id"
           value={faculty_id}
           onChange={(e) => setFacultyId(e.target.value)}
