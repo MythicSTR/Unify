@@ -196,12 +196,13 @@ function CreateRoutine() {
 
         console.log(existingStart)
         return (
-            (existingStart <= newStart && existingEnd >= newEnd) || // Class 1 completely overlaps Class 2
-            (newStart <= existingStart &&  newEnd >= existingEnd) || // Class 2 completely overlaps Class 1
-            (existingStart >= newStart && existingEnd <= newEnd) || // Class 1 is completely within Class 2
-            (newStart >= existingStart &&  newEnd<= existingEnd) || // Class 2 is completely within Class 1
-            (existingStart <  newEnd&& existingEnd >newStart ) || // Classes overlap partially from start
-            (newStart < existingEnd &&  newEnd> existingStart) 
+            existingStart == newStart
+            // (existingStart <= newStart && existingEnd >= newEnd) || // Class 1 completely overlaps Class 2
+            // (newStart <= existingStart &&  newEnd >= existingEnd) || // Class 2 completely overlaps Class 1
+            // (existingStart >= newStart && existingEnd <= newEnd) || // Class 1 is completely within Class 2
+            // (newStart >= existingStart &&  newEnd<= existingEnd) || // Class 2 is completely within Class 1
+            // (existingStart <  newEnd&& existingEnd >newStart ) || // Classes overlap partially from start
+            // (newStart < existingEnd &&  newEnd> existingStart) 
         );
     };
 
@@ -326,7 +327,6 @@ function CreateRoutine() {
   return mergedCells;
 };
 */
-
 const mergeCells = (rowData) => {
     
  const mergedCells = [];
@@ -335,11 +335,13 @@ const mergeCells = (rowData) => {
         let spanCount = 1;
 
         for (let i = 0; i < rowData.length; i++) {
-        const cellValue = rowData[i];
+        const cellValue = rowData[i].course;
+        const cellRoom = rowData[i].room;
 
         if (currentCell === null) {
             currentCell = {
             value: cellValue,
+            room: cellRoom,
             span: 1,
             };
         } else if (currentCell.value === cellValue) {
@@ -349,6 +351,7 @@ const mergeCells = (rowData) => {
             mergedCells.push(currentCell);
             currentCell = {
             value: cellValue,
+            room: cellRoom,
             span: 1,
             };
         }
@@ -366,33 +369,54 @@ const mergeCells = (rowData) => {
         return mergedCells;
     }
 
-    const getRowData = (day) => {
-    const rowData = []; // Array to store the course values or '---'
+    // const getRowData = (day) => {
+    // const rowData = new Array(timeInHours.length).fill('---'); // Array to store the course values or '---'
 
-    for (let i = 0; i < preRoutine.length; i++) {
-        const timetableItem = preRoutine[i];
+    // for (let i = 0; i < preRoutine.length; i++) {
+    //     const timetableItem = preRoutine[i];
 
-        if (timetableItem.week_day === day) {
-        const startHour = timetableItem.start_time;
-        const endHour = timetableItem.start_time + timetableItem.hours;
+    //     if (timetableItem.week_day === day) {
+    //     const startHour = timetableItem.start_time;
+    //     const endHour = timetableItem.start_time + timetableItem.hours;
 
-        for (let hour = startHour; hour < endHour; hour++) {
-            const course = timetableItem.course;
-            rowData[hour - 7] = course;
-        }
-        }
-    }
+    //     for (let hour = startHour; hour < endHour; hour++) {
+    //         const course = timetableItem.course;
+    //         const room = timetableItem.room_no;
+    //         rowData[hour - 7] = {course, room};
+    //     }
+    //     }
+    // }
 
     // Fill any empty time periods with '---'
-    for (let i = 0; i < timeInHours.length; i++) {
-        if (!rowData[i]) {
-        rowData[i] = '---';
-        }
-    }
+    // for (let i = 0; i < timeInHours.length; i++) {
+    //     if (!rowData[i]) {
+    //     rowData[i] = '---';
+    //     }
+    // }
 
-    return rowData;
-    }
+    // return rowData;
+    // }
 
+    const getRowData = (day) => {
+  const rowData = new Array(timeInHours.length).fill({ course: '---', room: '---' });
+
+  for (let i = 0; i < preRoutine.length; i++) {
+    const timetableItem = preRoutine[i];
+
+    if (timetableItem.week_day === day) {
+      const startHour = timetableItem.start_time;
+      const endHour = timetableItem.start_time + timetableItem.hours;
+
+      for (let hour = startHour; hour < endHour; hour++) {
+        const course = timetableItem.course;
+        const room = timetableItem.room_no;
+        rowData[hour - 7] = { course, room };
+      }
+    }
+  }
+
+  return rowData;
+};
     return (
         <>
             <Navbar />
@@ -417,49 +441,51 @@ const mergeCells = (rowData) => {
                         <option value="2020">2020</option>
                         <option value="2021">2021</option>
                     </select>
-                    <button onClick={() => fetchRoutine()}>Load</button>
+                    <button onClick={() => fetchRoutine()}>Refresh</button>
                 </div>
                 <div class="table100 ver5 m-b-110">
-                    <table data-vertable="ver5">
-                    <thead>
-                        <tr class="row100 head">
-                        <th className={'column100 column1'}></th>
-                        {timeInHours.map((time, index) => (
-                            <th className={`column100 column${index + 2}`}>{time} - {time + 1}</th>
-                        ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {daysOfWeek.map((day, rowIndex) => {
-                            const rowData = getRowData(day);
-                            const mergedCells = mergeCells(rowData);
+                   <table data-vertable="ver5">
+  <thead>
+    <tr className="row100 head">
+      <th className={'column100 column1'}></th>
+      {timeInHours.map((time, index) => (
+        <th className={`column100 column${index + 2}`} key={index}>
+          {time} - {time + 1}
+        </th>
+      ))}
+    </tr>
+  </thead>
+  <tbody>
+    {daysOfWeek.map((day, rowIndex) => {
+      const rowData = getRowData(day);
 
-                            return (
-                                <tr className="row100" key={rowIndex}>
-                                    <td className={`column100 column${rowIndex + 1}`}>{day}</td>
-                                    {mergedCells.map((cell, columnIndex) => {
-                                            const cellKey = `${rowIndex} - ${columnIndex}`
-                                            const isSelectedCell = isSelected({rowIndex, columnIndex})
-                                            const isFirstMergedCell = columnIndex === cell.startIndex;
+      return (
+        <tr className="row100" key={rowIndex}>
+          <td className={`column100 column${rowIndex + 1}`}>{day}</td>
+          {rowData.map((cell, columnIndex) => {
+            const cellKey = `${rowIndex}-${columnIndex}`;
+            const isSelectedCell = isSelected({ rowIndex, columnIndex });
 
-                                            return (
-                                                <td
-                                                    key={cellKey}
-                                                    className={`column100 column${columnIndex + 2}
-                                                                ${isSelectedCell ? "selected" : ""}
-                                                                 ${isFirstMergedCell ? "merged" : ""}`}
-                                                    colSpan={cell.span}
-                                                    onClick={() => handleCellClick(rowIndex, columnIndex)}
-                                                >
-                                                    {cell.value}
-                                                </td>
-                                            )
-                                    })}
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                    </table>
+            return (
+              <td
+                key={cellKey}
+                className={`column100 column${columnIndex + 2} ${
+                  isSelectedCell ? 'selected' : ''
+                }`}
+                onClick={() => handleCellClick(rowIndex, columnIndex)}
+              >
+                <div>
+                  <div>{cell.course}</div>
+                  <div>{cell.room}</div>
+                </div>
+              </td>
+            );
+          })}
+        </tr>
+      );
+    })}
+  </tbody>
+</table> 
                 </div>
                 <div className="class-form-field-container">
                         <input
