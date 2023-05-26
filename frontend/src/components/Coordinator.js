@@ -28,17 +28,11 @@ function Coordinator() {
           "DOPHY",
         ],
       };
-<<<<<<< Updated upstream
-      const [selectedschool, setSelectedschool] = useState("School of Science");
-      const [selecteddepartment, setselecteddepartment] = useState("DOBiT");
-  const [email, setEmail] = useState('');
-=======
       const [selectedschool, setSelectedschool] = useState("School of Engineering");
       const [selecteddepartment, setselecteddepartment] = useState("DOCHE");
       const [email, setEmail] = useState('');
       const [first_name,setFirstName] = useState('');
       const [last_name,setLastName] = useState('');
->>>>>>> Stashed changes
 
   const CoordinatorInfo = async () => {
     const formField = new FormData();
@@ -61,20 +55,6 @@ function Coordinator() {
     //   console.log(error);
     // }
 
-<<<<<<< Updated upstream
-    try {
-      const response = await axios.post(
-        'http://127.0.0.1:8000/admin/addcoordinator/',
-        formField,
-        {
-          headers: { 'X-CSRFToken': getCookie('csrftoken') },
-        }
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-=======
     try{
       console.log(email,school,department,first_name,last_name)
       const response = await fetch('http://localhost:8000/addcoordinator', {
@@ -97,7 +77,6 @@ function Coordinator() {
     console.log("Error sending data:", error);
 }
     
->>>>>>> Stashed changes
   };
 
   return (

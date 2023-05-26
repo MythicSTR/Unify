@@ -56,9 +56,6 @@ urlpatterns = [
     path('addcoordinator/',views.add_program_coordinator,name='addCoordinator'),
     path('deleteRoutine/',views.deleteRoutine,name='updateroutine'),
     path('enroll/',views.enroll),
-<<<<<<< Updated upstream
-    path('get_attendance/', views.get_attendance, name="get_attendance")
-=======
+    path('get_attendance/', views.get_attendance, name="get_attendance"),
     path('addstudent/',views.add_student)
->>>>>>> Stashed changes
 ]
