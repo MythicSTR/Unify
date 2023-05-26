@@ -28,9 +28,17 @@ function Coordinator() {
           "DOPHY",
         ],
       };
+<<<<<<< Updated upstream
       const [selectedschool, setSelectedschool] = useState("School of Science");
       const [selecteddepartment, setselecteddepartment] = useState("DOBiT");
   const [email, setEmail] = useState('');
+=======
+      const [selectedschool, setSelectedschool] = useState("School of Engineering");
+      const [selecteddepartment, setselecteddepartment] = useState("DOCHE");
+      const [email, setEmail] = useState('');
+      const [first_name,setFirstName] = useState('');
+      const [last_name,setLastName] = useState('');
+>>>>>>> Stashed changes
 
   const CoordinatorInfo = async () => {
     const formField = new FormData();
@@ -38,8 +46,22 @@ function Coordinator() {
     formField.append('selectedschool', selectedschool);
     formField.append('selecteddepartment', selecteddepartment);
 
+    console.log(formField)
 
+    // try {
+    //   const response = await axios.post(
+    //     'http://127.0.0.1:8000/admin/coordinator/',
+    //     formField,
+    //     {
+    //       headers: { 'X-CSRFToken': getCookie('csrftoken') },
+    //     }
+    //   );
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.log(error);
+    // }
 
+<<<<<<< Updated upstream
     try {
       const response = await axios.post(
         'http://127.0.0.1:8000/admin/addcoordinator/',
@@ -52,6 +74,30 @@ function Coordinator() {
     } catch (error) {
       console.log(error);
     }
+=======
+    try{
+      console.log(email,school,department,first_name,last_name)
+      const response = await fetch('http://localhost:8000/addcoordinator', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            school : selectedschool,
+            department : selecteddepartment,
+            first_name : first_name,
+            last_name : last_name
+        })
+    });
+
+    const responseData = await response.json()
+    console.log(responseData)
+} catch (error) {
+    console.log("Error sending data:", error);
+}
+    
+>>>>>>> Stashed changes
   };
 
   return (
@@ -65,6 +111,28 @@ function Coordinator() {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+        />
+    </div>
+    <div className="form-group">
+        <label for="exampleFormControlInput1" className="form-label">First Name</label>
+        <input
+            type="text"
+            className="form-control w-100"
+            placeholder=""
+            name="email"
+            value={first_name}
+            onChange={(e) => setFirstName(e.target.value)}
+        />
+    </div>
+    <div className="form-group">
+        <label for="exampleFormControlInput1" className="form-label">Last Name</label>
+        <input
+            type="text"
+            className="form-control w-100"
+            placeholder=""
+            name="email"
+            value={last_name}
+            onChange={(e) => setLastName(e.target.value)}
         />
     </div>
     <div class="form-group">

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import '../styles/AddEvents.css';
+import jwtDecode from 'jwt-decode';
 
-
+const token = localStorage.getItem('jwtToken')
+const decodedToken = jwtDecode(token)
 
 function AddDepartmentEvents() {
   const [title, setTitle] = useState('');
@@ -18,10 +20,10 @@ function AddDepartmentEvents() {
       
         const data = {
           title: title,
-          startDate: formattedStartDate,
-          endDate: formattedEndDate,
+          start_date: formattedStartDate,
+          end_date: formattedEndDate,
           description: description,
-          dept_id : "DOCSE",  
+          dept_id : decodedToken.dept_id,  
         };
       
         fetch('http://localhost:8000/add_dept_events/', {

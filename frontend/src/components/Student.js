@@ -75,9 +75,35 @@ function Student() {
     formField.append("admission_date", admission_date);
     formField.append("graduation_date", graduation_date);
 
+    // try {
+    //   axios
+    //     .post("http://127.0.0.1:8000/api/student/", formField, {
+    //       headers: { "X-CSRFToken": getCookie("csrftoken") },
+    //     })
+    //     .then((response) => {
+    //       console.log(response.data);
+    //     });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
     try {
       axios
-        .post("http://127.0.0.1:8000/api/student/", formField, {
+        .post("http://127.0.0.1:8000/addstudent/", {
+          "student_id":student_id,
+          "first_name":first_name,
+          "last_name" : last_name,
+          "email" : email,
+          "country" : country,
+          "province" : province,
+          "district" : district,
+          "street_address" : street_address,
+          "city" : city,
+          "date_of_birth" : date_of_birth,
+          "phone_number" : phone_number,
+          "admission_date" : admission_date,
+          "graduation_date" : graduation_date,
+        }, {
           headers: { "X-CSRFToken": getCookie("csrftoken") },
         })
         .then((response) => {

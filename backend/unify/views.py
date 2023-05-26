@@ -229,7 +229,6 @@ def extract_sfeedback(request):
 def add_ku_events(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        print(data)
         heading = data.get('title')
         description = data.get('description')
         start_date = data.get('start_date')
@@ -246,7 +245,7 @@ def add_ku_events(request):
 def add_dept_events(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        heading = data.get('heading')
+        heading = data.get('title')
         description = data.get('description')
         dept_id = data.get('dept_id')
         start_date = data.get('start_date')
@@ -403,9 +402,11 @@ def routine_generator(request):
         dept_id = data.get('dept_id')
         block_no = data.get('block_no')
         id = data.get('id')
+        program = data.get('program_id')
     
     try:
-        user = Coordinators.objects.filter(teacher_id=id)
+        program_id = Programs.objects.filter(name__iexact=program).values_list('id')[0]
+        user = Coordinators.objects.filter(teacher_id=id,program_id=program_id[0])
         if user.exists():
              #list of available classrooms in the given block
             _rooms = Classrooms.objects.filter(blockno=block_no).values_list('classno')
@@ -466,10 +467,10 @@ def routine_generator(request):
             except:
                 return JsonResponse({"message":"error from first try block"},status=500)
         else:
-            return JsonResponse({"message":"Invalid"},status=600)
+            return JsonResponse({"message":"Invalid"},status=401)
 
     except:
-        return JsonResponse({"message":"Invalid"},status=500)
+        return JsonResponse({"message":"no"},status=500)
 
    
 
@@ -752,14 +753,14 @@ def add_program_coordinator(request):
         first_name = data.get("first_name")
         last_name = data.get("last_name")
         program = data.get("program_id")
-        dept_id = data.get("dept_id")
+        dept = data.get("dept_id")
     
     try:
         teacher_id = Faculty.objects.filter(email=email).values_list('faculty_id')
-        program_id = Programs.objects.filter(name__iexact=program).values_list('id')
-        #dept_id = Department.objects.filter(name__iexact=dept).values_list('department_id')
-        if program_id.exists() & teacher_id.exists():
-            Coordinators.objects.create(first_name=first_name,last_name=last_name,email=email,program_id=program_id,department_id=dept_id,teacher_id=teacher_id)
+        #program_id = Programs.objects.filter(name__iexact=program).values_list('id')
+        dept_id = Department.objects.filter(name__iexact=dept).values_list('department_id')
+        if teacher_id.exists():
+            Coordinators.objects.create(first_name=first_name,last_name=last_name,email=email,program_id=program,department_id=dept_id,teacher_id=teacher_id)
             return JsonResponse({"message":"working"},status=500)
         else:
             return JsonResponse({'message':"not found"},status=401)
@@ -773,14 +774,14 @@ def deleteRoutine(request):
     if request.method == "POST":
         data = json.loads(request.body)
         start_time = data.get('start_time')
-        end_time = data.get('end_time')
+        #end_time = data.get('end_time')
         program = data.get('program')
         batch = data.get('batch')
         day = data.get('day')
     
     try:
        program = Programs.objects.filter(name__iexact=program).values_list('id')[0]
-       Routine.objects.filter(start_time=start_time,end_time=end_time,program_id=program[0],batch=batch,week_day=day).delete()
+       Routine.objects.filter(start_time=start_time,program_id=program[0],batch=batch,week_day=day).delete()
        return JsonResponse({'message':'ok'},status=400)
     except:
         return JsonResponse({"message":"thank you"},status=500)
@@ -831,5 +832,37 @@ def get_attendance(request):
 
     except:
         return JsonResponse({'message':"error"},status=500)
+
+
+@csrf_exempt
+def add_student(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        student_id = data.get('student_id'),
+        first_name = data.get('first_name'),
+        last_name = data.get('last_name'),
+        email = data.get('email'),
+        country = data.get('country'),
+        province = data.get('province'),
+        district = data.get('district'),
+        street_address = data.get('street_address'),
+        city = data.get('city'),
+        date_of_birth = data.get('date_of_birth'),
+        phone_number = data.get('phone_number'),
+        admission_date = data.get('admission_date'),
+        graduation_date = data.get('graduation_date'),
+
+    try:
+        student = Student.objects.filter(student_id=student_id)
+        if student.exists():
+            return JsonResponse({"message":"student already exists"},status=400)
+        else:
+            student = Student.objects.create(student_id=student_id,first_name=first_name,last_name=last_name,email=email,
+                                             country=country,province=province,district=district,street_address=street_address,city=city,
+                                             date_of_birth=date_of_birth,phone_number=phone_number,admission_date=admission_date,graduation_date=graduation_date)
+            return JsonResponse({"message":"student added"},status=201)
+    except:
+        return JsonResponse({"message":"error"},status=500)
+
 
     
