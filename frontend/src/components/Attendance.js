@@ -5,6 +5,8 @@ import axios from 'axios';
 import Header from "../components/Header";
 import Navbar from "../components/FacultyNavbar";
 import useGeolocation from '../hooks/useGeolocation';
+import AttendanceSheet from './AttendanceSheet.js';
+import "../styles/attendance.css";
 
 function Attendance() {
     const location = useGeolocation();
@@ -39,6 +41,9 @@ function Attendance() {
         <div>
             {/* {location.loaded ? JSON.stringify(location) : "location data not available!"} */}
             <button class="btn btn-primary" type="submit" onClick={attendanceSession}>Start Session</button>
+            <div className="attendance-sheet-container">
+                <AttendanceSheet />
+            </div>
         </div>
     )
 }

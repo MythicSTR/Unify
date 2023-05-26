@@ -815,16 +815,19 @@ def enroll (request):
 #return attendance
 @csrf_exempt
 def get_attendance(request):
-    if request.method(request.body):
+    if request.method == "POST":
         data = json.loads(request.body)
         course_id = data.get('course_id')
         faculty_id = data.get('faculty_id')
     
     try:
         attendance_list = Attendance.objects.filter(course_id=course_id,faculty_id=faculty_id)
-        print(attendance_list)
-        print(list(attendance_list))
-        return JsonResponse(list(attendance_list),safe=False)
+        # print(attendance_list)
+        # print(list(attendance_list))
+        _attendance = serializers.serialize('json', attendance_list)
+        __attendance = [model_to_dict(item) for item in attendance_list]
+        print(__attendance)
+        return JsonResponse(__attendance, safe=False)
 
     except:
         return JsonResponse({'message':"error"},status=500)

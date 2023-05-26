@@ -4,6 +4,7 @@ import Navbar from "../components/FacultyNavbar";
 import { getCookie } from '../utils.js';
 import "../styles/StudentRoutine.css";
 import jwtDecode from "jwt-decode";
+import { FcDeleteColumn } from "react-icons/fc";
 const token = localStorage.getItem("jwtToken")
 const user = jwtDecode(token)
 
@@ -259,7 +260,7 @@ function CreateRoutine() {
         const cellData = calculateSelectedPeriod();
 
         try {
-            const response = await fetch('http://localhost:8000/deleteRoutine', {
+            const response = await fetch('http://localhost:8000/deleteRoutine/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -477,6 +478,7 @@ const mergeCells = (rowData) => {
                         <button onClick={() => handleSubmit()}>Create</button>
 
                         <button onClick={() => saveRoutine()}>Save</button>
+                        <button onClick={() => deleteRoutine()}>Delete</button>
                 </div>
             </div>
         </>

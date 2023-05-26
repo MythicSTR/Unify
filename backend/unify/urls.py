@@ -55,5 +55,6 @@ urlpatterns = [
     path('getstudents/',views.getStudentList,name="get_student_list"),
     path('addcoordinator/',views.add_program_coordinator,name='addCoordinator'),
     path('deleteRoutine/',views.deleteRoutine,name='updateroutine'),
-    path('enroll/',views.enroll)
+    path('enroll/',views.enroll),
+    path('get_attendance/', views.get_attendance, name="get_attendance")
 ]

@@ -91,7 +91,7 @@ function StudentAttendance(props) {
         }
 
         if (elapsedTime < 5 && distance < 50) {
-            console.log(elapsedTime)
+            console.log("Hw")
             try {
                 const response = await fetch('http://localhost:8000/attendance/student/', {
                     method: 'POST',
