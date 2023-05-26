@@ -10,7 +10,6 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from datetime import datetime, timedelta
 from django.forms.models import model_to_dict
 from django.utils.crypto import get_random_string
-from dateutil.parser import parse
 import jwt
 import numpy as np
 
@@ -366,7 +365,6 @@ def routine(request):
         return JsonResponse({'message':'error'},status=500)
     
 #to extract routine 
-#batch kasari extract garne tyo kura baki cha
 @csrf_exempt
 def get_routine(request):
     if request.method == "POST":
@@ -467,6 +465,8 @@ def routine_generator(request):
 
             except:
                 return JsonResponse({"message":"error from first try block"},status=500)
+        else:
+            return JsonResponse({"message":"Invalid"},status=600)
 
     except:
         return JsonResponse({"message":"Invalid"},status=500)
@@ -768,6 +768,7 @@ def add_program_coordinator(request):
         return JsonResponse({'message':'error'},status=400)
     
 #delete/update routine
+@csrf_exempt
 def deleteRoutine(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -776,8 +777,13 @@ def deleteRoutine(request):
         program = data.get('program')
         batch = data.get('batch')
         day = data.get('day')
-
-    return JsonResponse({"message":"thank you"},status=500)
+    
+    try:
+       program = Programs.objects.filter(name__iexact=program).values_list('id')[0]
+       Routine.objects.filter(start_time=start_time,end_time=end_time,program_id=program[0],batch=batch,week_day=day).delete()
+       return JsonResponse({'message':'ok'},status=400)
+    except:
+        return JsonResponse({"message":"thank you"},status=500)
 
 # enrollment through code
 @csrf_exempt
@@ -792,7 +798,7 @@ def enroll (request):
         course_id = Course.objects.filter(course_code__iexact=classrooms[3]).values_list('course_id')[0]
         check = Enrollment.objects.filter(student_id=user_id,classroom_id=classrooms[0])
         if check.exists():
-            return JsonResponse({'message':'already'},status=600)
+            return JsonResponse({"message":"working"},status=401)
         else:
             Enrollment.objects.create(
                 enrollment_date=datetime.today().date(),
@@ -807,6 +813,7 @@ def enroll (request):
         return JsonResponse({"message":"not found"},status=500)
     
 #return attendance
+@csrf_exempt
 def get_attendance(request):
     if request.method(request.body):
         data = json.loads(request.body)
@@ -815,8 +822,8 @@ def get_attendance(request):
     
     try:
         attendance_list = Attendance.objects.filter(course_id=course_id,faculty_id=faculty_id)
-        # print(attendance_list)
-        # print(list(attendance_list))
+        print(attendance_list)
+        print(list(attendance_list))
         return JsonResponse(list(attendance_list),safe=False)
 
     except:
