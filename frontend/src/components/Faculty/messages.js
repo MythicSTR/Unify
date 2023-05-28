@@ -115,7 +115,6 @@ function TeacherMessage() {
 
   return (
     <>
-      <Navbar />
       <div className="messages-container">
         <h1>Feedback</h1>
         <hr />

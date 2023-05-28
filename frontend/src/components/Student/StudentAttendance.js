@@ -110,7 +110,6 @@ function StudentAttendance(props) {
 
     return (
         <div>
-          <Navbar />
           <button class="btn btn-primary" type="submit" onClick={markPresent}>
             Mark Present
           </button>

@@ -14,6 +14,7 @@ const StyledNavLink = styled(NavLink)`
     padding: 2vh 2rem;
     font-family: sans-serif;
     font-size: 14px;
+    letter-spacing: 1px;
     text-decoration: none;
     color: #ffffff;
     transition: background-color 0.3s ease;

@@ -67,7 +67,6 @@ function StudentEvent() {
 
   return (
     <div>
-      <Navbar />
       <div className='event-container'>
         <h1 className='display-1'>KU Events</h1>
         <div className='card-list-container'>

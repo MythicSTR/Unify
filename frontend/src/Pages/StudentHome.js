@@ -6,7 +6,6 @@ function StudentHome(){
     
     return( 
         <div>
-            <Navbar/>   
             <MyCalendar/> 
         </div>
     );

@@ -31,7 +31,6 @@ const StudentMessages = () => {
     
     return(
         <div>
-            <Navbar />
             <div className="messages-container">
                 <h1>Messages</h1>
                 <hr />

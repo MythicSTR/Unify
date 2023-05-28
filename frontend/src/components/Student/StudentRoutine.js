@@ -191,7 +191,6 @@ const mergeCells = (rowData) => {
 
   return (
     <>
-      <Navbar />
       <div class="table100 ver5 m-b-110">
         <table data-vertable="ver5">
           <thead>
