@@ -1,10 +1,10 @@
 import React from 'react';
-import {getCookie} from '../utils.js';
+import {getCookie} from '../../utils.js';
 import axios from 'axios';
 
-import Header from "../components/Header";
-import Navbar from "../components/FacultyNavbar";
-import useGeolocation from '../hooks/useGeolocation';
+import Header from "../Header.js";
+import Navbar from "./FacultyNavbar.js";
+import useGeolocation from '../../hooks/useGeolocation.js';
 import AttendanceSheet from './AttendanceSheet.js';
 import "../styles/attendance.css";
 

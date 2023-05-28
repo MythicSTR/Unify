@@ -2,16 +2,16 @@ import React from 'react';
 
 import "../styles/Admin.css";
 import Header from "../components/Header";
-import Navbar from "../components/AdminNavbar";
-import AddSchool from "../components/AddSchool";
-import Room from '../components/Room';
-import Student from '../components/Student'
-import Enrollment from '../components/Entrollment';
-import Department from '../components/Department';
-import Faculty from '../components/faculty'
-import Building from '../components/Building';
-import AddKuEvents from '../components/AddKuEvents';
-import Course from '../components/Course';
+import Navbar from "../components/Admin/AdminNavbar";
+import AddSchool from "../components/Admin/AddSchool";
+import Room from '../components/Admin/Room';
+import Student from '../components/Student/Student'
+import Enrollment from '../components/Admin/Enrollment';
+import Department from '../components/Admin/Department';
+import Faculty from '../components/Admin/faculty'
+import Building from '../components/Admin/Building';
+import AddKuEvents from '../components/Admin/AddKuEvents';
+import Course from '../components/Admin/Course';
 import Coordinator from '../components/Coordinator';
 function Admin(props) {
     return (

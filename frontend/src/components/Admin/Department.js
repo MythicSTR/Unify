@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { getCookie } from "../utils.js";
+import { getCookie } from "../../utils.js";
 
 function Department() {
   const [department_id, setDepartId] = useState();

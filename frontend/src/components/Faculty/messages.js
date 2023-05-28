@@ -49,7 +49,7 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import Navbar from "./FacultyNavbar";
-import { getCookie } from "../utils.js";
+import { getCookie } from "../../utils.js";
 import "../styles/messages.css";
 import jwtDecode from "jwt-decode";
 const token = localStorage.getItem('jwtToken')

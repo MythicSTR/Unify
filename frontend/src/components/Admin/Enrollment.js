@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../styles/Enrollment.css";
-import Navbar from "./FacultyNavbar";
+import Navbar from "../Faculty/FacultyNavbar";
 import jwtDecode from "jwt-decode";
 
 const tok = localStorage.getItem('jwtToken')

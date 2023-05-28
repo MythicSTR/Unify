@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import Navbar from "../components/FacultyNavbar";
-import { getCookie } from '../utils.js';
+import Navbar from "./FacultyNavbar";
+import { getCookie } from '../../utils.js';
 import "../styles/StudentRoutine.css";
 import jwtDecode from "jwt-decode";
 import { FcDeleteColumn } from "react-icons/fc";

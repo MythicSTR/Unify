@@ -13,22 +13,22 @@ import TeacherHome from "./Pages/TeacherHome";
 import TeacherRoutine from "./components/TeacherRoutine"; 
 import ForgotForm from "./Pages/forgotpassword";  
 import ChangeForm from "./Pages/changepassword";
-import TeacherAttendance from "./components/TeacherAttendance";
+import TeacherAttendance from "./components/Faculty/TeacherAttendance";
 import StudentAttendance from "./components/StudentAttendance";
-import TeacherMessage from "./components/messages";
-import Enrollment from "./components/Entrollment";
+import TeacherMessage from "./components/Faculty/messages";
+import Enrollment from "./components/Admin/Enrollment";
 import AdminEvents from "./components/AdminEvents";
 import setAuthToken from './redux/utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './redux/utils/actions/authActions';
 import store from './redux/utils/store';
 import jwt_decode from 'jwt-decode';
-import Feedback from "./components/messages";
-import TeacherEvent from "./components/TeacherEvent";
+import Feedback from "./components/Faculty/messages";
+import TeacherEvent from "./components/Faculty/TeacherEvent";
 import Coordinator from "./components/Coordinator";
 import NotFound from "./components/Notfound/Notfound";
 import StudentClassroom from "./components/StudentClassroom";
-import CreateRoutine from "./components/CreateRoutine";
-import FacultyClassroom from "./components/FacultyClassroom"
+import CreateRoutine from "./components/Faculty/CreateRoutine";
+import FacultyClassroom from "./components/Faculty/FacultyClassroom"
 import StudentMessages from "./components/StudentMessages"
 import Base from "./components/Base";
 // import TeacherRoutine from "./components/TeacherRoutine";

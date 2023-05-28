@@ -2,9 +2,9 @@ import {Link, useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
-import Header from "./Header";
+import Header from "../Header";
 import Navbar from "./AdminNavbar";
-import {getCookie} from '../utils.js';
+import {getCookie} from '../../utils.js';
 
 function AddSchool() {
     const [id, setId] = useState();

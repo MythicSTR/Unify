@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SNavbar from "./StudentNavbar";
-import TNavbar from "./FacultyNavbar";
+import TNavbar from "./Faculty/FacultyNavbar";
 import "../styles/Base.css";
 import GetImage from "./GetImage";
 import { useParams } from "react-router-dom";

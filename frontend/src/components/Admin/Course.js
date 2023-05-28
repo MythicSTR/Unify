@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-import { getCookie } from '../utils.js';
+import { getCookie } from '../../utils.js';
 
 function Course() {
   const [id, setId] = useState('');

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./FacultyNavbar.js";
+import Navbar from "./Faculty/FacultyNavbar.js";
 import { getCookie } from "../utils.js";
 import axios from "axios";
 import "../styles/StudentRoutine.css";

@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/TeacherNavbar"
-import MyCalendar from "../components/Calendar";
+import MyCalendar from "../Calendar";
 import StudentList from '../components/StudentList';
 
 function TeacherAttendance(){

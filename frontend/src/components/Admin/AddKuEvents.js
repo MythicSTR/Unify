@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/AddEvents.css';
-import MyCalendar from "./Calendar";
+import MyCalendar from "../Calendar";
 import jwtDecode from 'jwt-decode';
 const token = localStorage.getItem('jwtToken')
 console.log(token)
