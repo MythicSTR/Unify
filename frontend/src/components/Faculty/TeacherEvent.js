@@ -5,7 +5,6 @@ import AddDepartmentEvents from "./AddDepartmentEvents";
 function TeacherEvent(){
     return(
         <div>
-            <Navbar/>
             <AddDepartmentEvents />
             <MyCalendar/>
         </div>

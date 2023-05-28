@@ -5,7 +5,6 @@ import AddKuEvents from "../Admin/AddKuEvents";
 function AdminEvent(){
     return(
         <div>
-            <Navbar/>
             <AddKuEvents />
             <MyCalendar/>
         </div>

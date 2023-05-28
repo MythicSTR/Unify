@@ -28,6 +28,8 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "stream-browserify": "^3.0.0",
+    "styled-components": "^5.3.11",
+    "typeface-roboto": "^1.1.13",
     "unsplash-js": "^7.0.18",
     "util": "^0.12.5",
     "web-vitals": "^2.1.4"

@@ -419,8 +419,7 @@ const mergeCells = (rowData) => {
 };
     return (
         <>
-            <Navbar />
-            <div className="create-routine-container">
+                <div className="create-routine-container">
                 <div className="dropdown-container">
                     <select className="dropdown" id="Department" value={selectedDepartment} onChange={handleDepartmentChange}>
                         <option value="">--Select Department--</option>

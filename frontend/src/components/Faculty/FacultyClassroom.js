@@ -8,7 +8,6 @@ function FacultyClassroom() {
   
     return(
         <div>
-        <Navbar />
             <div className='faculty_container'> 
             <RenderTeacherClassroom/>
             </div>

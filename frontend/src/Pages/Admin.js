@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import AddSchool from "../components/Admin/AddSchool";
 import Room from '../components/Admin/Room';
 import Student from '../components/Student/Student'
-import Enrollment from '../components/Admin/Enrollment';
+import Enrollment from '../components/Faculty/Enrollment';
 import Department from '../components/Admin/Department';
 import Faculty from '../components/Admin/faculty'
 import Building from '../components/Admin/Building';
@@ -16,8 +16,6 @@ import Coordinator from '../components/Coordinator';
 function Admin(props) {
     return (
         <div>
-            <Header />
-            <Navbar />
             {props.school && <AddSchool/>}
             {props.department && <Department/>}
             {props.student && <Student/>}

@@ -6,7 +6,6 @@ import MyCalendar from "../components/Calendar";
 function Faculty(props) {
     return (
         <div>
-            <Navbar />
             {props.attendance && <Attendance />}
             <MyCalendar/>
         </div>

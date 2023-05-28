@@ -1,6 +1,7 @@
 import React from "react";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import './App.css';
+import Navbar from "./components/Navbar";
 import Admin from "./Pages/Admin";
 import Faculty from './Pages/Faculty';
 import LoginForm from "./Pages/Login";
@@ -15,7 +16,7 @@ import ForgotForm from "./Pages/forgotpassword";
 import ChangeForm from "./Pages/changepassword";
 import StudentAttendance from "./components/Student/StudentAttendance";
 import TeacherMessage from "./components/Faculty/messages";
-import Enrollment from "./components/Admin/Enrollment";
+import Enrollment from "./components/Faculty/Enrollment";
 import AdminEvents from "./components/Admin/AdminEvents";
 import setAuthToken from './redux/utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './redux/utils/actions/authActions';
@@ -55,6 +56,7 @@ function App() {
 
   return (
     <Router>
+          <Navbar user={user}/>
           <Routes>
               <Route exact path='/' element = {<LoginForm />}></Route>
               <Route exact path='/login' element = {<LoginForm />}></Route>

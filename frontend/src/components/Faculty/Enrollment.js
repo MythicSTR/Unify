@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../../styles/Enrollment.css";
-import Navbar from "../Faculty/FacultyNavbar";
+import Navbar from "./FacultyNavbar";
 import jwtDecode from "jwt-decode";
 
 const tok = localStorage.getItem('jwtToken')
@@ -53,7 +53,6 @@ function Enrollment() {
 
   return (
     <div>
-    <Navbar/>
     <div className="border w-25 p-4 position-absolute top-50 start-50 translate-middle">
       <div class="form-group">
         <label for="exampleFormControlTextarea1" class="form-label">
