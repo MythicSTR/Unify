@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SNavbar from "./StudentNavbar";
+import SNavbar from "./Student/StudentNavbar";
 import TNavbar from "./Faculty/FacultyNavbar";
 import "../styles/Base.css";
 import GetImage from "./GetImage";

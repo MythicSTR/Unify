@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-import "../styles/messages.css";
-import Navbar from "../components/StudentNavbar";
+import "../../styles/messages.css";
+import Navbar from "../Student/StudentNavbar";
 
 const token = localStorage.getItem('jwtToken')
 const user = jwtDecode(token)

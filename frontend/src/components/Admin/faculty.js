@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "../styles/Course.css";
+import "../../styles/Course.css";
 import Header from "../Header";
-import Navbar from "./AdminNavbar";
+import Navbar from "../Admin/AdminNavbar";
 import { getCookie } from "../../utils.js";
 
 function Faculty() {

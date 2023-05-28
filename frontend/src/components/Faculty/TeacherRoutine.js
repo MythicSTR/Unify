@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./Faculty/FacultyNavbar.js";
-import { getCookie } from "../utils.js";
+import Navbar from "../Faculty/FacultyNavbar.js";
+import { getCookie } from "../../utils.js";
 import axios from "axios";
-import "../styles/StudentRoutine.css";
+import "../../styles/StudentRoutine.css";
 
 function TeacherRoutine() {
   const days = [

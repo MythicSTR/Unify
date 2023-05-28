@@ -5,19 +5,18 @@ import Admin from "./Pages/Admin";
 import Faculty from './Pages/Faculty';
 import LoginForm from "./Pages/Login";
 import StudentHome from "./Pages/StudentHome";
-import StudentEvent from "./components/StudentEvent";
-import StudentRoutine from "./components/StudentRoutine";
-import StudentFeedback from "./components/StudentFeedback";
-import TeacherFeedback from "./components/TeacherFeedback";
+import StudentEvent from "./components/Student/StudentEvent";
+import StudentRoutine from "./components/Student/StudentRoutine";
+import StudentFeedback from "./components/Student/StudentFeedback";
+import TeacherFeedback from "./components/Faculty/TeacherFeedback";
 import TeacherHome from "./Pages/TeacherHome";
-import TeacherRoutine from "./components/TeacherRoutine"; 
+import TeacherRoutine from "./components/Faculty/TeacherRoutine"; 
 import ForgotForm from "./Pages/forgotpassword";  
 import ChangeForm from "./Pages/changepassword";
-import TeacherAttendance from "./components/Faculty/TeacherAttendance";
-import StudentAttendance from "./components/StudentAttendance";
+import StudentAttendance from "./components/Student/StudentAttendance";
 import TeacherMessage from "./components/Faculty/messages";
 import Enrollment from "./components/Admin/Enrollment";
-import AdminEvents from "./components/AdminEvents";
+import AdminEvents from "./components/Admin/AdminEvents";
 import setAuthToken from './redux/utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './redux/utils/actions/authActions';
 import store from './redux/utils/store';
@@ -26,10 +25,10 @@ import Feedback from "./components/Faculty/messages";
 import TeacherEvent from "./components/Faculty/TeacherEvent";
 import Coordinator from "./components/Coordinator";
 import NotFound from "./components/Notfound/Notfound";
-import StudentClassroom from "./components/StudentClassroom";
+import StudentClassroom from "./components/Student/StudentClassroom";
 import CreateRoutine from "./components/Faculty/CreateRoutine";
 import FacultyClassroom from "./components/Faculty/FacultyClassroom"
-import StudentMessages from "./components/StudentMessages"
+import StudentMessages from "./components/Student/StudentMessages"
 import Base from "./components/Base";
 // import TeacherRoutine from "./components/TeacherRoutine";
 //import withAuthorization from "./withAuthorization";
@@ -89,9 +88,9 @@ function App() {
               <Route path='/faculty/student' element = {<Admin student/>}></Route> */}
 
               {/* <Route path = '/student/home' element = {<StudentHome />}></Route> */}
-              {user.isFaculty && <Route path = '/teacher' element = {<TeacherHome />}></Route>}
+              {/* {user.isFaculty && <Route path = '/teacher' element = {<TeacherHome />}></Route>}
               {user.isFaculty && <Route path = '/teacher/attendance' element = {<TeacherAttendance />}></Route>}
-              {user.isFaculty && <Route path = '/teacher/events' element = {<TeacherEvent />}></Route>}
+              {user.isFaculty && <Route path = '/teacher/events' element = {<TeacherEvent />}></Route>} */}
  
 
               {/* <Route path = '/department/home' element = {<DepartmentHome />}></Route> */}

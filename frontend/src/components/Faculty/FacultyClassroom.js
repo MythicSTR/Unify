@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from "./FacultyNavbar";
+import Navbar from "../Faculty/FacultyNavbar";
 import MyPopup from '../Popup';
 import { Link } from 'react-router-dom';
 import RenderTeacherClassroom from '../RenderTeacherClassroom';
-import "../styles/FacultyClassroom.css";
+import "../../styles/FacultyClassroom.css";
 function FacultyClassroom() {
   
     return(

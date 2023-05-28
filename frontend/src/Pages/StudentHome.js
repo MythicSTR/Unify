@@ -1,4 +1,4 @@
-import Navbar from "../components/StudentNavbar";
+import Navbar from "../components/Student/StudentNavbar";
 import MyCalendar from "../components/Calendar";
 
 function StudentHome(){

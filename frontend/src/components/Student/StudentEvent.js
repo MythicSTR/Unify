@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import StudentEventCard from './EventCard';
-import Navbar from "../components/StudentNavbar";
-import "../styles/StudentEventCard.css";
+import StudentEventCard from '../EventCard';
+import Navbar from "../Student/StudentNavbar";
+import "../../styles/StudentEventCard.css";
 
 function StudentEvent() {
   const [data, setData] = useState([]);

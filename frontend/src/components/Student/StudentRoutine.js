@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/StudentNavbar";
-import { getCookie } from "../utils.js";
+import Navbar from "../Student/StudentNavbar";
+import { getCookie } from "../../utils.js";
 import axios from "axios";
-import "../styles/StudentRoutine.css";
+import "../../styles/StudentRoutine.css";
 import jwtDecode from "jwt-decode";
 const token = localStorage.getItem('jwtToken');
 const user = jwtDecode(token);

@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Header from "./Header";
-import Navbar from "./AdminNavbar";
-import { getCookie } from "../utils.js";
+import Header from "../Header";
+import Navbar from "../Admin/AdminNavbar";
+import { getCookie } from "../../utils.js";
 function TeacherFeedback() {
   const [comment, setComment] = useState("");
   const [setTopic] = useState("");

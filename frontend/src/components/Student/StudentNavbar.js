@@ -1,5 +1,5 @@
 import {Link, useLocation} from 'react-router-dom';
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import { FcFeedback } from 'react-icons/fc';
 function Navbar() {
     const location = useLocation();

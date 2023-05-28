@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import StudentAttendance from './StudentAttendance';
-import RenderStudentClassroom from './RenderStudentClassroom';
-import ClassroomCodeEnroll from "./ClassroomCodeEnroll"
-import "../styles/classroom.css";
+import RenderStudentClassroom from '../RenderStudentClassroom';
+import ClassroomCodeEnroll from "../ClassroomCodeEnroll"
+import "../../styles/classroom.css";
 
 
 function StudentClassroom() {

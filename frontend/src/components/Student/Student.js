@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "../styles/Student.css";
+import "../../styles/Student.css";
 import Header from "../Header";
 import Navbar from "../Admin/AdminNavbar";
 import { getCookie } from "../../utils.js";

@@ -2,7 +2,7 @@ import React from 'react';
 
 import "../styles/Admin.css";
 import Header from "../components/Header";
-import Navbar from "../components/Admin/AdminNavbar";
+import Navbar from '../components/Navbar';
 import AddSchool from "../components/Admin/AddSchool";
 import Room from '../components/Admin/Room';
 import Student from '../components/Student/Student'

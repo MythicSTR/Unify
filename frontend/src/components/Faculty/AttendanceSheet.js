@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import "../styles/attendance.css";
+import "../../styles/attendance.css";
 
 const token = localStorage.getItem('jwtToken')
 const user = jwtDecode(token)

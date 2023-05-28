@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {getCookie} from '../utils.js';
-import useGeolocation from '../hooks/useGeolocation';
-import calculateDistance from '../hooks/calculateDistance';
-import Navbar from "../components/StudentNavbar";
+import {getCookie} from '../../utils.js';
+import useGeolocation from '../../hooks/useGeolocation';
+import calculateDistance from '../../hooks/calculateDistance';
+import Navbar from "../Student/StudentNavbar";
 import jwtDecode from 'jwt-decode';
 
 const _token = localStorage.getItem('jwtToken');

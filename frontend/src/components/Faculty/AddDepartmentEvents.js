@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/AddEvents.css';
+import '../../styles/AddEvents.css';
 import jwtDecode from 'jwt-decode';
 
 const token = localStorage.getItem('jwtToken')

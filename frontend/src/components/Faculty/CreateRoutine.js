@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import Navbar from "./FacultyNavbar";
+import Navbar from "../Faculty/FacultyNavbar";
 import { getCookie } from '../../utils.js';
-import "../styles/StudentRoutine.css";
+import "../../styles/StudentRoutine.css";
 import jwtDecode from "jwt-decode";
 import { FcDeleteColumn } from "react-icons/fc";
 const token = localStorage.getItem("jwtToken")

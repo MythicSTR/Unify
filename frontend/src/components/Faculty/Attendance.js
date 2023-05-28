@@ -6,7 +6,7 @@ import Header from "../Header.js";
 import Navbar from "./FacultyNavbar.js";
 import useGeolocation from '../../hooks/useGeolocation.js';
 import AttendanceSheet from './AttendanceSheet.js';
-import "../styles/attendance.css";
+import "../../styles/attendance.css";
 
 function Attendance() {
     const location = useGeolocation();
