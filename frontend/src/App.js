@@ -33,10 +33,16 @@ import StudentMessages from "./components/Student/StudentMessages"
 import Base from "./components/Base";
 // import TeacherRoutine from "./components/TeacherRoutine";
 //import withAuthorization from "./withAuthorization";
+import styled from 'styled-components';
 
 const token = localStorage.jwtToken;
 const user = jwt_decode(token);
+
 function App() {
+	const Container = styled.div`
+    margin: 2rem 8rem;
+	`;
+
   // Check for token to keep user logged in
   if (localStorage.getItem('jwtToken')) {
     const token = localStorage.getItem('jwtToken');
@@ -57,6 +63,7 @@ function App() {
   return (
     <Router>
           <Navbar user={user}/>
+          <Container>
           <Routes>
               <Route exact path='/' element = {<LoginForm />}></Route>
               <Route exact path='/login' element = {<LoginForm />}></Route>
@@ -112,6 +119,7 @@ function App() {
               <Route path = '/teacher/feedback' element = {<TeacherFeedback />}></Route>
               <Route path="*" component={NotFound} />
             </Routes>
+            </Container>
     </Router>
   );
 }

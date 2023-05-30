@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import "../styles/StudentEventCard.css"
+import styled from 'styled-components';
+
+
 
 const StudentEventCard = (props) => {
   const truncatedDescription = props.description.length > 90 
@@ -8,14 +11,11 @@ const StudentEventCard = (props) => {
     : props.description;
 
     return (
-      <div className="article-card">
-        <div className="content">
+          <div>
           <p className="title">{props.title}</p>
           <p className="date">{props.start_date} - {props.end_date}</p>
-          <hr />
           <p>{truncatedDescription}</p>
-        </div>
-      </div>
+          </div>
     );
   };
   
