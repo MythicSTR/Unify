@@ -40,7 +40,7 @@ const user = jwt_decode(token);
 
 function App() {
 	const Container = styled.div`
-    margin: 2rem 8rem;
+    margin-top: 4rem;
 	`;
 
   // Check for token to keep user logged in

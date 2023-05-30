@@ -5,6 +5,7 @@ import "../../styles/StudentEventCard.css";
 import styled from 'styled-components';
 
 const EventContainer = styled.div`
+  width: 100vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
